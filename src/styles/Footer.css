@@ -53,19 +53,11 @@
   font-size: 0.9rem;
 }
 
-.footer-lang select {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-}
-
 .footer-social {
   display: flex;
   gap: 14px;
   font-size: 1.2rem;
+  margin-left: 15px;
 }
 
 .footer-social a {

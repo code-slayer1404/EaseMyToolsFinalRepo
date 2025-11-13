@@ -112,7 +112,7 @@ const ToolsPage = () => {
                                                         </div>
                                                         <div className="card-title">{category.title}</div>
                                                         <div className="tools-count">
-                                                            {category.count} tools
+                                                            {category.count}
                                                         </div>
                                                     </div>
                                                     <p className="card-description">

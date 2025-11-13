@@ -9,6 +9,8 @@
 /* Global Theme Setup */
 :root {
   --bg-light: #ffffff;
+  --bg-light: #f1eaea;
+
   --text-light: #111827;
   --card-light: #f9fafb;
 
