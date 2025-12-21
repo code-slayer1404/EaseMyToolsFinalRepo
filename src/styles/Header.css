@@ -4,13 +4,18 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 40vh;
+  /* min-height: 40vh; */
+  min-height: 35vh;
   padding: 20px;
   transition: background 0.3s, color 0.3s;
 }
 
 /* Light Theme */
 .hero-container.light {
+<<<<<<< HEAD
+=======
+  /* background: #f9fafb; */
+>>>>>>> 7106d13c35002633ce379167e728d988285011c8
   background: var(--bg-light);
   color: #111827;
 }
