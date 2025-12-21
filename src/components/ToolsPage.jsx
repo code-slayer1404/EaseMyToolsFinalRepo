@@ -111,10 +111,8 @@ const ToolsPage = () => {
                                                         <div className="card-icon">
                                                             <category.icon />
                                                         </div>
-                                                        <div>
-                                                            <div className="card-title">{category.title}</div>
-                                                            <div className="tools-count">
-                                                            </div>
+                                                        <div className="card-title">{category.title}</div>
+                                                        <div className="tools-count">
                                                             {category.count} tools
                                                         </div>
                                                     </div>
