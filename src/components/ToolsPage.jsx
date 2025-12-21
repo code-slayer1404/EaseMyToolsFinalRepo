@@ -66,6 +66,7 @@ const ToolsPage = () => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onFocus={() => setIsOpen(true)}
                             onBlur={() => setTimeout(() => setIsOpen(false), 500)}
+                            style={{borderRadius:"50px", paddingLeft:"15px"}}
                         />
                     </div>
                     {isOpen && filteredTools.length > 0 && (
@@ -110,8 +111,10 @@ const ToolsPage = () => {
                                                         <div className="card-icon">
                                                             <category.icon />
                                                         </div>
-                                                        <div className="card-title">{category.title}</div>
-                                                        <div className="tools-count">
+                                                        <div>
+                                                            <div className="card-title">{category.title}</div>
+                                                            <div className="tools-count">
+                                                            </div>
                                                             {category.count} tools
                                                         </div>
                                                     </div>
@@ -127,19 +130,6 @@ const ToolsPage = () => {
                         </div>
                     </div>
 
-                    {/* ⚫ Slider Dots
-                    {totalSlides > 1 && (
-                        <div className="slider-dots">
-                            {Array.from({ length: totalSlides }).map((_, index) => (
-                                <button
-                                    key={index}
-                                    className={`dot ${index === currentSlide ? "active" : ""
-                                        }`}
-                                    onClick={() => goToSlide(index)}
-                                />
-                            ))}
-                        </div>
-                    )} */}
                 </div>
             </div>
         </>
