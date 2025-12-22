@@ -343,6 +343,7 @@ import FileRenameTool from "./components/tools/FileRenameTool";
 import FileConverter from "./components/tools/FileConverter";
 import RegexGenerator from "./components/tools/RegexGenerator";
 import WebsiteCostCalculator from "./components/tools/WebsiteCostCalculator";
+import BackButton from "./components/BackButton";
 // import Mp4ToGif from "./components/tools/Mp4ToGif";
 
 function App() {
@@ -449,13 +450,7 @@ function App() {
                 <div className="not-found">
                   <h1>404 - Page Not Found</h1>
                   <p>The page you're looking for doesn't exist.</p>
-                  <button
-                    className="back-button"
-                    onClick={() => (window.location.href = "/")}
-                    style={{ marginTop: "1rem" }}
-                  >
-                    Go to Home Page
-                  </button>
+                  <BackButton/>
                 </div>
               }
             />

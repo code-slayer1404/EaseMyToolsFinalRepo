@@ -30,11 +30,12 @@
   padding: 0.75rem 1.25rem;
   font-size: 0.9rem;
   border: 2px solid #e5e7eb;
-  border-radius: 50px;
   background-color: var(--card-light);
   color: var(--text-light);
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 150px !important;
+  padding-left: 1.25rem !important;
 }
 
 .tools-page.dark .search-bar input {
@@ -65,7 +66,8 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   z-index: 1000;
   max-height: 250px;
-  overflow-y: auto;
+  overflow-y: hidden;
+  overflow-x: hidden;
   animation: slideDown 0.2s ease-out;
 }
 
@@ -76,7 +78,7 @@
 
 .tool-list {
   list-style: none;
-  /* padding: 0.25rem; */
+  padding: 0.25rem;
 }
 
 .tool-item {
@@ -89,20 +91,19 @@
   /* padding: 0.5rem 0.75rem; */
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  /* transition: all 0.2s ease; */
   text-decoration: none;
   /* color: inherit; */
 }
 
-.tool-link:hover {
+/* .tool-link:hover {
   background-color: rgba(59, 130, 246, 0.1);
-  /* transform: translateX(2px); */
-}
+} */
 
-.tools-page.dark .tool-link:hover {
+/* .tools-page.dark .tool-link:hover {
   background-color: rgba(59, 130, 246, 0.2);
   background-color: rgba(2, 11, 27, 0.2);
-}
+} */
 
 .tool-icon {
   width: 18px;
