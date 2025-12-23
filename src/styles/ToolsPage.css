@@ -88,29 +88,15 @@
 .tool-link {
   display: flex;
   align-items: center;
-  /* padding: 0.5rem 0.75rem; */
   border-radius: 6px;
   cursor: pointer;
-  /* transition: all 0.2s ease; */
   text-decoration: none;
-  /* color: inherit; */
 }
-
-/* .tool-link:hover {
-  background-color: rgba(59, 130, 246, 0.1);
-} */
-
-/* .tools-page.dark .tool-link:hover {
-  background-color: rgba(59, 130, 246, 0.2);
-  background-color: rgba(2, 11, 27, 0.2);
-} */
 
 .tool-icon {
   width: 18px;
   height: 18px;
   margin-right: 0.5rem;
-  /* color: var(--primary); */
-
 }
 
 .tool-label {
@@ -129,50 +115,20 @@
   margin-bottom: 1rem;
 }
 
-.nav-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
-  border: none;
-  border-radius: 50%;
-  background-color: var(--card-light);
-  color: var(--text-light);
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  z-index: 10;
-}
-
-.tools-page.dark .nav-arrow {
-  background-color: var(--card-dark);
-  color: var(--text-dark);
-}
-
-.nav-arrow:hover {
-  background-color: var(--primary);
-  color: white;
-  transform: translateY(-50%) scale(1.05);
-}
-
-.nav-prev {
-  left: -40px;
-}
-
-.nav-next {
-  right: -40px;
-}
-
+/* Only added these styles for touch swipe */
 .slider-container {
   overflow: hidden;
   position: relative;
   width: 100%;
+  cursor: grab;
+  user-select: none;
 }
+
+.slider-container:active {
+  cursor: grabbing;
+}
+
+/* End of added styles */
 
 .slider-track {
   display: flex;
@@ -265,10 +221,13 @@
   margin-top: 1rem;
 }
 
+.slider-dots button {
+  padding: 0px;
+}
+
 .dot {
-  width: 6px;
+  width: 40px;
   height: 6px;
-  border-radius: 50%;
   background-color: #d1d5db;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -279,6 +238,11 @@
 }
 
 .dot.active {
+  background-color: var(--primary);
+  transform: scale(1.2);
+}
+
+.tools-page.dark .dot.active {
   background-color: var(--primary);
   transform: scale(1.2);
 }

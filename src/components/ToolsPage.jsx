@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../styles/ToolsPage.css";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
@@ -14,8 +14,18 @@ const ToolsPage = () => {
     const { theme } = useTheme();
     const { t } = useTranslation("tools");
 
+    // Touch swipe references
+    const sliderRef = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [currentTranslate, setCurrentTranslate] = useState(0);
+    const [prevTranslate, setPrevTranslate] = useState(0);
+
     const toolCategories = getToolCategories();
     const allTools = getAllTools();
+
+    const cardsPerSlide = 4;
+    const totalSlides = Math.ceil(toolCategories.length / cardsPerSlide);
 
     const filteredTools = searchQuery.trim()
         ? allTools.filter((tool) =>
@@ -37,9 +47,6 @@ const ToolsPage = () => {
         </li>
     ));
 
-    const cardsPerSlide = 4;
-    const totalSlides = Math.ceil(toolCategories.length / cardsPerSlide);
-
     const nextSlide = () => {
         setCurrentSlide((prev) => (prev + 1) % totalSlides);
     };
@@ -51,6 +58,90 @@ const ToolsPage = () => {
     const goToSlide = (index) => {
         setCurrentSlide(index);
     };
+
+    // Touch swipe handlers with less sensitivity
+    const handleTouchStart = (e) => {
+        setIsDragging(true);
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        setStartX(clientX);
+        setPrevTranslate(currentTranslate);
+    };
+
+    const handleTouchMove = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const diff = clientX - startX;
+        // Apply resistance for less sensitivity
+        setCurrentTranslate(prevTranslate + diff * 0.5);
+    };
+
+    const handleTouchEnd = () => {
+        setIsDragging(false);
+        const movedBy = currentTranslate - prevTranslate;
+
+        // Increased threshold for less sensitivity (100px)
+        if (Math.abs(movedBy) > 50) {
+            if (movedBy > 0) {
+                // Swiped right - go to previous slide
+                prevSlide();
+            } else {
+                // Swiped left - go to next slide
+                nextSlide();
+            }
+        }
+
+        // Reset translate
+        setCurrentTranslate(-currentSlide * 100);
+    };
+
+    // Mouse drag handlers for desktop
+    const handleMouseDown = (e) => {
+        setIsDragging(true);
+        setStartX(e.clientX);
+        setPrevTranslate(currentTranslate);
+        e.preventDefault();
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isDragging) return;
+        const diff = e.clientX - startX;
+        // Apply more resistance for mouse (slower)
+        setCurrentTranslate(prevTranslate + diff * 0.2);
+    };
+
+    const handleMouseUp = () => {
+        handleTouchEnd();
+    };
+
+    const handleMouseLeave = () => {
+        if (isDragging) {
+            handleTouchEnd();
+        }
+    };
+
+    // Update translate when slide changes
+    useEffect(() => {
+        setCurrentTranslate(-currentSlide * 100);
+    }, [currentSlide]);
+
+    // Add/remove event listeners for mouse drag on desktop
+    useEffect(() => {
+        const sliderElement = sliderRef.current;
+        if (!sliderElement) return;
+
+        sliderElement.addEventListener('mousedown', handleMouseDown);
+        sliderElement.addEventListener('mousemove', handleMouseMove);
+        sliderElement.addEventListener('mouseup', handleMouseUp);
+        sliderElement.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            sliderElement.removeEventListener('mousedown', handleMouseDown);
+            sliderElement.removeEventListener('mousemove', handleMouseMove);
+            sliderElement.removeEventListener('mouseup', handleMouseUp);
+            sliderElement.removeEventListener('mouseleave', handleMouseLeave);
+        };
+    }, [isDragging, startX, prevTranslate, currentTranslate]);
 
     return (
         <>
@@ -75,21 +166,21 @@ const ToolsPage = () => {
                     )}
                 </div>
 
-                {/* 🎠 Tool Categories Slider */}
+                {/* 🎠 Tool Categories Slider with Touch Swipe */}
                 <div className="categories-slider">
                     <div className="cards-grid-wrapper">
-                        <button className="nav-arrow nav-prev" onClick={prevSlide}>
-                            ‹
-                        </button>
-                        <button className="nav-arrow nav-next" onClick={nextSlide}>
-                            ›
-                        </button>
-
-                        <div className="slider-container">
+                        <div
+                            className="slider-container"
+                            ref={sliderRef}
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
+                        >
                             <div
                                 className="slider-track"
                                 style={{
-                                    transform: `translateX(-${currentSlide * 100}%)`,
+                                    transform: `translateX(${currentTranslate}%)`,
+                                    transition: isDragging ? 'none' : 'transform 0.7s ease-in-out'
                                 }}
                             >
                                 {Array.from({ length: totalSlides }).map((_, slideIndex) => (

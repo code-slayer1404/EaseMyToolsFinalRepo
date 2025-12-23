@@ -12,10 +12,7 @@
 
 /* Light Theme */
 .hero-container.light {
-<<<<<<< HEAD
-=======
   /* background: #f9fafb; */
->>>>>>> 7106d13c35002633ce379167e728d988285011c8
   background: var(--bg-light);
   color: #111827;
 }
@@ -56,4 +53,5 @@
   margin-top: 10px;
   font-size: 1.1rem;
   opacity: 0.8;
+  width: 80%;
 }
