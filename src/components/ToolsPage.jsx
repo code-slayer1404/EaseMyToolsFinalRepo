@@ -24,7 +24,7 @@ const ToolsPage = () => {
     const toolCategories = getToolCategories();
     const allTools = getAllTools();
 
-    const cardsPerSlide = 4;
+    const cardsPerSlide = 4; //fix it later
     const totalSlides = Math.ceil(toolCategories.length / cardsPerSlide);
 
     const filteredTools = searchQuery.trim()
