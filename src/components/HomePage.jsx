@@ -3,7 +3,6 @@ import { useTheme } from '../contexts/ThemeContext';
 import '../styles/HomePage.css';
 
 // Import the new sections
-import HeroSection from './HeroSection';
 import FeaturedTools from './FeaturedTools';
 import BenefitsSection from './BenefitsSection';
 import TestimonialsSection from './TestimonialsSection';
@@ -15,7 +14,6 @@ const HomePage = () => {
 
   return (
     <div className={`home-page ${theme}`}>
-      {/* <HeroSection /> */}
       <FeaturedTools />
       <BenefitsSection />
       <TestimonialsSection />
