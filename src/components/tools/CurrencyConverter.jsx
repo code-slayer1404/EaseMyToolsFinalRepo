@@ -450,7 +450,7 @@ const CurrencyConverter = () => {
     });
 
     const API_BASE_URL = 'http://localhost:8000';
-    const lastConversionRef = useRef();
+    const lastConversionRef = useRef(null);
 
     const popularCurrencies = ['USD', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD', 'CHF', 'CNY', 'INR', 'SGD'];
 
