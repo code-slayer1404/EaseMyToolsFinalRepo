@@ -69,7 +69,7 @@ body.dark .section-subtitle {
   border: 1px solid #e5e7eb;
   border-radius: 16px;
   /* padding: 2.25rem 2rem; */
-  padding: 1.25rem 2rem;
+  padding: 1.25rem 1rem;
 
   display: flex;
   flex-direction: column;
