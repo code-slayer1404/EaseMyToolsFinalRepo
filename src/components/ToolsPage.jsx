@@ -6,230 +6,284 @@ import { useTranslation } from "react-i18next";
 import { getToolCategories, getAllTools } from "../data/toolsData";
 import Header from "./Header";
 
+const AUTO_SCROLL_INTERVAL = 2500;
+
 const ToolsPage = () => {
     const navigate = useNavigate();
-    const [searchQuery, setSearchQuery] = useState("");
-    const [isOpen, setIsOpen] = useState(false);
-    const [currentSlide, setCurrentSlide] = useState(0);
     const { theme } = useTheme();
     const { t } = useTranslation("tools");
 
-    // Touch swipe references
-    const sliderRef = useRef(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const [startX, setStartX] = useState(0);
-    const [currentTranslate, setCurrentTranslate] = useState(0);
-    const [prevTranslate, setPrevTranslate] = useState(0);
+    /* ---------------- DATA ---------------- */
 
     const toolCategories = getToolCategories();
     const allTools = getAllTools();
 
-    const cardsPerSlide = 4; //fix it later
-    const totalSlides = Math.ceil(toolCategories.length / cardsPerSlide);
+    const cardsPerSlide = 4;
+    const realSlides = Math.ceil(toolCategories.length / cardsPerSlide);
+
+    /* ---------------- SEARCH ---------------- */
+
+    const [searchQuery, setSearchQuery] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
 
     const filteredTools = searchQuery.trim()
-        ? allTools.filter((tool) =>
-            tool.name.toLowerCase().includes(searchQuery.toLowerCase())
+        ? allTools.filter((t) =>
+            t.name.toLowerCase().includes(searchQuery.toLowerCase())
         )
         : [];
 
-    const toolList = filteredTools.map(({ name, link, icon: Icon }) => (
-        <li key={name} className="tool-item">
-            <div
-                className="tool-link"
-                onClick={() => {
-                    navigate(link);
-                }}
-            >
-                <Icon className="tool-icon" />
-                <span className="tool-label">{name}</span>
-            </div>
-        </li>
-    ));
+    /* ---------------- SLIDER STATE ---------------- */
 
-    const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    // index 1..realSlides (0 and realSlides+1 are clones)
+    const [currentIndex, setCurrentIndex] = useState(1);
+    const [isDragging, setIsDragging] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const [enableTransition, setEnableTransition] = useState(true);
+
+    const sliderRef = useRef(null);
+    const startX = useRef(0);
+    const dragOffset = useRef(0);
+
+    /* ---------------- SLIDE HELPERS ---------------- */
+
+    const next = () => {
+        setEnableTransition(true);
+        setCurrentIndex((i) => i + 1);
     };
 
-    const prevSlide = () => {
-        setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+    const prev = () => {
+        setEnableTransition(true);
+        setCurrentIndex((i) => i - 1);
     };
 
-    const goToSlide = (index) => {
-        setCurrentSlide(index);
-    };
+    /* ---------------- DRAG LOGIC ---------------- */
 
-    // Touch swipe handlers with less sensitivity
-    const handleTouchStart = (e) => {
+    const startDrag = (x) => {
         setIsDragging(true);
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        setStartX(clientX);
-        setPrevTranslate(currentTranslate);
+        setEnableTransition(false);
+        startX.current = x;
+        dragOffset.current = 0;
     };
 
-    const handleTouchMove = (e) => {
+    const moveDrag = (x, resistance = 0.3) => {
         if (!isDragging) return;
-        e.preventDefault();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const diff = clientX - startX;
-        // Apply resistance for less sensitivity
-        setCurrentTranslate(prevTranslate + diff * 0.5);
+        dragOffset.current = (x - startX.current) * resistance;
     };
 
-    const handleTouchEnd = () => {
+    const endDrag = () => {
+        if (!isDragging) return;
+
         setIsDragging(false);
-        const movedBy = currentTranslate - prevTranslate;
+        setEnableTransition(true);
 
-        // Increased threshold for less sensitivity (100px)
-        if (Math.abs(movedBy) > 50) {
-            if (movedBy > 0) {
-                // Swiped right - go to previous slide
-                prevSlide();
-            } else {
-                // Swiped left - go to next slide
-                nextSlide();
-            }
-        }
+        const moved = dragOffset.current;
+        dragOffset.current = 0;
 
-        // Reset translate
-        setCurrentTranslate(-currentSlide * 100);
-    };
-
-    // Mouse drag handlers for desktop
-    const handleMouseDown = (e) => {
-        setIsDragging(true);
-        setStartX(e.clientX);
-        setPrevTranslate(currentTranslate);
-        e.preventDefault();
-    };
-
-    const handleMouseMove = (e) => {
-        if (!isDragging) return;
-        const diff = e.clientX - startX;
-        // Apply more resistance for mouse (slower)
-        setCurrentTranslate(prevTranslate + diff * 0.2);
-    };
-
-    const handleMouseUp = () => {
-        handleTouchEnd();
-    };
-
-    const handleMouseLeave = () => {
-        if (isDragging) {
-            handleTouchEnd();
+        if (Math.abs(moved) > 30) {
+            moved > 0 ? prev() : next();
         }
     };
 
-    // Update translate when slide changes
-    useEffect(() => {
-        setCurrentTranslate(-currentSlide * 100);
-    }, [currentSlide]);
+    /* Touch */
+    const onTouchStart = (e) => startDrag(e.touches[0].clientX);
+    const onTouchMove = (e) => moveDrag(e.touches[0].clientX);
+    const onTouchEnd = endDrag;
 
-    // Add/remove event listeners for mouse drag on desktop
+    /* Mouse */
     useEffect(() => {
-        const sliderElement = sliderRef.current;
-        if (!sliderElement) return;
+        const el = sliderRef.current;
+        if (!el) return;
 
-        sliderElement.addEventListener('mousedown', handleMouseDown);
-        sliderElement.addEventListener('mousemove', handleMouseMove);
-        sliderElement.addEventListener('mouseup', handleMouseUp);
-        sliderElement.addEventListener('mouseleave', handleMouseLeave);
+        const down = (e) => startDrag(e.clientX);
+        const move = (e) => moveDrag(e.clientX, 0.2);
+        const up = () => endDrag();
+
+        el.addEventListener("mousedown", down);
+        el.addEventListener("mousemove", move);
+        el.addEventListener("mouseup", up);
+        el.addEventListener("mouseleave", up);
 
         return () => {
-            sliderElement.removeEventListener('mousedown', handleMouseDown);
-            sliderElement.removeEventListener('mousemove', handleMouseMove);
-            sliderElement.removeEventListener('mouseup', handleMouseUp);
-            sliderElement.removeEventListener('mouseleave', handleMouseLeave);
+            el.removeEventListener("mousedown", down);
+            el.removeEventListener("mousemove", move);
+            el.removeEventListener("mouseup", up);
+            el.removeEventListener("mouseleave", up);
         };
-    }, [isDragging, startX, prevTranslate, currentTranslate]);
+    }, [isDragging]);
+
+    /* ---------------- AUTO SCROLL ---------------- */
+
+    useEffect(() => {
+        if (isDragging || isHovered || document.hidden) return;
+
+        const id = setInterval(next, AUTO_SCROLL_INTERVAL);
+        return () => clearInterval(id);
+    }, [isDragging, isHovered]);
+
+    /* ---------------- VISIBILITY FIX (CRITICAL) ---------------- */
+
+    useEffect(() => {
+        const onVisibilityChange = () => {
+            if (document.hidden) {
+                // freeze safely when tab is hidden
+                setEnableTransition(false);
+                dragOffset.current = 0;
+            } else {
+                // resume safely
+                setEnableTransition(true);
+
+                // clamp index to valid range
+                setCurrentIndex((i) => {
+                    if (i < 1) return 1;
+                    if (i > realSlides) return realSlides;
+                    return i;
+                });
+            }
+        };
+
+        document.addEventListener("visibilitychange", onVisibilityChange);
+        return () =>
+            document.removeEventListener("visibilitychange", onVisibilityChange);
+    }, [realSlides]);
+
+    /* ---------------- CLONE CORRECTION ---------------- */
+
+    const handleTransitionEnd = () => {
+        if (currentIndex === 0) {
+            setEnableTransition(false);
+            setCurrentIndex(realSlides);
+        }
+
+        if (currentIndex === realSlides + 1) {
+            setEnableTransition(false);
+            setCurrentIndex(1);
+        }
+    };
+
+    /* ---------------- SLIDES ---------------- */
+
+    const getSlide = (index) =>
+        toolCategories.slice(
+            (index - 1) * cardsPerSlide,
+            index * cardsPerSlide
+        );
+
+    const slides = [
+        getSlide(realSlides), // clone last
+        ...Array.from({ length: realSlides }, (_, i) => getSlide(i + 1)),
+        getSlide(1), // clone first
+    ];
+
+    /* ---------------- TRANSLATE (DERIVED) ---------------- */
+
+    const translateX = -currentIndex * 100 + dragOffset.current;
+
+    /* ---------------- RENDER ---------------- */
 
     return (
         <>
             <Header />
+
             <div className={`tools-page ${theme}`}>
-                {/* 🔍 Search Bar */}
+                {/* 🔍 Search */}
                 <div className="search-container">
                     <div className="search-bar">
                         <input
-                            type="text"
                             placeholder={t("searchPlaceholder")}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onFocus={() => setIsOpen(true)}
-                            onBlur={() => setTimeout(() => setIsOpen(false), 500)}
+                            onBlur={() => setTimeout(() => setIsOpen(false), 200)}
                         />
                     </div>
+
                     {isOpen && filteredTools.length > 0 && (
                         <div className="tool-dropdown">
-                            <ul className="tool-list">{toolList}</ul>
+                            <ul className="tool-list">
+                                {filteredTools.map(({ name, link, icon: Icon }) => (
+                                    <li key={name} className="tool-item">
+                                        <div
+                                            className="tool-link"
+                                            onClick={() => navigate(link)}
+                                        >
+                                            <Icon className="tool-icon" />
+                                            <span className="tool-label">{name}</span>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     )}
                 </div>
 
-                {/* 🎠 Tool Categories Slider with Touch Swipe */}
+                {/* 🎠 Slider */}
                 <div className="categories-slider">
-                    <div className="cards-grid-wrapper">
+                    <div
+                        className="slider-container"
+                        ref={sliderRef}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        onTouchStart={onTouchStart}
+                        onTouchMove={onTouchMove}
+                        onTouchEnd={onTouchEnd}
+                    >
                         <div
-                            className="slider-container"
-                            ref={sliderRef}
-                            onTouchStart={handleTouchStart}
-                            onTouchMove={handleTouchMove}
-                            onTouchEnd={handleTouchEnd}
+                            className="slider-track"
+                            onTransitionEnd={handleTransitionEnd}
+                            style={{
+                                transform: `translateX(${translateX}%)`,
+                                transition: enableTransition
+                                    ? "transform 0.7s ease"
+                                    : "none",
+                            }}
                         >
-                            <div
-                                className="slider-track"
-                                style={{
-                                    transform: `translateX(${currentTranslate}%)`,
-                                    transition: isDragging ? 'none' : 'transform 0.7s ease-in-out'
-                                }}
-                            >
-                                {Array.from({ length: totalSlides }).map((_, slideIndex) => (
-                                    <div key={slideIndex} className="cards-grid">
-                                        {toolCategories
-                                            .slice(
-                                                slideIndex * cardsPerSlide,
-                                                slideIndex * cardsPerSlide + cardsPerSlide
-                                            )
-                                            .map((category) => (
-                                                <div
-                                                    key={category.id}
-                                                    className="category-card"
-                                                    style={{ backgroundColor: category.color }}
-                                                    onClick={() => navigate(category.link)}
-                                                >
-                                                    <div className="card-top">
-                                                        <div className="card-icon">
-                                                            <category.icon />
-                                                        </div>
-                                                        <div className="card-title">{category.title}</div>
-                                                        <div className="tools-count">
-                                                            {category.count}
-                                                        </div>
-                                                    </div>
-                                                    <p className="card-description">
-                                                        {category.description}
-                                                    </p>
-                                                    <div className="card-footer">Click to explore →</div>
+                            {slides.map((group, i) => (
+                                <div key={i} className="cards-grid">
+                                    {group.map((category) => (
+                                        <div
+                                            key={category.id}
+                                            className="category-card"
+                                            style={{ backgroundColor: category.color }}
+                                            onClick={() => navigate(category.link)}
+                                        >
+                                            <div className="card-top">
+                                                <div className="card-icon">
+                                                    <category.icon />
                                                 </div>
-                                            ))}
-                                    </div>
-                                ))}
-                            </div>
+                                                <div className="card-title">{category.title}</div>
+                                                <div className="tools-count">
+                                                    {category.count}
+                                                </div>
+                                            </div>
+
+                                            <p className="card-description">
+                                                {category.description}
+                                            </p>
+
+                                            <div className="card-footer">
+                                                Click to explore →
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
                         </div>
                     </div>
 
-                    {/* Slider Dots */}
-                    {totalSlides > 1 && (
-                        <div className="slider-dots">
-                            {Array.from({ length: totalSlides }).map((_, index) => (
-                                <button
-                                    key={index}
-                                    className={`dot ${index === currentSlide ? "active" : ""}`}
-                                    onClick={() => goToSlide(index)}
-                                />
-                            ))}
-                        </div>
-                    )}
+                    {/* Dots */}
+                    <div className="slider-dots">
+                        {Array.from({ length: realSlides }).map((_, i) => (
+                            <button
+                                key={i}
+                                className={`dot ${currentIndex === i + 1 ? "active" : ""
+                                    }`}
+                                onClick={() => {
+                                    setEnableTransition(true);
+                                    setCurrentIndex(i + 1);
+                                }}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </>
