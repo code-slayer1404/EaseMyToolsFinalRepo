@@ -363,7 +363,7 @@ function App() {
 
   return (
 
-    <Router basename="/EaseMyToolsFinalRepo">
+    <Router>
 
       <div className="App">
         <Navbar />
