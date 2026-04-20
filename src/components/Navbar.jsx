@@ -4,13 +4,14 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/Navbar.css";
 import { useTheme } from "../contexts/ThemeContext";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  console.log("navbar was rendered");
+
   const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation("navbar");
-  const menus = t("menus", { returnObjects: true }) || [];
-  const navigate = useNavigate();
+  const rawMenus = t("menus", { returnObjects: true });
+  const menus = Array.isArray(rawMenus) ? rawMenus : []; // defensive guard
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const menuRef = useRef(null);
@@ -59,33 +60,13 @@ const Navbar = () => {
     setActiveDropdown(activeDropdown === index ? null : index);
   };
 
-  const handleNavigation = (path) => {
-    navigate(path);
-    setIsMenuOpen(false);
-    setActiveDropdown(null);
-  };
-
-  const handleDropdownItemClick = (itemId) => {
-    navigate(`/#${itemId}`);
-    setIsMenuOpen(false);
-    setActiveDropdown(null);
-  };
-
-  const handleLogoClick = () => {
-    navigate("/");
-  };
-
-  const handleSignIn = () => {
-    navigate("/login");
-  };
-
   return (
     <header className={`navbar navbar-${theme}`}>
       <div className="navbar-container">
         {/* Logo */}
-        <div className="navbar-logo" onClick={handleLogoClick}>
+        <a href="/" className="navbar-logo">
           EaseMyTools
-        </div>
+        </a>
 
         {/* Desktop Navigation Menu */}
         <nav className="navbar-desktop-nav">
@@ -110,14 +91,18 @@ const Navbar = () => {
                 <div className="desktop-dropdown-panel">
                   <div className="desktop-dropdown-grid">
                     {menu.items.map((item, itemIndex) => (
-                      <button
+                      <a
                         key={itemIndex}
+                        href={`/${item.id || ""}`}
                         className="desktop-dropdown-item"
-                        onClick={() => handleDropdownItemClick(item.id || "")}
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          setActiveDropdown(null);
+                        }}
                       >
                         <div className="dropdown-item-icon">{item.icon}</div>
                         <div className="dropdown-item-label">{item.label}</div>
-                      </button>
+                      </a>
                     ))}
                   </div>
                 </div>
@@ -129,11 +114,10 @@ const Navbar = () => {
         <div className="flex">
           {/* Desktop Action Buttons */}
           <div className="navbar-actions">
-            <button className="signin-btn" onClick={handleSignIn}>
+            <a href="/login" className="signin-btn">
               Sign In
-            </button>
+            </a>
             <button className="theme-toggle-btn" onClick={toggleTheme}>
-              {/* {theme === "light" ? "Dark" : "Light"} */}
               {theme === "light" ? t("actions.dark") : t("actions.light")}
             </button>
           </div>
@@ -168,9 +152,8 @@ const Navbar = () => {
               <div className="mobile-menu-content">
                 {menus.map((menu, index) => (
                   <div
-                    className={`mobile-menu-item ${
-                      activeDropdown === index ? "active" : ""
-                    }`}
+                    className={`mobile-menu-item ${activeDropdown === index ? "active" : ""
+                      }`}
                     key={index}
                   >
                     <button
@@ -187,20 +170,18 @@ const Navbar = () => {
                       <div className="mobile-dropdown-panel">
                         <div className="mobile-dropdown-grid">
                           {menu.items.map((item, itemIndex) => (
-                            <button
+                            <a
                               key={itemIndex}
+                              href={`/${item.id || ""}`}
                               className="mobile-dropdown-item"
-                              onClick={() =>
-                                handleDropdownItemClick(item.id || "")
-                              }
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setActiveDropdown(null);
+                              }}
                             >
-                              <div className="mobile-item-icon">
-                                {item.icon}
-                              </div>
-                              <div className="mobile-item-label">
-                                {item.label}
-                              </div>
-                            </button>
+                              <div className="mobile-item-icon">{item.icon}</div>
+                              <div className="mobile-item-label">{item.label}</div>
+                            </a>
                           ))}
                         </div>
                       </div>

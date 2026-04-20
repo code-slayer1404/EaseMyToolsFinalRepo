@@ -166,6 +166,8 @@ import { useTheme } from "../contexts/ThemeContext";
 import LanguageSelector from "./LanguageSelector";
 
 const Footer = () => {
+  console.log("Footer was rendered");
+  
   const { theme } = useTheme();
   const { t } = useTranslation();
 
@@ -174,41 +176,41 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-column">
           <h4>PRODUCT</h4>
-          <Link to="/">{t('footer.home', 'Home')}</Link>
-          <Link to="/features">{t('footer.features', 'Features')}</Link>
-          <Link to="/pricing">{t('footer.pricing', 'Pricing')}</Link>
-          <Link to="/tools">{t('footer.tools', 'Tools')}</Link>
-          <Link to="/faq">{t('footer.faq', 'FAQ')}</Link>
+          <Link to="/" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.home', 'Home')}</Link>
+          <Link to="/features" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.features', 'Features')}</Link>
+          <Link to="/pricing" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.pricing', 'Pricing')}</Link>
+          <Link to="/tools" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.tools', 'Tools')}</Link>
+          <Link to="/faq" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.faq', 'FAQ')}</Link>
         </div>
 
         <div className="footer-column">
           <h4>RESOURCES</h4>
-          <Link to="/desktop">{t('footer.desktop', 'EaseMyTools Desktop')}</Link>
-          <Link to="/mobile">{t('footer.mobile', 'EaseMyTools Mobile')}</Link>
-          <Link to="/api">{t('footer.api', 'API')}</Link>
-          <Link to="/docs">{t('footer.documentation', 'Documentation')}</Link>
+          <Link to="/desktop" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.desktop', 'EaseMyTools Desktop')}</Link>
+          <Link to="/mobile" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.mobile', 'EaseMyTools Mobile')}</Link>
+          <Link to="/api" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.api', 'API')}</Link>
+          <Link to="/docs" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.documentation', 'Documentation')}</Link>
         </div>
 
         <div className="footer-column">
           <h4>SOLUTIONS</h4>
-          <Link to="/business">{t('footer.business', 'Business')}</Link>
-          <Link to="/education">{t('footer.education', 'Education')}</Link>
+          <Link to="/business" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.business', 'Business')}</Link>
+          <Link to="/education" onClick={()=>{window.scrollTo({top:0, behavior:"smooth"})}}>{t('footer.education', 'Education')}</Link>
         </div>
 
         <div className="footer-column">
           <h4>LEGAL</h4>
-          <Link to="/security">{t('footer.security', 'Security')}</Link>
-          <Link to="/privacy-policy">{t('footer.privacy', 'Privacy Policy')}</Link>
-          <Link to="/terms-conditions">{t('footer.terms', 'Terms & Conditions')}</Link>
-          <Link to="/cookie-policy">{t('footer.cookies', 'Cookie Policy')}</Link>
+          <Link to="/security" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.security', 'Security')}</Link>
+          <Link to="/privacy-policy" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.privacy', 'Privacy Policy')}</Link>
+          <Link to="/terms-conditions" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.terms', 'Terms & Conditions')}</Link>
+          <Link to="/cookie-policy" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.cookies', 'Cookie Policy')}</Link>
         </div>
 
         <div className="footer-column">
           <h4>COMPANY</h4>
-          <Link to="/about">{t('footer.about', 'About Us')}</Link>
-          <Link to="/contact">{t('footer.contact', 'Contact Us')}</Link>
-          <Link to="/blog">{t('footer.blog', 'Blog')}</Link>
-          <Link to="/press">{t('footer.press', 'Press')}</Link>
+          <Link to="/about" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.about', 'About Us')}</Link>
+          <Link to="/contact" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.contact', 'Contact Us')}</Link>
+          <Link to="/blog" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.blog', 'Blog')}</Link>
+          <Link to="/press" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }) }}>{t('footer.press', 'Press')}</Link>
         </div>
       </div>
 

@@ -6,7 +6,7 @@ export default function BackButton() {
 
     return (
         <div style={{textAlign: 'center'}}>
-            <button className="back-button" onClick={() => navigate('/')}>
+            <button className="back-button" onClick={() => navigate('//')}>
                 ← Back to Home
             </button>
         </div>

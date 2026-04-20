@@ -15,7 +15,7 @@ i18n
             escapeValue: false
         },
         backend: {
-            loadPath: `${basePath}locales/{{lng}}/{{ns}}.json` // path to JSONs
+            loadPath: `${basePath}/locales/{{lng}}/{{ns}}.json` // path to JSONs
         },
         ns: ["header", "navbar","tools"],
         defaultNS: "header"
