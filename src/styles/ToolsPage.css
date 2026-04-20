@@ -230,7 +230,9 @@
   height: 6px;
   background-color: #d1d5db;
   cursor: pointer;
+  border: none;
   transition: all 0.3s ease;
+
 }
 
 .tools-page.dark .dot {

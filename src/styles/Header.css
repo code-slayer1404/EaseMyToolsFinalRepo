@@ -22,14 +22,15 @@
 
 .highlight {
   color: #fff;
-  padding: 2px 10px; /* Adjusted for better vertical centering */
+  padding: 2px 10px;
+  /* Adjusted for better vertical centering */
   border-radius: 6px;
   display: inline-block;
   white-space: nowrap;
-  
+
   /* Animation settings */
   animation: fadeIn 0.4s ease-out forwards;
-  
+
   /* Critical for performance: tells browser to keep this on its own layer */
   will-change: opacity, transform;
   backface-visibility: hidden;
@@ -41,6 +42,7 @@
     /* Using scale instead of translateY eliminates layout shift */
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -61,6 +63,7 @@
   .hero-container {
     min-height: 30vh;
   }
+
   .hero-title {
     font-size: 2rem;
   }

@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import BackButton from "./components/BackButton";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Lazy loading Pages
 const HomePage = lazy(() => import("./components/HomePage"));
@@ -97,6 +98,7 @@ function App() {
 
   return (
     <Router basename="/EaseMyToolsFinalRepo/">
+      <ScrollToTop></ScrollToTop>
       <div className="App">
         <Navbar />
         <main className="main-content">
