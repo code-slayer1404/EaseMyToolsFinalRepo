@@ -64,9 +64,10 @@ const Navbar = () => {
     <header className={`navbar navbar-${theme}`}>
       <div className="navbar-container">
         {/* Logo */}
-        <a href="/" className="navbar-logo">
+        <a href="/EaseMyToolsFinalRepo/" className="navbar-logo" style={{textDecoration:"None"}}>
           EaseMyTools
         </a>
+
 
         {/* Desktop Navigation Menu */}
         <nav className="navbar-desktop-nav">
