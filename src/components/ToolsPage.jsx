@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import "../styles/ToolsPage.css";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
@@ -24,98 +24,93 @@ const ToolsPage = () => {
     const [isDragging, setIsDragging] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const [enableTransition, setEnableTransition] = useState(true);
+    const [dragOffset, setDragOffset] = useState(0);
+
+    // Track if the movement was large enough to be a "drag" and not a "click"
+    const [hasMoved, setHasMoved] = useState(false);
 
     const sliderRef = useRef(null);
     const startX = useRef(0);
-    const dragOffset = useRef(0);
 
     const filteredTools = searchQuery.trim()
         ? allTools.filter((t) => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
         : [];
 
-    const next = () => {
+    const next = useCallback(() => {
+        if (realSlides === 0) return;
         setEnableTransition(true);
-        setCurrentIndex((i) => i + 1);
-    };
+        setCurrentIndex((prev) => prev + 1);
+    }, [realSlides]);
 
-    const prev = () => {
+    const prev = useCallback(() => {
+        if (realSlides === 0) return;
         setEnableTransition(true);
-        setCurrentIndex((i) => i - 1);
-    };
+        setCurrentIndex((prev) => prev - 1);
+    }, [realSlides]);
 
-    /* Drag Logic */
-    const startDrag = (x) => {
+    /* --- AUTO SCROLL --- */
+    useEffect(() => {
+        let intervalId;
+        if (!isDragging && !isHovered && realSlides > 0 && !document.hidden) {
+            intervalId = setInterval(next, AUTO_SCROLL_INTERVAL);
+        }
+        return () => clearInterval(intervalId);
+    }, [isDragging, isHovered, realSlides, next]);
+
+    /* --- DRAG HANDLERS --- */
+    const handleStart = (clientX) => {
         setIsDragging(true);
+        setHasMoved(false); // Reset movement flag
         setEnableTransition(false);
-        startX.current = x;
+        startX.current = clientX;
     };
-    const moveDrag = (x, resistance = 0.3) => {
+
+    const handleMove = (clientX) => {
         if (!isDragging) return;
-        dragOffset.current = (x - startX.current) * resistance;
+        const diff = clientX - startX.current;
+
+        // If moved more than 5px, it's officially a drag, not a click
+        if (Math.abs(diff) > 5) {
+            setHasMoved(true);
+        }
+        setDragOffset(diff);
     };
-    const endDrag = () => {
+
+    const handleEnd = () => {
         if (!isDragging) return;
         setIsDragging(false);
         setEnableTransition(true);
-        const moved = dragOffset.current;
-        dragOffset.current = 0;
-        if (Math.abs(moved) > 30) moved > 0 ? prev() : next();
+
+        // Lower threshold (50px) to make it easier to switch sections
+        if (Math.abs(dragOffset) > 50) {
+            if (dragOffset > 0) prev();
+            else next();
+        }
+
+        setDragOffset(0);
     };
 
+    /* --- GLOBAL MOUSE UP SAFETY --- */
     useEffect(() => {
-        const el = sliderRef.current;
-        if (!el) return;
-        const down = (e) => startDrag(e.clientX);
-        const move = (e) => moveDrag(e.clientX, 0.2);
-        const up = () => endDrag();
-        el.addEventListener("mousedown", down);
-        el.addEventListener("mousemove", move);
-        el.addEventListener("mouseup", up);
-        el.addEventListener("mouseleave", up);
-        return () => {
-            el.removeEventListener("mousedown", down);
-            el.removeEventListener("mousemove", move);
-            el.removeEventListener("mouseup", up);
-            el.removeEventListener("mouseleave", up);
+        const handleGlobalUp = () => {
+            if (isDragging) handleEnd();
         };
-    }, [isDragging]);
+        window.addEventListener("mouseup", handleGlobalUp);
+        return () => window.removeEventListener("mouseup", handleGlobalUp);
+    }, [isDragging, dragOffset]);
 
-    /* Auto Scroll - Fixed to stop when tab is hidden */
-    useEffect(() => {
-        if (isDragging || isHovered || document.hidden) return;
-        const id = setInterval(next, AUTO_SCROLL_INTERVAL);
-        return () => clearInterval(id);
-    }, [isDragging, isHovered]);
-
-    /* Visibility Fix - Prevents page from disappearing on tab switch */
-    useEffect(() => {
-        const onVisibilityChange = () => {
-            if (document.hidden) {
-                setEnableTransition(false);
-            } else {
-                setEnableTransition(true);
-                // Clamp index only if we have valid slides
-                if (realSlides > 0) {
-                    setCurrentIndex((i) => Math.max(1, Math.min(i, realSlides)));
-                }
-            }
-        };
-        document.addEventListener("visibilitychange", onVisibilityChange);
-        return () => document.removeEventListener("visibilitychange", onVisibilityChange);
-    }, [realSlides]);
-
+    /* --- CLONE CORRECTION --- */
     const handleTransitionEnd = () => {
         if (currentIndex === 0) {
             setEnableTransition(false);
             setCurrentIndex(realSlides);
-        }
-        if (currentIndex === realSlides + 1) {
+        } else if (currentIndex >= realSlides + 1) {
             setEnableTransition(false);
             setCurrentIndex(1);
         }
     };
 
-    const getSlide = (index) => toolCategories.slice((index - 1) * cardsPerSlide, index * cardsPerSlide);
+    const getSlide = (idx) => toolCategories.slice((idx - 1) * cardsPerSlide, idx * cardsPerSlide);
 
     const slides = realSlides > 0 ? [
         getSlide(realSlides),
@@ -123,7 +118,9 @@ const ToolsPage = () => {
         getSlide(1)
     ] : [];
 
-    const translateX = -currentIndex * 100 + (dragOffset.current / (sliderRef.current?.offsetWidth || 1) * 100);
+    const containerWidth = sliderRef.current?.offsetWidth || 1;
+    const dragPercent = (dragOffset / containerWidth) * 100;
+    const finalTranslateX = -(currentIndex * 100) + dragPercent;
 
     return (
         <>
@@ -139,20 +136,6 @@ const ToolsPage = () => {
                             onBlur={() => setTimeout(() => setIsOpen(false), 200)}
                         />
                     </div>
-                    {isOpen && filteredTools.length > 0 && (
-                        <div className="tool-dropdown">
-                            <ul className="tool-list">
-                                {filteredTools.map(({ name, link, icon: Icon }) => (
-                                    <li key={name} className="tool-item">
-                                        <div className="tool-link" onClick={() => navigate(link)}>
-                                            <Icon className="tool-icon" />
-                                            <span className="tool-label">{name}</span>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
                 </div>
 
                 <div className="categories-slider">
@@ -162,23 +145,37 @@ const ToolsPage = () => {
                             ref={sliderRef}
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
+                            onMouseDown={(e) => handleStart(e.clientX)}
+                            onMouseMove={(e) => handleMove(e.clientX)}
+                            onMouseUp={handleEnd}
+                            onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+                            onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+                            onTouchEnd={handleEnd}
+                            style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
                         >
                             <div
                                 className="slider-track"
                                 onTransitionEnd={handleTransitionEnd}
                                 style={{
-                                    transform: `translateX(${translateX}%)`,
-                                    transition: enableTransition ? "transform 0.7s ease" : "none",
+                                    transform: `translateX(${finalTranslateX}%)`,
+                                    transition: enableTransition ? "transform 0.5s ease-out" : "none",
+                                    display: 'flex',
+                                    userSelect: 'none'
                                 }}
                             >
                                 {slides.map((group, i) => (
-                                    <div key={i} className="cards-grid">
+                                    <div key={`slide-${i}`} className="cards-grid" style={{ minWidth: '100%', flexShrink: 0 }}>
                                         {group.map((category) => (
                                             <div
                                                 key={category.id}
                                                 className="category-card"
                                                 style={{ backgroundColor: category.color }}
-                                                onClick={() => navigate(category.link)}
+                                                onClick={(e) => {
+                                                    // CRITICAL: Only navigate if the user didn't drag
+                                                    if (!hasMoved) {
+                                                        navigate(category.link);
+                                                    }
+                                                }}
                                             >
                                                 <div className="card-top">
                                                     <div className="card-icon"><category.icon /></div>
