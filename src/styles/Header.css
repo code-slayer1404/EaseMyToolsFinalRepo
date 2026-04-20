@@ -7,39 +7,33 @@
   min-height: 35vh;
   padding: 20px;
   transition: background 0.3s, color 0.3s;
-  /* contain: layout prevents internal shifts from leaking out */
   contain: layout;
+  position: relative;
+  z-index: 10;
 }
 
 .hero-title {
   font-size: 2.5rem;
   font-weight: 700;
-  /* A slightly larger line-height prevents vertical 'jitter' */
   line-height: 1.4;
   margin: 0;
   min-height: 1.4em;
+  /* Reserves vertical space */
 }
 
 .highlight {
   color: #fff;
   padding: 2px 10px;
-  /* Adjusted for better vertical centering */
   border-radius: 6px;
   display: inline-block;
   white-space: nowrap;
-
-  /* Animation settings */
   animation: fadeIn 0.4s ease-out forwards;
-
-  /* Critical for performance: tells browser to keep this on its own layer */
   will-change: opacity, transform;
-  backface-visibility: hidden;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    /* Using scale instead of translateY eliminates layout shift */
     transform: scale(0.95);
   }
 
@@ -55,10 +49,8 @@
   opacity: 0.8;
   max-width: 600px;
   width: 90%;
-  line-height: 1.5;
 }
 
-/* Responsiveness without the 'Jump' */
 @media (max-width: 768px) {
   .hero-container {
     min-height: 30vh;
