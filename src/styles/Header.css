@@ -4,61 +4,64 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* min-height: 40vh; */
   min-height: 35vh;
   padding: 20px;
   transition: background 0.3s, color 0.3s;
-}
-
-/* Light Theme */
-.hero-container.light {
-  /* background: #f9fafb; */
-  background: var(--bg-light);
-  color: #111827;
-}
-
-/* Dark Theme */
-.hero-container.dark {
-  background: var(--bg-dark);
-  color: #f9fafb;
+  /* contain: layout prevents internal shifts from leaking out */
+  contain: layout;
 }
 
 .hero-title {
   font-size: 2.5rem;
   font-weight: 700;
-  line-height: 1.3;
+  /* A slightly larger line-height prevents vertical 'jitter' */
+  line-height: 1.4;
+  margin: 0;
+  min-height: 1.4em;
 }
 
 .highlight {
   color: #fff;
-  padding: 0px 8px 6px;
+  padding: 2px 10px; /* Adjusted for better vertical centering */
   border-radius: 6px;
   display: inline-block;
-  animation: fadeIn 0.5s ease-in-out;
   white-space: nowrap;
+  
+  /* Animation settings */
+  animation: fadeIn 0.4s ease-out forwards;
+  
+  /* Critical for performance: tells browser to keep this on its own layer */
+  will-change: opacity, transform;
+  backface-visibility: hidden;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    /* Using scale instead of translateY eliminates layout shift */
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
   }
 }
 
 .hero-subtitle {
-  margin-top: 10px;
-  font-size: 1.1rem;
+  margin-top: 15px;
+  font-size: 1.15rem;
   opacity: 0.8;
-  width: 80%;
+  max-width: 600px;
+  width: 90%;
+  line-height: 1.5;
 }
 
-
-@media (min-width: 768px) and (max-width: 1024px) {
+/* Responsiveness without the 'Jump' */
+@media (max-width: 768px) {
   .hero-container {
-    min-height: 15vh;
+    min-height: 30vh;
+  }
+  .hero-title {
+    font-size: 2rem;
   }
 }

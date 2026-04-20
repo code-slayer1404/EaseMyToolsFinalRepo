@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 } */
+.main-content {
+  /* This ensures the footer stays at the bottom even if content is loading */
+  /* min-height: calc(100vh - 200px); */
+  min-height: 80vh;
+}
