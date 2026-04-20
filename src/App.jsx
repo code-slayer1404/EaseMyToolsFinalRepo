@@ -92,7 +92,7 @@ function App() {
 
   return (
 
-    <Router basename="/EaseMyToolsFinalRepo">
+    <Router basename="/EaseMyToolsFinalRepo/">
 
       <div className="App">
         <Navbar />
