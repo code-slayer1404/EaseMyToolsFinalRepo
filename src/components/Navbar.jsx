@@ -1,6 +1,7 @@
 // @ts-nocheck
 
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom"; // Added for SPA navigation
 import "../styles/Navbar.css";
 import { useTheme } from "../contexts/ThemeContext";
 import { useTranslation } from "react-i18next";
@@ -64,9 +65,9 @@ const Navbar = () => {
     <header className={`navbar navbar-${theme}`}>
       <div className="navbar-container">
         {/* Logo */}
-        <a href="/EaseMyToolsFinalRepo/" className="navbar-logo" style={{textDecoration:"None"}}>
+        <Link to="/" className="navbar-logo" style={{ textDecoration: "None" }}>
           EaseMyTools
-        </a>
+        </Link>
 
 
         {/* Desktop Navigation Menu */}
@@ -92,9 +93,9 @@ const Navbar = () => {
                 <div className="desktop-dropdown-panel">
                   <div className="desktop-dropdown-grid">
                     {menu.items.map((item, itemIndex) => (
-                      <a
+                      <Link
                         key={itemIndex}
-                        href={`/${item.id || ""}`}
+                        to={`/${item.id || ""}`}
                         className="desktop-dropdown-item"
                         onClick={() => {
                           setIsMenuOpen(false);
@@ -103,7 +104,7 @@ const Navbar = () => {
                       >
                         <div className="dropdown-item-icon">{item.icon}</div>
                         <div className="dropdown-item-label">{item.label}</div>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -115,9 +116,9 @@ const Navbar = () => {
         <div className="flex">
           {/* Desktop Action Buttons */}
           <div className="navbar-actions">
-            <a href="/login" className="signin-btn">
+            <Link to="/login" className="signin-btn">
               Sign In
-            </a>
+            </Link>
             <button className="theme-toggle-btn" onClick={toggleTheme}>
               {theme === "light" ? t("actions.dark") : t("actions.light")}
             </button>
@@ -171,9 +172,9 @@ const Navbar = () => {
                       <div className="mobile-dropdown-panel">
                         <div className="mobile-dropdown-grid">
                           {menu.items.map((item, itemIndex) => (
-                            <a
+                            <Link
                               key={itemIndex}
-                              href={`/${item.id || ""}`}
+                              to={`/${item.id || ""}`}
                               className="mobile-dropdown-item"
                               onClick={() => {
                                 setIsMenuOpen(false);
@@ -182,7 +183,7 @@ const Navbar = () => {
                             >
                               <div className="mobile-item-icon">{item.icon}</div>
                               <div className="mobile-item-label">{item.label}</div>
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       </div>
