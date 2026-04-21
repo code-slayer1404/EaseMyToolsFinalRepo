@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import "../styles/ToolsPage.css";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
@@ -18,6 +18,7 @@ const ToolsPage = () => {
     const cardsPerSlide = 4;
     const realSlides = Math.ceil(toolCategories.length / cardsPerSlide);
 
+    // --- STATE ---
     const [searchQuery, setSearchQuery] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(1);
@@ -25,8 +26,6 @@ const ToolsPage = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [enableTransition, setEnableTransition] = useState(true);
     const [dragOffset, setDragOffset] = useState(0);
-
-    // Track if the movement was large enough to be a "drag" and not a "click"
     const [hasMoved, setHasMoved] = useState(false);
 
     const sliderRef = useRef(null);
@@ -36,6 +35,7 @@ const ToolsPage = () => {
         ? allTools.filter((t) => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
         : [];
 
+    // --- SLIDER ACTIONS ---
     const next = useCallback(() => {
         if (realSlides === 0) return;
         setEnableTransition(true);
@@ -60,7 +60,7 @@ const ToolsPage = () => {
     /* --- DRAG HANDLERS --- */
     const handleStart = (clientX) => {
         setIsDragging(true);
-        setHasMoved(false); // Reset movement flag
+        setHasMoved(false);
         setEnableTransition(false);
         startX.current = clientX;
     };
@@ -68,8 +68,6 @@ const ToolsPage = () => {
     const handleMove = (clientX) => {
         if (!isDragging) return;
         const diff = clientX - startX.current;
-
-        // If moved more than 5px, it's officially a drag, not a click
         if (Math.abs(diff) > 5) {
             setHasMoved(true);
         }
@@ -81,12 +79,10 @@ const ToolsPage = () => {
         setIsDragging(false);
         setEnableTransition(true);
 
-        // Lower threshold (50px) to make it easier to switch sections
         if (Math.abs(dragOffset) > 50) {
             if (dragOffset > 0) prev();
             else next();
         }
-
         setDragOffset(0);
     };
 
@@ -99,7 +95,7 @@ const ToolsPage = () => {
         return () => window.removeEventListener("mouseup", handleGlobalUp);
     }, [isDragging, dragOffset]);
 
-    /* --- CLONE CORRECTION --- */
+    /* --- CLONE CORRECTION (INFINITE EFFECT) --- */
     const handleTransitionEnd = () => {
         if (currentIndex === 0) {
             setEnableTransition(false);
@@ -126,6 +122,7 @@ const ToolsPage = () => {
         <>
             <Header />
             <div className={`tools-page ${theme}`}>
+                {/* --- SEARCH SECTION --- */}
                 <div className="search-container">
                     <div className="search-bar">
                         <input
@@ -133,11 +130,33 @@ const ToolsPage = () => {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onFocus={() => setIsOpen(true)}
-                            onBlur={() => setTimeout(() => setIsOpen(false), 200)}
+                            onBlur={() => setIsOpen(false)}
                         />
                     </div>
+                    {isOpen && filteredTools.length > 0 && (
+                        <div className="tool-dropdown">
+                            <ul className="tool-list">
+                                {filteredTools.map(({ name, link, icon: Icon }) => (
+                                    <li
+                                        key={name}
+                                        className="tool-item"
+                                        onMouseDown={(e) => {
+                                            e.preventDefault(); // Prevents input blur from closing dropdown too early
+                                            navigate(link);
+                                        }}
+                                    >
+                                        <div className="tool-link">
+                                            <Icon className="tool-icon" />
+                                            <span className="tool-label">{name}</span>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
 
+                {/* --- SLIDER SECTION --- */}
                 <div className="categories-slider">
                     {realSlides > 0 && (
                         <div
@@ -170,8 +189,7 @@ const ToolsPage = () => {
                                                 key={category.id}
                                                 className="category-card"
                                                 style={{ backgroundColor: category.color }}
-                                                onClick={(e) => {
-                                                    // CRITICAL: Only navigate if the user didn't drag
+                                                onClick={() => {
                                                     if (!hasMoved) {
                                                         navigate(category.link);
                                                     }

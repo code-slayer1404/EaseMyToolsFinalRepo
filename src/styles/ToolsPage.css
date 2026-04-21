@@ -15,14 +15,13 @@
   color: var(--text-dark);
 }
 
+/* Search Bar Styles */
 .search-container {
   position: relative;
   max-width: 500px;
   margin: 0 auto 1.5rem;
-}
-
-.search-bar {
-  width: 100%;
+  z-index: 2000;
+  /* High z-index to stay above the slider */
 }
 
 .search-bar input {
@@ -35,7 +34,6 @@
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 150px !important;
-  padding-left: 1.25rem !important;
 }
 
 .tools-page.dark .search-bar input {
@@ -50,10 +48,7 @@
   transform: translateY(-1px);
 }
 
-.search-bar input::placeholder {
-  color: #9ca3af;
-}
-
+/* Search Dropdown Styles */
 .tool-dropdown {
   position: absolute;
   top: 100%;
@@ -61,13 +56,12 @@
   right: 0;
   background-color: var(--card-light);
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 12px;
   margin-top: 0.5rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  z-index: 1000;
-  max-height: 250px;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 3000;
+  max-height: 280px;
+  overflow-y: auto;
   animation: slideDown 0.2s ease-out;
 }
 
@@ -78,44 +72,50 @@
 
 .tool-list {
   list-style: none;
-  padding: 0.25rem;
+  padding: 0.5rem;
+  margin: 0;
 }
 
 .tool-item {
-  margin-bottom: 0.125rem;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tool-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.tools-page.dark .tool-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .tool-link {
   display: flex;
   align-items: center;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
+  gap: 0.75rem;
 }
 
 .tool-icon {
   width: 18px;
   height: 18px;
-  margin-right: 0.5rem;
+  color: var(--primary);
 }
 
 .tool-label {
   font-weight: 500;
   font-size: 0.85rem;
+  color: inherit;
 }
 
+/* Slider Section */
 .categories-slider {
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
 }
 
-.cards-grid-wrapper {
-  position: relative;
-  margin-bottom: 1rem;
-}
-
-/* Only added these styles for touch swipe */
 .slider-container {
   overflow: hidden;
   position: relative;
@@ -128,8 +128,6 @@
   cursor: grabbing;
 }
 
-/* End of added styles */
-
 .slider-track {
   display: flex;
   transition: transform 0.6s ease-in-out;
@@ -140,8 +138,8 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
-  justify-items: center;
   padding: 0.25rem;
+  box-sizing: border-box;
 }
 
 .category-card {
@@ -150,9 +148,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  position: relative;
-  overflow: hidden;
-  width: 100%;
   min-height: 160px;
   display: flex;
   flex-direction: column;
@@ -168,14 +163,12 @@
 .card-top {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 0.75rem;
   gap: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .card-icon {
   font-size: 2rem;
-  opacity: 0.9;
 }
 
 .card-title {
@@ -187,15 +180,13 @@
 .tools-count {
   font-size: 0.7rem;
   opacity: 0.8;
-  font-weight: 500;
 }
 
 .card-description {
   flex-grow: 1;
-  margin-bottom: 0.75rem;
-  line-height: 1.4;
-  opacity: 0.9;
   font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -205,15 +196,9 @@
 .card-footer {
   font-weight: 600;
   font-size: 0.75rem;
-  opacity: 0.9;
-  transition: all 0.3s ease;
 }
 
-.category-card:hover .card-footer {
-  transform: translateX(3px);
-  opacity: 1;
-}
-
+/* Dots */
 .slider-dots {
   display: flex;
   justify-content: center;
@@ -221,32 +206,18 @@
   margin-top: 1rem;
 }
 
-.slider-dots button {
-  padding: 0px;
-}
-
 .dot {
   width: 40px;
   height: 6px;
   background-color: #d1d5db;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
-
-}
-
-.tools-page.dark .dot {
-  background-color: #4b5563;
 }
 
 .dot.active {
   background-color: var(--primary);
-  transform: scale(1.2);
-}
-
-.tools-page.dark .dot.active {
-  background-color: var(--primary);
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 @keyframes slideDown {
@@ -261,59 +232,19 @@
   }
 }
 
-.tool-dropdown::-webkit-scrollbar {
-  width: 4px;
-}
-
-.tool-dropdown::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 2px;
-}
-
-.tools-page.dark .tool-dropdown::-webkit-scrollbar-thumb {
-  background: #475569;
-}
-
-/* Responsive adjustments for the slider grid */
-@media (max-width: 1200px) {
-  .slider-track .cards-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 1024px) {
-  .slider-track .cards-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
+/* Responsiveness */
 @media (max-width: 768px) {
   .slider-track .cards-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
-
-  /* .nav-arrow {
-    width: 28px;
-    height: 28px;
-    font-size: 0.9rem;
-  }
-
-  .nav-prev {
-    left: -5px;
-  }
-
-  .nav-next {
-    right: -5px;
-  } */
 }
 
 @media (max-width: 480px) {
-  .nav-arrow {
-    display: none;
+  .slider-track .cards-grid {
+    grid-template-columns: 1fr;
   }
 
   .category-card {
-    padding: 0.875rem;
-    min-height: 20px;
+    min-height: 120px;
   }
 }
