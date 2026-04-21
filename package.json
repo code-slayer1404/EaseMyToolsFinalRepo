@@ -14,6 +14,7 @@
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
     "diff": "^8.0.2",
+    "embla-carousel-react": "^8.6.0",
     "i18next": "^25.5.2",
     "i18next-http-backend": "^3.0.2",
     "jsqr": "^1.4.0",

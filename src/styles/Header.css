@@ -6,19 +6,26 @@
   text-align: center;
   min-height: 35vh;
   padding: 20px;
-  transition: background 0.3s, color 0.3s;
+  /* Use font-display: swap in your @font-face if possible */
+  font-display: swap;
   contain: layout;
-  position: relative;
-  z-index: 10;
+}
+
+/* Specific state for LCP frame */
+.lcp-loading .hero-title {
+  visibility: visible;
+  opacity: 1;
 }
 
 .hero-title {
   font-size: 2.5rem;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.2;
+  /* Tightening line height improves LCP area calculation */
   margin: 0;
-  min-height: 1.4em;
-  /* Reserves vertical space */
+  min-height: 1.2em;
+  /* Prevents text from jumping when the custom font swaps in */
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .highlight {
@@ -27,8 +34,19 @@
   border-radius: 6px;
   display: inline-block;
   white-space: nowrap;
-  animation: fadeIn 0.4s ease-out forwards;
   will-change: opacity, transform;
+}
+
+/* DISABLE ANIMATION FOR FIRST PAINT */
+.highlight.lcp-priority {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+/* Use standard animation for subsequent words */
+.highlight:not(.lcp-priority) {
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
 @keyframes fadeIn {
@@ -48,7 +66,8 @@
   font-size: 1.15rem;
   opacity: 0.8;
   max-width: 600px;
-  width: 90%;
+  /* Prevents painting until the title is done */
+  content-visibility: auto;
 }
 
 @media (max-width: 768px) {
