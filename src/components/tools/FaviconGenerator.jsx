@@ -1,10 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/FaviconGenerator.css';
 
 const FaviconGenerator = () => {
-  const { t } = useTranslation('faviconGenerator');
   const { theme } = useTheme();
   
   const [originalImage, setOriginalImage] = useState('');
@@ -25,20 +23,20 @@ const FaviconGenerator = () => {
 
   // Supported formats with descriptions
   const formatOptions = [
-    { value: 'ico', label: 'ICO', description: t('icoDescription'), extensions: ['.ico'] },
-    { value: 'png', label: 'PNG', description: t('pngDescription'), extensions: ['.png'] },
-    { value: 'all', label: t('allFormats'), description: t('allDescription'), extensions: ['.ico', '.png', '.svg'] }
+    { value: 'ico', label: 'ICO', description: "Traditional favicon format, supports multiple sizes in one file", extensions: ['.ico'] },
+    { value: 'png', label: 'PNG', description: "Modern format with transparency support", extensions: ['.png'] },
+    { value: 'all', label: "All Formats", description: "Generate both ICO and PNG formats for maximum compatibility", extensions: ['.ico', '.png', '.svg'] }
   ];
 
   // Common favicon sizes
   const sizeOptions = [
-    { value: 16, label: '16×16', description: t('size16') },
-    { value: 32, label: '32×32', description: t('size32') },
-    { value: 48, label: '48×48', description: t('size48') },
-    { value: 64, label: '64×64', description: t('size64') },
-    { value: 128, label: '128×128', description: t('size128') },
-    { value: 256, label: '256×256', description: t('size256') },
-    { value: 512, label: '512×512', description: t('size512') }
+    { value: 16, label: '16×16', description: "Standard browser favicon" },
+    { value: 32, label: '32×32', description: "Taskbar and bookmark icons" },
+    { value: 48, label: '48×48', description: "Desktop shortcuts" },
+    { value: 64, label: '64×64', description: "High DPI displays" },
+    { value: 128, label: '128×128', description: "Chrome Web Store" },
+    { value: 256, label: '256×256', description: "Retina displays" },
+    { value: 512, label: '512×512', description: "Progressive Web Apps" }
   ];
 
   // Handle file upload
@@ -46,12 +44,12 @@ const FaviconGenerator = () => {
     if (!uploadedFile) return;
     
     if (uploadedFile.size > 5 * 1024 * 1024) {
-      alert(t('fileTooLarge'));
+      alert("File too large. Maximum size is 5MB.");
       return;
     }
     
     if (!uploadedFile.type.startsWith('image/')) {
-      alert(t('invalidFile'));
+      alert("Invalid file type. Please upload an image.");
       return;
     }
 
@@ -104,12 +102,12 @@ const FaviconGenerator = () => {
   // Generate favicons
   const generateFavicons = async () => {
     if (!file) {
-      alert(t('uploadFirst'));
+      alert("Please upload an image first");
       return;
     }
 
     if (settings.sizes.length === 0) {
-      alert(t('selectSizes'));
+      alert("Please select at least one size");
       return;
     }
 
@@ -130,7 +128,7 @@ const FaviconGenerator = () => {
       setGeneratedIcons(icons);
     } catch (error) {
       console.error('Favicon generation error:', error);
-      alert(t('generationError'));
+      alert("Failed to generate favicons. Please try again.");
     } finally {
       setProcessing(false);
     }
@@ -146,7 +144,7 @@ const FaviconGenerator = () => {
 
   // Download all icons as zip
   const downloadAllIcons = () => {
-    alert(t('zipDownloadMessage')); // In real implementation, this would create and download a zip file
+    alert("In a real implementation, this would download a ZIP file containing all icons"); // In real implementation, this would create and download a zip file
     generatedIcons.forEach(icon => downloadIcon(icon));
   };
 
@@ -160,8 +158,8 @@ const FaviconGenerator = () => {
     }).join('\n');
 
     navigator.clipboard.writeText(htmlCode)
-      .then(() => alert(t('htmlCopied')))
-      .catch(() => alert(t('copyError')));
+      .then(() => alert("HTML code copied to clipboard!"))
+      .catch(() => alert("Failed to copy HTML code"));
   };
 
   // Clear all
@@ -185,8 +183,8 @@ const FaviconGenerator = () => {
   return (
     <div className={`favicon-generator ${theme}`}>
       <div className="tool-header">
-        <h1>{t('title')}</h1>
-        <p>{t('subtitle')}</p>
+        <h1>{"Favicon Generator"}</h1>
+        <p>{"Create professional favicons for your website in multiple formats and sizes"}</p>
       </div>
 
       <div className="generator-container">
@@ -201,10 +199,10 @@ const FaviconGenerator = () => {
             {!originalImage ? (
               <div className="upload-content">
                 <div className="upload-icon">🖼️</div>
-                <h3>{t('uploadArea')}</h3>
-                <p>{t('dragDrop')}</p>
-                <small>{t('supportedFormats')}</small>
-                <small>{t('maxSize')}</small>
+                <h3>{"Upload Your Image"}</h3>
+                <p>{"Drag & drop your image here or click to browse"}</p>
+                <small>{"Supports: JPG, PNG, SVG, WebP"}</small>
+                <small>{"Max file size: 5MB"}</small>
               </div>
             ) : (
               <div className="image-preview">
@@ -228,12 +226,12 @@ const FaviconGenerator = () => {
         {/* Settings Section */}
         {file && (
           <div className="settings-section">
-            <h3>{t('settings')}</h3>
+            <h3>{"Favicon Settings"}</h3>
             
             <div className="settings-grid">
               {/* Format Selection */}
               <div className="setting-group">
-                <label>{t('outputFormat')}</label>
+                <label>{"Output Format"}</label>
                 <div className="format-options">
                   {formatOptions.map(format => (
                     <div
@@ -254,13 +252,13 @@ const FaviconGenerator = () => {
               {/* Size Selection */}
               <div className="setting-group">
                 <div className="size-header">
-                  <label>{t('sizes')}</label>
+                  <label>{"Favicon Sizes"}</label>
                   <div className="size-actions">
                     <button type="button" onClick={selectAllSizes} className="size-action-btn">
-                      {t('selectAll')}
+                      {"Select All"}
                     </button>
                     <button type="button" onClick={clearAllSizes} className="size-action-btn">
-                      {t('clearAll')}
+                      {"Clear All"}
                     </button>
                   </div>
                 </div>
@@ -283,10 +281,10 @@ const FaviconGenerator = () => {
 
               {/* Advanced Options */}
               <div className="setting-group">
-                <label>{t('advancedOptions')}</label>
+                <label>{"Advanced Options"}</label>
                 <div className="advanced-options">
                   <div className="option-row">
-                    <label>{t('backgroundColor')}</label>
+                    <label>{"Background Color"}</label>
                     <input
                       type="color"
                       value={settings.backgroundColor === 'transparent' ? '#ffffff' : settings.backgroundColor}
@@ -303,13 +301,13 @@ const FaviconGenerator = () => {
                         backgroundColor: 'transparent' 
                       }))}
                     >
-                      {t('transparent')}
+                      {"Transparent"}
                     </button>
                   </div>
 
                   <div className="option-row">
                     <label>
-                      {t('padding')}: {settings.padding}px
+                      {"Padding"}: {settings.padding}px
                     </label>
                     <input
                       type="range"
@@ -326,7 +324,7 @@ const FaviconGenerator = () => {
 
                   <div className="option-row">
                     <label>
-                      {t('borderRadius')}: {settings.borderRadius}%
+                      {"Border Radius"}: {settings.borderRadius}%
                     </label>
                     <input
                       type="range"
@@ -351,7 +349,7 @@ const FaviconGenerator = () => {
                           preserveAspectRatio: e.target.checked 
                         }))}
                       />
-                      {t('preserveAspectRatio')}
+                      {"Preserve Aspect Ratio"}
                     </label>
                   </div>
                 </div>
@@ -368,10 +366,10 @@ const FaviconGenerator = () => {
                 {processing ? (
                   <>
                     <span className="spinner"></span>
-                    {t('generating')}
+                    {"Generating..."}
                   </>
                 ) : (
-                  `🎨 ${t('generateFavicons')} (${settings.sizes.length})`
+                  `🎨 ${"Generate Favicons"} (${settings.sizes.length})`
                 )}
               </button>
             </div>
@@ -382,13 +380,13 @@ const FaviconGenerator = () => {
         {generatedIcons.length > 0 && (
           <div className="results-section">
             <div className="results-header">
-              <h3>{t('generatedIcons')}</h3>
+              <h3>{"Generated Icons"}</h3>
               <div className="results-actions">
                 <button onClick={copyHTMLCode} className="action-btn secondary">
-                  📋 {t('copyHTML')}
+                  📋 {"Copy HTML"}
                 </button>
                 <button onClick={downloadAllIcons} className="action-btn primary">
-                  📦 {t('downloadAll')}
+                  📦 {"Download All"}
                 </button>
               </div>
             </div>
@@ -408,7 +406,7 @@ const FaviconGenerator = () => {
                     onClick={() => downloadIcon(icon)}
                     className="download-icon-btn"
                   >
-                    ⬇️ {t('download')}
+                    ⬇️ {"Download"}
                   </button>
                 </div>
               ))}
@@ -416,7 +414,7 @@ const FaviconGenerator = () => {
 
             {/* HTML Code Preview */}
             <div className="code-section">
-              <h4>{t('htmlCode')}</h4>
+              <h4>{"HTML Implementation Code"}</h4>
               <div className="code-preview">
                 <pre>
 {`<!-- Favicon HTML Code -->
@@ -432,34 +430,34 @@ ${generatedIcons.filter(icon => icon.format === 'png').map(icon =>
 
         {/* Tips Section */}
         <div className="tips-section">
-          <h3>💡 {t('tips')}</h3>
+          <h3>💡 {"Best Practices & Tips"}</h3>
           <div className="tips-list">
             <div className="tip-item">
               <span className="tip-icon">🎯</span>
               <div>
-                <strong>{t('tip1Title')}</strong>
-                <p>{t('tip1Description')}</p>
+                <strong>{"Use Simple Designs"}</strong>
+                <p>{"Favicons are small - use simple, recognizable designs with good contrast"}</p>
               </div>
             </div>
             <div className="tip-item">
               <span className="tip-icon">📐</span>
               <div>
-                <strong>{t('tip2Title')}</strong>
-                <p>{t('tip2Description')}</p>
+                <strong>{"Square Format"}</strong>
+                <p>{"Always start with a square image for best results across all devices"}</p>
               </div>
             </div>
             <div className="tip-item">
               <span className="tip-icon">⚡</span>
               <div>
-                <strong>{t('tip3Title')}</strong>
-                <p>{t('tip3Description')}</p>
+                <strong>{"Multiple Sizes"}</strong>
+                <p>{"Include multiple sizes (16x16, 32x32) for different devices and contexts"}</p>
               </div>
             </div>
             <div className="tip-item">
               <span className="tip-icon">🎨</span>
               <div>
-                <strong>{t('tip4Title')}</strong>
-                <p>{t('tip4Description')}</p>
+                <strong>{"Test Your Favicon"}</strong>
+                <p>{"Test your favicon in different browsers and dark/light modes"}</p>
               </div>
             </div>
           </div>
@@ -470,7 +468,7 @@ ${generatedIcons.filter(icon => icon.format === 'png').map(icon =>
           <div className="status-indicator">
             <div className={`status-dot ${processing ? 'processing' : 'ready'}`}></div>
             <span>
-              {processing ? t('processingStatus') : t('readyStatus')}
+              {processing ? "Generating your favicons..." : "Ready to generate favicons"}
             </span>
           </div>
         </div>

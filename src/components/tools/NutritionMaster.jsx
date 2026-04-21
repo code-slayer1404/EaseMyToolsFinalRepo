@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/NutritionMaster.css';
+
+const t = (key, fallback) => fallback ?? key;
 
 // Comprehensive food database with 500+ items
 // const COMPREHENSIVE_FOOD_DATABASE = [
@@ -1443,7 +1444,6 @@ const COMPREHENSIVE_FOOD_DATABASE = [
 // Total items in this database: 42 (from original) + 458+ (new) = 500+ items
 
 const NutritionMaster = () => {
-    const { t } = useTranslation('nutritionMaster');
     const { theme } = useTheme();
     
     const [searchTerm, setSearchTerm] = useState('');
@@ -1516,8 +1516,8 @@ const NutritionMaster = () => {
     return (
         <div className={`nutrition-master ${theme}`}>
             <div className="tool-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"Nutrition Master - Complete Food Database"}</h1>
+                <p>{"Comprehensive nutritional analysis with 500+ foods, fruits, dry fruits, and supplements"}</p>
             </div>
 
             <div className="master-container">
@@ -1526,7 +1526,7 @@ const NutritionMaster = () => {
                     <div className="search-box">
                         <input
                             type="text"
-                            placeholder={t('searchPlaceholder')}
+                            placeholder={"Search foods, fruits, dry fruits, supplements..."}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="search-input"
@@ -1535,7 +1535,7 @@ const NutritionMaster = () => {
 
                     <div className="filter-controls">
                         <div className="filter-group">
-                            <label>{t('filterBy')}</label>
+                            <label>{"Filter by Category"}</label>
                             <select
                                 value={selectedCategory}
                                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -1549,15 +1549,15 @@ const NutritionMaster = () => {
                         </div>
 
                         <div className="filter-group">
-                            <label>{t('weightGoal')}</label>
+                            <label>{"Weight Goal"}</label>
                             <select
                                 value={selectedGoal}
                                 onChange={(e) => setSelectedGoal(e.target.value)}
                             >
-                                <option value="all">{t('all')}</option>
-                                <option value="weightGain">{t('weightGain')}</option>
-                                <option value="weightLoss">{t('weightLoss')}</option>
-                                <option value="maintenance">{t('maintenance')}</option>
+                                <option value="all">{"All"}</option>
+                                <option value="weightGain">{"Weight Gain"}</option>
+                                <option value="weightLoss">{"Weight Loss"}</option>
+                                <option value="maintenance">{"Maintenance"}</option>
                             </select>
                         </div>
                     </div>
@@ -1594,7 +1594,7 @@ const NutritionMaster = () => {
                             </div>
 
                             <div className="food-serving">
-                                <small>{t('servingSize')}: {food.serving}</small>
+                                <small>{"Serving Size"}: {food.serving}</small>
                             </div>
 
                             <div className="food-best-for">
@@ -1613,7 +1613,7 @@ const NutritionMaster = () => {
                                 }}
                                 disabled={compareList.find(item => item.id === food.id)}
                             >
-                                {t('addToCompare')}
+                                {"Add to Compare"}
                             </button>
                         </div>
                     ))}
@@ -1634,30 +1634,30 @@ const NutritionMaster = () => {
 
                         <div className="detail-content">
                             <div className="nutrition-facts">
-                                <h3>{t('nutritionFacts')}</h3>
+                                <h3>{"Nutrition Facts"}</h3>
                                 <div className="facts-grid">
                                     <div className="fact-item">
-                                        <span className="fact-label">{t('calories')}</span>
+                                        <span className="fact-label">{"Calories"}</span>
                                         <span className="fact-value">{selectedFood.calories}</span>
                                     </div>
                                     <div className="fact-item">
-                                        <span className="fact-label">{t('protein')}</span>
+                                        <span className="fact-label">{"Protein"}</span>
                                         <span className="fact-value">{selectedFood.protein}g</span>
                                     </div>
                                     <div className="fact-item">
-                                        <span className="fact-label">{t('carbs')}</span>
+                                        <span className="fact-label">{"Carbohydrates"}</span>
                                         <span className="fact-value">{selectedFood.carbs}g</span>
                                     </div>
                                     <div className="fact-item">
-                                        <span className="fact-label">{t('fat')}</span>
+                                        <span className="fact-label">{"Fat"}</span>
                                         <span className="fact-value">{selectedFood.fat}g</span>
                                     </div>
                                     <div className="fact-item">
-                                        <span className="fact-label">{t('fiber')}</span>
+                                        <span className="fact-label">{"Fiber"}</span>
                                         <span className="fact-value">{selectedFood.fiber}g</span>
                                     </div>
                                     <div className="fact-item">
-                                        <span className="fact-label">{t('sugar')}</span>
+                                        <span className="fact-label">{"Sugar"}</span>
                                         <span className="fact-value">{selectedFood.sugar}g</span>
                                     </div>
                                 </div>
@@ -1666,7 +1666,7 @@ const NutritionMaster = () => {
                             {/* Vitamins */}
                             {Object.keys(selectedFood.vitamins).length > 0 && (
                                 <div className="vitamins-section">
-                                    <h3>{t('vitamins')}</h3>
+                                    <h3>{"Vitamins"}</h3>
                                     <div className="vitamins-grid">
                                         {Object.entries(selectedFood.vitamins).map(([vitamin, amount]) => (
                                             <div key={vitamin} className="vitamin-item">
@@ -1687,7 +1687,7 @@ const NutritionMaster = () => {
                             {/* Minerals */}
                             {Object.keys(selectedFood.minerals).length > 0 && (
                                 <div className="minerals-section">
-                                    <h3>{t('minerals')}</h3>
+                                    <h3>{"Minerals"}</h3>
                                     <div className="minerals-grid">
                                         {Object.entries(selectedFood.minerals).map(([mineral, amount]) => (
                                             <div key={mineral} className="mineral-item">
@@ -1708,7 +1708,7 @@ const NutritionMaster = () => {
                             {/* Antioxidants */}
                             {selectedFood.antioxidants.length > 0 && (
                                 <div className="antioxidants-section">
-                                    <h3>{t('antioxidants')}</h3>
+                                    <h3>{"Antioxidants"}</h3>
                                     <div className="antioxidants-list">
                                         {selectedFood.antioxidants.map((antioxidant, index) => (
                                             <span key={index} className="antioxidant-tag">
@@ -1721,7 +1721,7 @@ const NutritionMaster = () => {
 
                             {/* Benefits */}
                             <div className="benefits-section">
-                                <h3>{t('benefits')}</h3>
+                                <h3>{"Health Benefits"}</h3>
                                 <ul className="benefits-list">
                                     {selectedFood.benefits.map((benefit, index) => (
                                         <li key={index}>{benefit}</li>
@@ -1735,7 +1735,7 @@ const NutritionMaster = () => {
                 {/* Comparison Section */}
                 {compareList.length > 0 && (
                     <div className="compare-section">
-                        <h3>{t('compare')} ({compareList.length}/5)</h3>
+                        <h3>{"Compare Foods"} ({compareList.length}/5)</h3>
                         <div className="compare-grid">
                             {compareList.map(food => (
                                 <div key={food.id} className="compare-card">

@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import React, { Suspense, lazy, useEffect } from "react"; // Added lazy and Suspense
 import "./App.css";
 import { useTheme } from "./contexts/ThemeContext";
-import { useTranslation } from "react-i18next";
 
 // Components that should likely stay eager (loaded immediately)
 import Navbar from "./components/Navbar";
@@ -76,14 +75,6 @@ function App() {
   console.log("App was rendered");
 
   const { theme } = useTheme();
-  const { i18n } = useTranslation();
-
-  useEffect(() => {
-    if (!localStorage.getItem("language")) {
-      localStorage.setItem("language", "en");
-    }
-    i18n.changeLanguage(localStorage.getItem("language"));
-  }, [i18n]);
 
   useEffect(() => {
     document.body.className = theme;

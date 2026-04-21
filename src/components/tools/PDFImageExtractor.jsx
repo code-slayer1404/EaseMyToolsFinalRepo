@@ -1,5 +1,5 @@
 // import React, { useState, useRef, useCallback } from 'react';
-// import { useTranslation } from 'react-i18next';
+// 
 // import { useTheme } from '../../contexts/ThemeContext';
 // import '../../styles/tools/PDFImageExtractor.css';
 
@@ -24,17 +24,17 @@
 
 //   // Supported output formats
 //   const formatOptions = [
-//     { value: 'original', label: t('originalFormat'), description: t('originalDescription') },
-//     { value: 'png', label: 'PNG', description: t('pngDescription') },
-//     { value: 'jpg', label: 'JPG', description: t('jpgDescription') },
-//     { value: 'webp', label: 'WebP', description: t('webpDescription') }
+//     { value: 'original', label: "Original Format", description: "Keep images in their original format from PDF" },
+//     { value: 'png', label: 'PNG', description: "Convert to PNG with transparency support" },
+//     { value: 'jpg', label: 'JPG', description: "Convert to JPG for smaller file sizes" },
+//     { value: 'webp', label: 'WebP', description: "Convert to WebP for modern web use" }
 //   ];
 
 //   // Quality options
 //   const qualityOptions = [
-//     { value: 'high', label: t('highQuality'), description: t('highDescription') },
-//     { value: 'medium', label: t('mediumQuality'), description: t('mediumDescription') },
-//     { value: 'low', label: t('lowQuality'), description: t('lowDescription') }
+//     { value: 'high', label: "High Quality", description: "Best quality, larger file size" },
+//     { value: 'medium', label: "Medium Quality", description: "Good balance of quality and size" },
+//     { value: 'low', label: "Low Quality", description: "Smaller files, lower quality" }
 //   ];
 
 //   // Handle PDF upload
@@ -42,12 +42,12 @@
 //     if (!uploadedFile) return;
     
 //     if (uploadedFile.size > 50 * 1024 * 1024) {
-//       alert(t('fileTooLarge'));
+//       alert("File too large. Maximum size is 50MB.");
 //       return;
 //     }
     
 //     if (uploadedFile.type !== 'application/pdf') {
-//       alert(t('invalidFile'));
+//       alert("Invalid file type. Please upload a PDF document.");
 //       return;
 //     }
 
@@ -85,7 +85,7 @@
 //   // Extract images from PDF
 //   const extractImages = async () => {
 //     if (!file) {
-//       alert(t('uploadFirst'));
+//       alert("Please upload a PDF file first");
 //       return;
 //     }
 
@@ -163,7 +163,7 @@
 
 //     } catch (error) {
 //       console.error('PDF extraction error:', error);
-//       alert(t('extractionError'));
+//       alert("Failed to extract images from PDF. Please try again.");
 //     } finally {
 //       setProcessing(false);
 //     }
@@ -182,7 +182,7 @@
 //     if (extractedImages.length === 0) return;
     
 //     // In real implementation, this would download a zip file
-//     alert(t('zipDownloadMessage'));
+//     alert("In a real implementation, this would download a ZIP file containing all selected images");
 //     extractedImages.forEach(image => downloadImage(image));
 //   };
 
@@ -236,8 +236,8 @@
 //   return (
 //     <div className={`pdf-image-extractor ${theme}`}>
 //       <div className="tool-header">
-//         <h1>{t('title')}</h1>
-//         <p>{t('subtitle')}</p>
+//         <h1>{"PDF Image Extractor"}</h1>
+//         <p>{"Extract images, diagrams, and graphics from your PDF documents"}</p>
 //       </div>
 
 //       <div className="extractor-container">
@@ -252,10 +252,10 @@
 //             {!file ? (
 //               <div className="upload-content">
 //                 <div className="upload-icon">📄</div>
-//                 <h3>{t('uploadArea')}</h3>
-//                 <p>{t('dragDrop')}</p>
-//                 <small>{t('supportedFormats')}</small>
-//                 <small>{t('maxSize')}</small>
+//                 <h3>{"Upload PDF Document"}</h3>
+//                 <p>{"Drag & drop your PDF here or click to browse"}</p>
+//                 <small>{"Supports: PDF documents"}</small>
+//                 <small>{"Max file size: 50MB"}</small>
 //               </div>
 //             ) : (
 //               <div className="file-preview">
@@ -266,8 +266,8 @@
 //                     <span>📏 {(file.size / 1024 / 1024).toFixed(2)} MB</span>
 //                     {pdfInfo && (
 //                       <>
-//                         <span>📑 {pdfInfo.pages} {t('pages')}</span>
-//                         <span>🖼️ {pdfInfo.images} {t('images')}</span>
+//                         <span>📑 {pdfInfo.pages} {"pages"}</span>
+//                         <span>🖼️ {pdfInfo.images} {"images"}</span>
 //                       </>
 //                     )}
 //                   </div>
@@ -287,12 +287,12 @@
 //         {/* Settings Section */}
 //         {file && (
 //           <div className="settings-section">
-//             <h3>{t('extractionSettings')}</h3>
+//             <h3>{"Extraction Settings"}</h3>
             
 //             <div className="settings-grid">
 //               {/* Format Selection */}
 //               <div className="setting-group">
-//                 <label>{t('outputFormat')}</label>
+//                 <label>{"Output Format"}</label>
 //                 <div className="format-options">
 //                   {formatOptions.map(format => (
 //                     <div
@@ -311,7 +311,7 @@
 
 //               {/* Quality Settings */}
 //               <div className="setting-group">
-//                 <label>{t('imageQuality')}</label>
+//                 <label>{"Image Quality"}</label>
 //                 <div className="quality-options">
 //                   {qualityOptions.map(quality => (
 //                     <div
@@ -328,7 +328,7 @@
 
 //               {/* Extraction Options */}
 //               <div className="setting-group">
-//                 <label>{t('extractionOptions')}</label>
+//                 <label>{"Extraction Options"}</label>
 //                 <div className="checkbox-options">
 //                   <label className="checkbox-label">
 //                     <input
@@ -337,7 +337,7 @@
 //                       onChange={(e) => setSettings(prev => ({ ...prev, extractAll: e.target.checked }))}
 //                     />
 //                     <span className="checkmark"></span>
-//                     {t('extractAllImages')}
+//                     {"Extract all images from PDF"}
 //                   </label>
                   
 //                   <label className="checkbox-label">
@@ -347,18 +347,18 @@
 //                       onChange={(e) => setSettings(prev => ({ ...prev, includeThumbnails: e.target.checked }))}
 //                     />
 //                     <span className="checkmark"></span>
-//                     {t('includeThumbnails')}
+//                     {"Include thumbnail images"}
 //                   </label>
 //                 </div>
 //               </div>
 
 //               {/* Advanced Settings */}
 //               <div className="setting-group">
-//                 <label>{t('advancedSettings')}</label>
+//                 <label>{"Advanced Settings"}</label>
 //                 <div className="advanced-options">
 //                   <div className="option-row">
 //                     <label>
-//                       {t('maxDimension')}: {settings.maxSize}px
+//                       {"Maximum Dimension"}: {settings.maxSize}px
 //                     </label>
 //                     <input
 //                       type="range"
@@ -385,10 +385,10 @@
 //                 {processing ? (
 //                   <>
 //                     <span className="spinner"></span>
-//                     {t('extracting')}
+//                     {"Extracting images..."}
 //                   </>
 //                 ) : (
-//                   `🔍 ${t('extractImages')}`
+//                   `🔍 ${"Extract Images"}`
 //                 )}
 //               </button>
 //             </div>
@@ -400,13 +400,13 @@
 //           <div className="results-section">
 //             <div className="results-header">
 //               <div className="results-info">
-//                 <h3>{t('extractedImages')} ({extractedImages.length})</h3>
-//                 <p className="results-description">{t('resultsDescription')}</p>
+//                 <h3>{"Extracted Images"} ({extractedImages.length})</h3>
+//                 <p className="results-description">{"All images and diagrams found in your PDF"}</p>
 //               </div>
 //               <div className="results-actions">
 //                 <div className="selection-info">
 //                   {selectedImages.size > 0 && (
-//                     <span>{selectedImages.size} {t('selected')}</span>
+//                     <span>{selectedImages.size} {"selected"}</span>
 //                   )}
 //                 </div>
 //                 <div className="action-buttons">
@@ -415,14 +415,14 @@
 //                       onClick={() => downloadSelectedImages(Array.from(selectedImages))}
 //                       className="action-btn primary"
 //                     >
-//                       ⬇️ {t('downloadSelected')} ({selectedImages.size})
+//                       ⬇️ {"Download Selected"} ({selectedImages.size})
 //                     </button>
 //                   )}
 //                   <button onClick={downloadAllImages} className="action-btn secondary">
-//                     📦 {t('downloadAll')}
+//                     📦 {"Download All"}
 //                   </button>
 //                   <button onClick={selectAllImages} className="action-btn outline">
-//                     {selectedImages.size === extractedImages.length ? t('deselectAll') : t('selectAll')}
+//                     {selectedImages.size === extractedImages.length ? "Deselect All" : "Select All"}
 //                   </button>
 //                 </div>
 //               </div>
@@ -453,7 +453,7 @@
 //                           window.open(image.url, '_blank');
 //                         }}
 //                       >
-//                         🔍 {t('preview')}
+//                         🔍 {"Preview"}
 //                       </button>
 //                     </div>
 //                   </div>
@@ -463,7 +463,7 @@
 //                       <span className="image-format">{image.format.toUpperCase()}</span>
 //                     </div>
 //                     <div className="image-details">
-//                       <span className="image-page">📄 {t('page')} {image.page}</span>
+//                       <span className="image-page">📄 {"Page"} {image.page}</span>
 //                       <span className="image-size">💾 {image.size}</span>
 //                       <span className="image-dimensions">📐 {image.dimensions}</span>
 //                     </div>
@@ -474,7 +474,7 @@
 //                         downloadImage(image);
 //                       }}
 //                     >
-//                       ⬇️ {t('download')}
+//                       ⬇️ {"Download"}
 //                     </button>
 //                   </div>
 //                 </div>
@@ -484,11 +484,11 @@
 //             {/* Summary Section */}
 //             <div className="summary-section">
 //               <div className="summary-card">
-//                 <h4>📊 {t('extractionSummary')}</h4>
+//                 <h4>📊 {"Extraction Summary"}</h4>
 //                 <div className="summary-stats">
 //                   <div className="stat">
 //                     <span className="stat-value">{extractedImages.length}</span>
-//                     <span className="stat-label">{t('totalImages')}</span>
+//                     <span className="stat-label">{"Total Images"}</span>
 //                   </div>
 //                   <div className="stat">
 //                     <span className="stat-value">
@@ -497,7 +497,7 @@
 //                         return acc + (isNaN(size) ? 0 : size);
 //                       }, 0).toFixed(0)} KB
 //                     </span>
-//                     <span className="stat-label">{t('totalSize')}</span>
+//                     <span className="stat-label">{"Total Size"}</span>
 //                   </div>
 //                   <div className="stat">
 //                     <span className="stat-value">
@@ -506,13 +506,13 @@
 //                         return isNaN(width) ? 0 : width;
 //                       }))}px
 //                     </span>
-//                     <span className="stat-label">{t('largestImage')}</span>
+//                     <span className="stat-label">{"Largest Image"}</span>
 //                   </div>
 //                   <div className="stat">
 //                     <span className="stat-value">
 //                       {new Set(extractedImages.map(img => img.page)).size}
 //                     </span>
-//                     <span className="stat-label">{t('pagesWithImages')}</span>
+//                     <span className="stat-label">{"Pages with Images"}</span>
 //                   </div>
 //                 </div>
 //               </div>
@@ -522,34 +522,34 @@
 
 //         {/* Tips Section */}
 //         <div className="tips-section">
-//           <h3>💡 {t('tips')}</h3>
+//           <h3>💡 {"Best Practices & Tips"}</h3>
 //           <div className="tips-list">
 //             <div className="tip-item">
 //               <span className="tip-icon">🎯</span>
 //               <div>
-//                 <strong>{t('tip1Title')}</strong>
-//                 <p>{t('tip1Description')}</p>
+//                 <strong>{"High-Quality PDFs Work Best"}</strong>
+//                 <p>{"Use PDFs with high-resolution images for best extraction quality"}</p>
 //               </div>
 //             </div>
 //             <div className="tip-item">
 //               <span className="tip-icon">📐</span>
 //               <div>
-//                 <strong>{t('tip2Title')}</strong>
-//                 <p>{t('tip2Description')}</p>
+//                 <strong>{"Check Image Formats"}</strong>
+//                 <p>{"Different PDFs may contain various image formats (JPEG, PNG, vector graphics)"}</p>
 //               </div>
 //             </div>
 //             <div className="tip-item">
 //               <span className="tip-icon">⚡</span>
 //               <div>
-//                 <strong>{t('tip3Title')}</strong>
-//                 <p>{t('tip3Description')}</p>
+//                 <strong>{"Large PDFs Take Time"}</strong>
+//                 <p>{"Processing large PDFs with many images may take several minutes"}</p>
 //               </div>
 //             </div>
 //             <div className="tip-item">
 //               <span className="tip-icon">🔍</span>
 //               <div>
-//                 <strong>{t('tip4Title')}</strong>
-//                 <p>{t('tip4Description')}</p>
+//                 <strong>{"Review Extracted Images"}</strong>
+//                 <p>{"Always review extracted images as some might be logos or decorative elements"}</p>
 //               </div>
 //             </div>
 //           </div>
@@ -560,8 +560,8 @@
 //           <div className="status-indicator">
 //             <div className={`status-dot ${processing ? 'processing' : extractedImages.length > 0 ? 'success' : 'ready'}`}></div>
 //             <span>
-//               {processing ? t('processingStatus') : 
-//                extractedImages.length > 0 ? t('successStatus') : t('readyStatus')}
+//               {processing ? "Extracting images from PDF..." : 
+//                extractedImages.length > 0 ? "Images extracted successfully" : "Ready to extract images"}
 //             </span>
 //           </div>
 //         </div>
@@ -576,7 +576,7 @@
 
 
 // import React, { useState, useRef, useCallback } from 'react';
-// import { useTranslation } from 'react-i18next';
+// 
 // import { useTheme } from '../../contexts/ThemeContext';
 // import '../../styles/tools/PDFImageExtractor.css';
 
@@ -600,23 +600,23 @@
 //   const fileInputRef = useRef();
 
 //   const formatOptions = [
-//     { value: 'original', label: t('originalFormat'), description: t('originalDescription') },
-//     { value: 'png', label: 'PNG', description: t('pngDescription') },
-//     { value: 'jpg', label: 'JPG', description: t('jpgDescription') },
-//     { value: 'webp', label: 'WebP', description: t('webpDescription') }
+//     { value: 'original', label: "Original Format", description: "Keep images in their original format from PDF" },
+//     { value: 'png', label: 'PNG', description: "Convert to PNG with transparency support" },
+//     { value: 'jpg', label: 'JPG', description: "Convert to JPG for smaller file sizes" },
+//     { value: 'webp', label: 'WebP', description: "Convert to WebP for modern web use" }
 //   ];
 
 //   const qualityOptions = [
-//     { value: 'high', label: t('highQuality'), description: t('highDescription') },
-//     { value: 'medium', label: t('mediumQuality'), description: t('mediumDescription') },
-//     { value: 'low', label: t('lowQuality'), description: t('lowDescription') }
+//     { value: 'high', label: "High Quality", description: "Best quality, larger file size" },
+//     { value: 'medium', label: "Medium Quality", description: "Good balance of quality and size" },
+//     { value: 'low', label: "Low Quality", description: "Smaller files, lower quality" }
 //   ];
 
 //   // Upload and preview
 //   const handleFileUpload = useCallback((uploadedFile) => {
 //     if (!uploadedFile) return;
-//     if (uploadedFile.size > 50 * 1024 * 1024) { alert(t('fileTooLarge')); return; }
-//     if (uploadedFile.type !== 'application/pdf') { alert(t('invalidFile')); return; }
+//     if (uploadedFile.size > 50 * 1024 * 1024) { alert("File too large. Maximum size is 50MB."); return; }
+//     if (uploadedFile.type !== 'application/pdf') { alert("Invalid file type. Please upload a PDF document."); return; }
 
 //     setFile(uploadedFile);
 //     setOriginalFile(uploadedFile);
@@ -636,7 +636,7 @@
 
 //   // Extract images (backend integrated)
 //   const extractImages = async () => {
-//     if (!file) { alert(t('uploadFirst')); return; }
+//     if (!file) { alert("Please upload a PDF file first"); return; }
 //     setProcessing(true);
 //     setExtractedImages([]);
 
@@ -664,7 +664,7 @@
 
 //     } catch (err) {
 //       console.error(err);
-//       alert(t('extractionError'));
+//       alert("Failed to extract images from PDF. Please try again.");
 //     } finally {
 //       setProcessing(false);
 //     }
@@ -705,8 +705,8 @@
 //   return (
 //     <div className={`pdf-image-extractor ${theme}`}>
 //       <div className="tool-header">
-//         <h1>{t('title')}</h1>
-//         <p>{t('subtitle')}</p>
+//         <h1>{"PDF Image Extractor"}</h1>
+//         <p>{"Extract images, diagrams, and graphics from your PDF documents"}</p>
 //       </div>
 
 //       {/* Upload Section */}
@@ -716,10 +716,10 @@
 //             {!file ? (
 //               <div className="upload-content">
 //                 <div className="upload-icon">📄</div>
-//                 <h3>{t('uploadArea')}</h3>
-//                 <p>{t('dragDrop')}</p>
-//                 <small>{t('supportedFormats')}</small>
-//                 <small>{t('maxSize')}</small>
+//                 <h3>{"Upload PDF Document"}</h3>
+//                 <p>{"Drag & drop your PDF here or click to browse"}</p>
+//                 <small>{"Supports: PDF documents"}</small>
+//                 <small>{"Max file size: 50MB"}</small>
 //               </div>
 //             ) : (
 //               <div className="file-preview">
@@ -730,8 +730,8 @@
 //                     <span>📏 {(file.size / 1024 / 1024).toFixed(2)} MB</span>
 //                     {pdfInfo && (
 //                       <>
-//                         <span>📑 {pdfInfo.pages} {t('pages')}</span>
-//                         <span>🖼️ {pdfInfo.images} {t('images')}</span>
+//                         <span>📑 {pdfInfo.pages} {"pages"}</span>
+//                         <span>🖼️ {pdfInfo.images} {"images"}</span>
 //                       </>
 //                     )}
 //                   </div>
@@ -745,10 +745,10 @@
 //         {/* Settings & Extract Button */}
 //         {file && (
 //           <div className="settings-section">
-//             <h3>{t('extractionSettings')}</h3>
+//             <h3>{"Extraction Settings"}</h3>
 //             <div className="settings-grid">
 //               <div className="setting-group">
-//                 <label>{t('outputFormat')}</label>
+//                 <label>{"Output Format"}</label>
 //                 <div className="format-options">
 //                   {formatOptions.map(f => (
 //                     <div key={f.value} className={`format-option ${settings.format === f.value ? 'active' : ''}`} onClick={() => setSettings(prev => ({ ...prev, format: f.value }))}>
@@ -760,7 +760,7 @@
 //               </div>
 
 //               <div className="setting-group">
-//                 <label>{t('imageQuality')}</label>
+//                 <label>{"Image Quality"}</label>
 //                 <div className="quality-options">
 //                   {qualityOptions.map(q => (
 //                     <div key={q.value} className={`quality-option ${settings.quality === q.value ? 'active' : ''}`} onClick={() => setSettings(prev => ({ ...prev, quality: q.value }))}>
@@ -774,7 +774,7 @@
 
 //             <div className="extract-section">
 //               <button onClick={extractImages} className={`extract-btn ${processing ? 'processing' : ''}`} disabled={processing}>
-//                 {processing ? <><span className="spinner"></span>{t('extracting')}</> : `🔍 ${t('extractImages')}`}
+//                 {processing ? <><span className="spinner"></span>{"Extracting images..."}</> : `🔍 ${"Extract Images"}`}
 //               </button>
 //             </div>
 //           </div>
@@ -784,10 +784,10 @@
 //         {extractedImages.length > 0 && (
 //           <div className="results-section">
 //             <div className="results-header">
-//               <h3>{t('extractedImages')} ({extractedImages.length})</h3>
-//               <button onClick={() => downloadSelectedImages(Array.from(selectedImages))} disabled={selectedImages.size === 0}>⬇️ {t('downloadSelected')}</button>
-//               <button onClick={downloadAllImages}>📦 {t('downloadAll')}</button>
-//               <button onClick={selectAllImages}>{selectedImages.size === extractedImages.length ? t('deselectAll') : t('selectAll')}</button>
+//               <h3>{"Extracted Images"} ({extractedImages.length})</h3>
+//               <button onClick={() => downloadSelectedImages(Array.from(selectedImages))} disabled={selectedImages.size === 0}>⬇️ {"Download Selected"}</button>
+//               <button onClick={downloadAllImages}>📦 {"Download All"}</button>
+//               <button onClick={selectAllImages}>{selectedImages.size === extractedImages.length ? "Deselect All" : "Select All"}</button>
 //             </div>
 
 //             <div className="images-grid">
@@ -797,10 +797,10 @@
 //                   <img src={img.url} alt={img.name} />
 //                   <div className="image-info">
 //                     <span>{img.name}</span>
-//                     <span>📄 {t('page')} {img.page}</span>
+//                     <span>📄 {"Page"} {img.page}</span>
 //                     <span>💾 {img.size}</span>
 //                     <span>📐 {img.dimensions}</span>
-//                     <button onClick={e => { e.stopPropagation(); downloadImage(img); }}>⬇️ {t('download')}</button>
+//                     <button onClick={e => { e.stopPropagation(); downloadImage(img); }}>⬇️ {"Download"}</button>
 //                   </div>
 //                 </div>
 //               ))}
@@ -828,7 +828,7 @@
 
 
 // import React, { useState, useRef, useCallback } from 'react';
-// import { useTranslation } from 'react-i18next';
+// 
 // import { useTheme } from '../../contexts/ThemeContext';
 // import '../../styles/tools/PDFImageExtractor.css';
 
@@ -856,17 +856,17 @@
 
 //   // Supported output formats
 //   const formatOptions = [
-//     { value: 'original', label: t('originalFormat'), description: t('originalDescription') },
-//     { value: 'png', label: 'PNG', description: t('pngDescription') },
-//     { value: 'jpg', label: 'JPG', description: t('jpgDescription') },
-//     { value: 'webp', label: 'WebP', description: t('webpDescription') }
+//     { value: 'original', label: "Original Format", description: "Keep images in their original format from PDF" },
+//     { value: 'png', label: 'PNG', description: "Convert to PNG with transparency support" },
+//     { value: 'jpg', label: 'JPG', description: "Convert to JPG for smaller file sizes" },
+//     { value: 'webp', label: 'WebP', description: "Convert to WebP for modern web use" }
 //   ];
 
 //   // Quality options - updated to match API
 //   const qualityOptions = [
-//     { value: 'high', label: t('highQuality'), description: t('highDescription') },
-//     { value: 'medium', label: t('mediumQuality'), description: t('mediumDescription') },
-//     { value: 'low', label: t('lowQuality'), description: t('lowDescription') }
+//     { value: 'high', label: "High Quality", description: "Best quality, larger file size" },
+//     { value: 'medium', label: "Medium Quality", description: "Good balance of quality and size" },
+//     { value: 'low', label: "Low Quality", description: "Smaller files, lower quality" }
 //   ];
 
 //   // Handle PDF upload
@@ -874,12 +874,12 @@
 //     if (!uploadedFile) return;
     
 //     if (uploadedFile.size > 50 * 1024 * 1024) {
-//       alert(t('fileTooLarge'));
+//       alert("File too large. Maximum size is 50MB.");
 //       return;
 //     }
     
 //     if (uploadedFile.type !== 'application/pdf') {
-//       alert(t('invalidFile'));
+//       alert("Invalid file type. Please upload a PDF document.");
 //       return;
 //     }
 
@@ -912,7 +912,7 @@
 //   // Extract images from PDF using the Flask API
 //   const extractImages = async () => {
 //     if (!file) {
-//       alert(t('uploadFirst'));
+//       alert("Please upload a PDF file first");
 //       return;
 //     }
 
@@ -935,13 +935,13 @@
 
 //       if (!response.ok) {
 //         const errorData = await response.json();
-//         throw new Error(errorData.error || t('extractionError'));
+//         throw new Error(errorData.error || "Failed to extract images from PDF. Please try again.");
 //       }
 
 //       const data = await response.json();
 
 //       if (!data.success) {
-//         throw new Error(data.error || t('extractionError'));
+//         throw new Error(data.error || "Failed to extract images from PDF. Please try again.");
 //       }
 
 //       // Process the API response
@@ -966,7 +966,7 @@
 
 //     } catch (error) {
 //       console.error('PDF extraction error:', error);
-//       alert(error.message || t('extractionError'));
+//       alert(error.message || "Failed to extract images from PDF. Please try again.");
 //     } finally {
 //       setProcessing(false);
 //     }
@@ -1063,8 +1063,8 @@
 //   return (
 //     <div className={`pdf-image-extractor ${theme}`}>
 //       <div className="tool-header">
-//         <h1>{t('title')}</h1>
-//         <p>{t('subtitle')}</p>
+//         <h1>{"PDF Image Extractor"}</h1>
+//         <p>{"Extract images, diagrams, and graphics from your PDF documents"}</p>
 //       </div>
 
 //       <div className="extractor-container">
@@ -1079,10 +1079,10 @@
 //             {!file ? (
 //               <div className="upload-content">
 //                 <div className="upload-icon">📄</div>
-//                 <h3>{t('uploadArea')}</h3>
-//                 <p>{t('dragDrop')}</p>
-//                 <small>{t('supportedFormats')}</small>
-//                 <small>{t('maxSize')}</small>
+//                 <h3>{"Upload PDF Document"}</h3>
+//                 <p>{"Drag & drop your PDF here or click to browse"}</p>
+//                 <small>{"Supports: PDF documents"}</small>
+//                 <small>{"Max file size: 50MB"}</small>
 //               </div>
 //             ) : (
 //               <div className="file-preview">
@@ -1093,8 +1093,8 @@
 //                     <span>📏 {(file.size / 1024 / 1024).toFixed(2)} MB</span>
 //                     {pdfInfo && (
 //                       <>
-//                         <span>📑 {pdfInfo.pages} {t('pages')}</span>
-//                         <span>🖼️ {pdfInfo.images} {t('images')}</span>
+//                         <span>📑 {pdfInfo.pages} {"pages"}</span>
+//                         <span>🖼️ {pdfInfo.images} {"images"}</span>
 //                       </>
 //                     )}
 //                   </div>
@@ -1114,12 +1114,12 @@
 //         {/* Settings Section */}
 //         {file && (
 //           <div className="settings-section">
-//             <h3>{t('extractionSettings')}</h3>
+//             <h3>{"Extraction Settings"}</h3>
             
 //             <div className="settings-grid">
 //               {/* Format Selection */}
 //               <div className="setting-group">
-//                 <label>{t('outputFormat')}</label>
+//                 <label>{"Output Format"}</label>
 //                 <div className="format-options">
 //                   {formatOptions.map(format => (
 //                     <div
@@ -1138,7 +1138,7 @@
 
 //               {/* Quality Settings */}
 //               <div className="setting-group">
-//                 <label>{t('imageQuality')}</label>
+//                 <label>{"Image Quality"}</label>
 //                 <div className="quality-options">
 //                   {qualityOptions.map(quality => (
 //                     <div
@@ -1155,7 +1155,7 @@
 
 //               {/* Extraction Options */}
 //               <div className="setting-group">
-//                 <label>{t('extractionOptions')}</label>
+//                 <label>{"Extraction Options"}</label>
 //                 <div className="checkbox-options">
 //                   <label className="checkbox-label">
 //                     <input
@@ -1164,7 +1164,7 @@
 //                       onChange={(e) => setSettings(prev => ({ ...prev, extractAll: e.target.checked }))}
 //                     />
 //                     <span className="checkmark"></span>
-//                     {t('extractAllImages')}
+//                     {"Extract all images from PDF"}
 //                   </label>
                   
 //                   <label className="checkbox-label">
@@ -1174,18 +1174,18 @@
 //                       onChange={(e) => setSettings(prev => ({ ...prev, includeThumbnails: e.target.checked }))}
 //                     />
 //                     <span className="checkmark"></span>
-//                     {t('includeThumbnails')}
+//                     {"Include thumbnail images"}
 //                   </label>
 //                 </div>
 //               </div>
 
 //               {/* Advanced Settings */}
 //               <div className="setting-group">
-//                 <label>{t('advancedSettings')}</label>
+//                 <label>{"Advanced Settings"}</label>
 //                 <div className="advanced-options">
 //                   <div className="option-row">
 //                     <label>
-//                       {t('maxDimension')}: {settings.maxSize}px
+//                       {"Maximum Dimension"}: {settings.maxSize}px
 //                     </label>
 //                     <input
 //                       type="range"
@@ -1212,10 +1212,10 @@
 //                 {processing ? (
 //                   <>
 //                     <span className="spinner"></span>
-//                     {t('extracting')}
+//                     {"Extracting images..."}
 //                   </>
 //                 ) : (
-//                   `🔍 ${t('extractImages')}`
+//                   `🔍 ${"Extract Images"}`
 //                 )}
 //               </button>
               
@@ -1233,13 +1233,13 @@
 //           <div className="results-section">
 //             <div className="results-header">
 //               <div className="results-info">
-//                 <h3>{t('extractedImages')} ({extractedImages.length})</h3>
-//                 <p className="results-description">{t('resultsDescription')}</p>
+//                 <h3>{"Extracted Images"} ({extractedImages.length})</h3>
+//                 <p className="results-description">{"All images and diagrams found in your PDF"}</p>
 //               </div>
 //               <div className="results-actions">
 //                 <div className="selection-info">
 //                   {selectedImages.size > 0 && (
-//                     <span>{selectedImages.size} {t('selected')}</span>
+//                     <span>{selectedImages.size} {"selected"}</span>
 //                   )}
 //                 </div>
 //                 <div className="action-buttons">
@@ -1248,14 +1248,14 @@
 //                       onClick={() => downloadSelectedImages(Array.from(selectedImages))}
 //                       className="action-btn primary"
 //                     >
-//                       ⬇️ {t('downloadSelected')} ({selectedImages.size})
+//                       ⬇️ {"Download Selected"} ({selectedImages.size})
 //                     </button>
 //                   )}
 //                   <button onClick={downloadAllImages} className="action-btn secondary">
-//                     📦 {t('downloadAll')}
+//                     📦 {"Download All"}
 //                   </button>
 //                   <button onClick={selectAllImages} className="action-btn outline">
-//                     {selectedImages.size === extractedImages.length ? t('deselectAll') : t('selectAll')}
+//                     {selectedImages.size === extractedImages.length ? "Deselect All" : "Select All"}
 //                   </button>
 //                 </div>
 //               </div>
@@ -1293,7 +1293,7 @@
 //                           previewImage(image);
 //                         }}
 //                       >
-//                         🔍 {t('preview')}
+//                         🔍 {"Preview"}
 //                       </button>
 //                     </div>
 //                   </div>
@@ -1303,7 +1303,7 @@
 //                       <span className="image-format">{image.format.toUpperCase()}</span>
 //                     </div>
 //                     <div className="image-details">
-//                       <span className="image-page">📄 {t('page')} {image.page}</span>
+//                       <span className="image-page">📄 {"Page"} {image.page}</span>
 //                       <span className="image-size">💾 {image.size}</span>
 //                       <span className="image-dimensions">📐 {image.dimensions}</span>
 //                     </div>
@@ -1314,7 +1314,7 @@
 //                         downloadImage(image);
 //                       }}
 //                     >
-//                       ⬇️ {t('download')}
+//                       ⬇️ {"Download"}
 //                     </button>
 //                   </div>
 //                 </div>
@@ -1324,11 +1324,11 @@
 //             {/* Summary Section */}
 //             <div className="summary-section">
 //               <div className="summary-card">
-//                 <h4>📊 {t('extractionSummary')}</h4>
+//                 <h4>📊 {"Extraction Summary"}</h4>
 //                 <div className="summary-stats">
 //                   <div className="stat">
 //                     <span className="stat-value">{extractedImages.length}</span>
-//                     <span className="stat-label">{t('totalImages')}</span>
+//                     <span className="stat-label">{"Total Images"}</span>
 //                   </div>
 //                   <div className="stat">
 //                     <span className="stat-value">
@@ -1338,7 +1338,7 @@
 //                         return acc + size;
 //                       }, 0)} KB
 //                     </span>
-//                     <span className="stat-label">{t('totalSize')}</span>
+//                     <span className="stat-label">{"Total Size"}</span>
 //                   </div>
 //                   <div className="stat">
 //                     <span className="stat-value">
@@ -1347,13 +1347,13 @@
 //                         return isNaN(width) ? 0 : width;
 //                       }))}px
 //                     </span>
-//                     <span className="stat-label">{t('largestImage')}</span>
+//                     <span className="stat-label">{"Largest Image"}</span>
 //                   </div>
 //                   <div className="stat">
 //                     <span className="stat-value">
 //                       {new Set(extractedImages.map(img => img.page)).size}
 //                     </span>
-//                     <span className="stat-label">{t('pagesWithImages')}</span>
+//                     <span className="stat-label">{"Pages with Images"}</span>
 //                   </div>
 //                 </div>
 //               </div>
@@ -1363,7 +1363,7 @@
 
 //         {/* Tips Section */}
 //         <div className="tips-section">
-//           <h3>💡 {t('tips')}</h3>
+//           <h3>💡 {"Best Practices & Tips"}</h3>
 //           <div className="tips-list">
 //             <div className="tip-item">
 //               <span className="tip-icon">🤖</span>
@@ -1375,22 +1375,22 @@
 //             <div className="tip-item">
 //               <span className="tip-icon">🎯</span>
 //               <div>
-//                 <strong>{t('tip1Title')}</strong>
-//                 <p>{t('tip1Description')}</p>
+//                 <strong>{"High-Quality PDFs Work Best"}</strong>
+//                 <p>{"Use PDFs with high-resolution images for best extraction quality"}</p>
 //               </div>
 //             </div>
 //             <div className="tip-item">
 //               <span className="tip-icon">📐</span>
 //               <div>
-//                 <strong>{t('tip2Title')}</strong>
-//                 <p>{t('tip2Description')}</p>
+//                 <strong>{"Check Image Formats"}</strong>
+//                 <p>{"Different PDFs may contain various image formats (JPEG, PNG, vector graphics)"}</p>
 //               </div>
 //             </div>
 //             <div className="tip-item">
 //               <span className="tip-icon">⚡</span>
 //               <div>
-//                 <strong>{t('tip3Title')}</strong>
-//                 <p>{t('tip3Description')}</p>
+//                 <strong>{"Large PDFs Take Time"}</strong>
+//                 <p>{"Processing large PDFs with many images may take several minutes"}</p>
 //               </div>
 //             </div>
 //           </div>
@@ -1401,8 +1401,8 @@
 //           <div className="status-indicator">
 //             <div className={`status-dot ${processing ? 'processing' : extractedImages.length > 0 ? 'success' : 'ready'}`}></div>
 //             <span>
-//               {processing ? t('processingStatus') : 
-//                extractedImages.length > 0 ? t('successStatus') : t('readyStatus')}
+//               {processing ? "Extracting images from PDF..." : 
+//                extractedImages.length > 0 ? "Images extracted successfully" : "Ready to extract images"}
 //             </span>
 //           </div>
 //         </div>
@@ -1438,12 +1438,12 @@
 
 
 import React, { useState, useRef, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/PDFImageExtractor.css';
 
+const t = (key, fallback) => fallback ?? key;
+
 const PDFImageExtractor = () => {
-  const { t } = useTranslation('pdfImageExtractor');
   const { theme } = useTheme();
   
   const [file, setFile] = useState(null);
@@ -1466,17 +1466,17 @@ const PDFImageExtractor = () => {
 
   // Supported output formats - updated to match API
   const formatOptions = [
-    { value: 'original', label: t('originalFormat'), description: t('originalDescription') },
-    { value: 'jpg', label: 'JPG', description: t('jpgDescription') },
-    { value: 'jpeg', label: 'JPEG', description: t('jpgDescription') },
-    { value: 'png', label: 'PNG', description: t('pngDescription') }
+    { value: 'original', label: "Original Format", description: "Keep images in their original format from PDF" },
+    { value: 'jpg', label: 'JPG', description: "Convert to JPG for smaller file sizes" },
+    { value: 'jpeg', label: 'JPEG', description: "Convert to JPG for smaller file sizes" },
+    { value: 'png', label: 'PNG', description: "Convert to PNG with transparency support" }
   ];
 
   // Quality options - updated to match API exactly
   const qualityOptions = [
-    { value: 'high', label: t('highQuality'), description: t('highDescription') },
-    { value: 'medium', label: t('mediumQuality'), description: t('mediumDescription') },
-    { value: 'low', label: t('lowQuality'), description: t('lowDescription') },
+    { value: 'high', label: "High Quality", description: "Best quality, larger file size" },
+    { value: 'medium', label: "Medium Quality", description: "Good balance of quality and size" },
+    { value: 'low', label: "Low Quality", description: "Smaller files, lower quality" },
     { value: 'adaptive', label: t('adaptiveQuality'), description: t('adaptiveDescription') }
   ];
 
@@ -1485,12 +1485,12 @@ const PDFImageExtractor = () => {
     if (!uploadedFile) return;
     
     if (uploadedFile.size > 100 * 1024 * 1024) { // Increased to 100MB to match API capabilities
-      alert(t('fileTooLarge'));
+      alert("File too large. Maximum size is 50MB.");
       return;
     }
     
     if (uploadedFile.type !== 'application/pdf') {
-      alert(t('invalidFile'));
+      alert("Invalid file type. Please upload a PDF document.");
       return;
     }
 
@@ -1523,7 +1523,7 @@ const PDFImageExtractor = () => {
   // Extract images from PDF using the Flask API
   const extractImages = async () => {
     if (!file) {
-      alert(t('uploadFirst'));
+      alert("Please upload a PDF file first");
       return;
     }
 
@@ -1555,7 +1555,7 @@ const PDFImageExtractor = () => {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.error || t('extractionError'));
+        throw new Error(data.error || "Failed to extract images from PDF. Please try again.");
       }
 
       console.log('Extraction successful:', {
@@ -1586,7 +1586,7 @@ const PDFImageExtractor = () => {
 
     } catch (error) {
       console.error('PDF extraction error:', error);
-      alert(error.message || t('extractionError'));
+      alert(error.message || "Failed to extract images from PDF. Please try again.");
     } finally {
       setProcessing(false);
     }
@@ -1711,8 +1711,8 @@ const PDFImageExtractor = () => {
   return (
     <div className={`pdf-image-extractor ${theme}`}>
       <div className="tool-header">
-        <h1>{t('title')}</h1>
-        <p>{t('subtitle')}</p>
+        <h1>{"PDF Image Extractor"}</h1>
+        <p>{"Extract images, diagrams, and graphics from your PDF documents"}</p>
       </div>
 
       <div className="extractor-container">
@@ -1727,10 +1727,10 @@ const PDFImageExtractor = () => {
             {!file ? (
               <div className="upload-content">
                 <div className="upload-icon">📄</div>
-                <h3>{t('uploadArea')}</h3>
-                <p>{t('dragDrop')}</p>
-                <small>{t('supportedFormats')}</small>
-                <small>{t('maxSize')}</small>
+                <h3>{"Upload PDF Document"}</h3>
+                <p>{"Drag & drop your PDF here or click to browse"}</p>
+                <small>{"Supports: PDF documents"}</small>
+                <small>{"Max file size: 50MB"}</small>
               </div>
             ) : (
               <div className="file-preview">
@@ -1741,8 +1741,8 @@ const PDFImageExtractor = () => {
                     <span>📏 {(file.size / 1024 / 1024).toFixed(2)} MB</span>
                     {pdfInfo && (
                       <>
-                        <span>📑 {pdfInfo.pages} {t('pages')}</span>
-                        <span>🖼️ {pdfInfo.images} {t('images')}</span>
+                        <span>📑 {pdfInfo.pages} {"pages"}</span>
+                        <span>🖼️ {pdfInfo.images} {"images"}</span>
                       </>
                     )}
                   </div>
@@ -1771,12 +1771,12 @@ const PDFImageExtractor = () => {
         {/* Settings Section */}
         {file && (
           <div className="settings-section">
-            <h3>{t('extractionSettings')}</h3>
+            <h3>{"Extraction Settings"}</h3>
             
             <div className="settings-grid">
               {/* Format Selection */}
               <div className="setting-group">
-                <label>{t('outputFormat')}</label>
+                <label>{"Output Format"}</label>
                 <div className="format-options">
                   {formatOptions.map(format => (
                     <div
@@ -1795,7 +1795,7 @@ const PDFImageExtractor = () => {
 
               {/* Quality Settings */}
               <div className="setting-group">
-                <label>{t('imageQuality')}</label>
+                <label>{"Image Quality"}</label>
                 <div className="quality-options">
                   {qualityOptions.map(quality => (
                     <div
@@ -1812,7 +1812,7 @@ const PDFImageExtractor = () => {
 
               {/* Extraction Options */}
               <div className="setting-group">
-                <label>{t('extractionOptions')}</label>
+                <label>{"Extraction Options"}</label>
                 <div className="checkbox-options">
                   <label className="checkbox-label">
                     <input
@@ -1821,7 +1821,7 @@ const PDFImageExtractor = () => {
                       onChange={(e) => setSettings(prev => ({ ...prev, extractAll: e.target.checked }))}
                     />
                     <span className="checkmark"></span>
-                    {t('extractAllImages')}
+                    {"Extract all images from PDF"}
                     <small className="option-hint">{t('extractAllHint')}</small>
                   </label>
                   
@@ -1832,7 +1832,7 @@ const PDFImageExtractor = () => {
                       onChange={(e) => setSettings(prev => ({ ...prev, includeThumbnails: e.target.checked }))}
                     />
                     <span className="checkmark"></span>
-                    {t('includeThumbnails')}
+                    {"Include thumbnail images"}
                     <small className="option-hint">{t('thumbnailsHint')}</small>
                   </label>
                 </div>
@@ -1840,11 +1840,11 @@ const PDFImageExtractor = () => {
 
               {/* Advanced Settings */}
               <div className="setting-group">
-                <label>{t('advancedSettings')}</label>
+                <label>{"Advanced Settings"}</label>
                 <div className="advanced-options">
                   <div className="option-row">
                     <label htmlFor="maxSizeSlider">
-                      {t('maxDimension')}: <strong>{settings.maxSize}px</strong>
+                      {"Maximum Dimension"}: <strong>{settings.maxSize}px</strong>
                     </label>
                     <input
                       id="maxSizeSlider"
@@ -1876,12 +1876,12 @@ const PDFImageExtractor = () => {
                 {processing ? (
                   <>
                     <span className="spinner"></span>
-                    {t('extracting')}...
+                    {"Extracting images..."}...
                   </>
                 ) : (
                   <>
                     <span className="extract-icon">🔍</span>
-                    {t('extractImages')}
+                    {"Extract Images"}
                   </>
                 )}
               </button>
@@ -1903,13 +1903,13 @@ const PDFImageExtractor = () => {
           <div className="results-section">
             <div className="results-header">
               <div className="results-info">
-                <h3>{t('extractedImages')} ({extractedImages.length})</h3>
-                <p className="results-description">{t('resultsDescription')}</p>
+                <h3>{"Extracted Images"} ({extractedImages.length})</h3>
+                <p className="results-description">{"All images and diagrams found in your PDF"}</p>
               </div>
               <div className="results-actions">
                 <div className="selection-info">
                   {selectedImages.size > 0 && (
-                    <span className="selected-count">{selectedImages.size} {t('selected')}</span>
+                    <span className="selected-count">{selectedImages.size} {"selected"}</span>
                   )}
                 </div>
                 <div className="action-buttons">
@@ -1919,7 +1919,7 @@ const PDFImageExtractor = () => {
                       className="action-btn primary"
                       disabled={processing}
                     >
-                      ⬇️ {t('downloadSelected')} ({selectedImages.size})
+                      ⬇️ {"Download Selected"} ({selectedImages.size})
                     </button>
                   )}
                   <button 
@@ -1927,10 +1927,10 @@ const PDFImageExtractor = () => {
                     className="action-btn secondary"
                     disabled={processing}
                   >
-                    📦 {t('downloadAll')}
+                    📦 {"Download All"}
                   </button>
                   <button onClick={selectAllImages} className="action-btn outline">
-                    {selectedImages.size === extractedImages.length ? t('deselectAll') : t('selectAll')}
+                    {selectedImages.size === extractedImages.length ? "Deselect All" : "Select All"}
                   </button>
                   <button onClick={clearAll} className="action-btn danger">
                     🗑️ {t('clearAll')}
@@ -1972,7 +1972,7 @@ const PDFImageExtractor = () => {
                           previewImage(image);
                         }}
                       >
-                        🔍 {t('preview')}
+                        🔍 {"Preview"}
                       </button>
                       <button 
                         className="download-btn"
@@ -1993,7 +1993,7 @@ const PDFImageExtractor = () => {
                       <span className="image-name">{image.originalName}</span>
                     </div>
                     <div className="image-details">
-                      <span className="image-page">📄 {t('page')} {image.page}</span>
+                      <span className="image-page">📄 {"Page"} {image.page}</span>
                       <span className="image-size">💾 {image.size}</span>
                       <span className="image-dimensions">📐 {image.dimensions}</span>
                     </div>
@@ -2005,23 +2005,23 @@ const PDFImageExtractor = () => {
             {/* Summary Section */}
             <div className="summary-section">
               <div className="summary-card">
-                <h4>📊 {t('extractionSummary')}</h4>
+                <h4>📊 {"Extraction Summary"}</h4>
                 <div className="summary-stats">
                   <div className="stat">
                     <span className="stat-value">{extractedImages.length}</span>
-                    <span className="stat-label">{t('totalImages')}</span>
+                    <span className="stat-label">{"Total Images"}</span>
                   </div>
                   <div className="stat">
                     <span className="stat-value">{summary.totalSize}</span>
-                    <span className="stat-label">{t('totalSize')}</span>
+                    <span className="stat-label">{"Total Size"}</span>
                   </div>
                   <div className="stat">
                     <span className="stat-value">{summary.largestImage}</span>
-                    <span className="stat-label">{t('largestImage')}</span>
+                    <span className="stat-label">{"Largest Image"}</span>
                   </div>
                   <div className="stat">
                     <span className="stat-value">{summary.pagesWithImages}</span>
-                    <span className="stat-label">{t('pagesWithImages')}</span>
+                    <span className="stat-label">{"Pages with Images"}</span>
                   </div>
                 </div>
               </div>
@@ -2032,7 +2032,7 @@ const PDFImageExtractor = () => {
         {/* Tips Section */}
         {!extractedImages.length && (
           <div className="tips-section">
-            <h3>💡 {t('tips')}</h3>
+            <h3>💡 {"Best Practices & Tips"}</h3>
             <div className="tips-list">
               <div className="tip-item">
                 <span className="tip-icon">🤖</span>
@@ -2071,8 +2071,8 @@ const PDFImageExtractor = () => {
           <div className="status-indicator">
             <div className={`status-dot ${processing ? 'processing' : extractedImages.length > 0 ? 'success' : 'ready'}`}></div>
             <span>
-              {processing ? t('processingStatus') : 
-               extractedImages.length > 0 ? t('successStatus') : t('readyStatus')}
+              {processing ? "Extracting images from PDF..." : 
+               extractedImages.length > 0 ? "Images extracted successfully" : "Ready to extract images"}
             </span>
           </div>
           {extractedImages.length > 0 && (

@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+
 import { useTheme } from '../contexts/ThemeContext';
 import '../styles/HomePage.css';
 
@@ -9,7 +9,6 @@ import TestimonialsSection from './TestimonialsSection';
 import NewsletterSection from './NewsletterSection';
 
 const HomePage = () => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
 
   return (

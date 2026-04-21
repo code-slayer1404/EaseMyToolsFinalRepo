@@ -1,11 +1,11 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/unitconverter.css';
 
-const UnitConverter = () => {
-    const { t } = useTranslation("unitConverter"); // <-- i18next
+const t = (key, fallback) => fallback ?? key;
+
+const UnitConverter = () => { // <-- i18next
     const { theme } = useTheme();
     const [category, setCategory] = useState('length');
     const [fromUnit, setFromUnit] = useState('meter');
@@ -102,8 +102,8 @@ const UnitConverter = () => {
     return (
         <div className={`unit-converter ${theme}`}>
             <div className="converter-header">
-                <h1>{t('unitConverter:title', 'Unit Converter')}</h1>
-                <p>{t('unitConverter:subtitle', 'Convert between different units instantly')}</p>
+                <h1>{"Unit Converter"}</h1>
+                <p>{"Convert between different units instantly"}</p>
             </div>
 
             <div className="converter-container">
@@ -123,13 +123,13 @@ const UnitConverter = () => {
                 {/* Conversion Interface */}
                 <div className="conversion-interface">
                     <div className="input-section">
-                        <label>{t('unitConverter:from', 'From')}</label>
+                        <label>{"From"}</label>
                         <div className="input-group">
                             <input
                                 type="number"
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
-                                placeholder={t('unitConverter:enterValue', 'Enter value')}
+                                placeholder={"Enter value"}
                                 className="value-input"
                             />
                             <select
@@ -150,21 +150,21 @@ const UnitConverter = () => {
                     <button
                         className="swap-btn"
                         onClick={swapUnits}
-                        title={t('unitConverter:swap', 'Swap')}
+                        title={"Swap"}
                         disabled={!units.length}
                     >
                         ⇄
                     </button>
 
                     <div className="output-section">
-                        <label>{t('unitConverter:to', 'To')}</label>
+                        <label>{"To"}</label>
                         <div className="input-group">
                             <input
                                 type="text"
                                 value={result || ''}
                                 readOnly
                                 className="result-input"
-                                placeholder={t('unitConverter:result', 'Result')}
+                                placeholder={"Result"}
                             />
                             <select
                                 value={toUnit}
@@ -185,7 +185,7 @@ const UnitConverter = () => {
                 {/* Result Display */}
                 {result && result !== 'Error' && (
                     <div className="result-display">
-                        <h3>{t('unitConverter:result', 'Result')}:</h3>
+                        <h3>{"Result"}:</h3>
                         <p>
                             {inputValue} {getUnitLabel(fromUnit)} =
                             <strong> {result} {getUnitLabel(toUnit)}</strong>
@@ -195,13 +195,13 @@ const UnitConverter = () => {
 
                 {result === 'Error' && (
                     <div className="error-display">
-                        <p>⚠️ {t('unitConverter:convert', 'Conversion error. Please check your input.')}</p>
+                        <p>⚠️ {"Conversion error. Please check your input."}</p>
                     </div>
                 )}
 
                 {isConverting && (
                     <div className="loading-display">
-                        <p>⏳ {t('unitConverter:converting', 'Converting...')}</p>
+                        <p>⏳ {"Converting..."}</p>
                     </div>
                 )}
             </div>

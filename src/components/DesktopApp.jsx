@@ -1,31 +1,30 @@
-import { useTranslation } from 'react-i18next';
+
 import { useTheme } from '../contexts/ThemeContext';
 import '../styles/DesktopApp.module.css';
 
 const DesktopApp = () => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
 
   const features = [
     {
       icon: '⚡',
-      title: t('desktop.feature1.title', 'Native Performance'),
-      description: t('desktop.feature1.description', 'Lightning-fast performance with native desktop optimization')
+      title: "Native Performance",
+      description: "Lightning-fast performance with native desktop optimization"
     },
     {
       icon: '💾',
-      title: t('desktop.feature2.title', 'Offline Access'),
-      description: t('desktop.feature2.description', 'Use all tools without internet connection')
+      title: "Offline Access",
+      description: "Use all tools without internet connection"
     },
     {
       icon: '🖥️',
-      title: t('desktop.feature3.title', 'System Integration'),
-      description: t('desktop.feature3.description', 'Seamless integration with your operating system')
+      title: "System Integration",
+      description: "Seamless integration with your operating system"
     },
     {
       icon: '🔒',
-      title: t('desktop.feature4.title', 'Enhanced Security'),
-      description: t('desktop.feature4.description', 'Additional security features and local data storage')
+      title: "Enhanced Security",
+      description: "Additional security features and local data storage"
     }
   ];
 
@@ -33,26 +32,26 @@ const DesktopApp = () => {
     {
       os: 'Windows',
       icon: '🪟',
-      version: t('desktop.windows.version', 'Windows 10+'),
-      size: t('desktop.windows.size', '85 MB'),
+      version: "Windows 10+",
+      size: "85 MB",
       downloadUrl: '#',
-      instructions: t('desktop.windows.instructions', 'Download the .exe file and run the installer')
+      instructions: "Download the .exe file and run the installer"
     },
     {
       os: 'macOS',
       icon: '🍎',
-      version: t('desktop.macos.version', 'macOS 11.0+'),
-      size: t('desktop.macos.size', '105 MB'),
+      version: "macOS 11.0+",
+      size: "105 MB",
       downloadUrl: '#',
-      instructions: t('desktop.macos.instructions', 'Download the .dmg file and drag to Applications')
+      instructions: "Download the .dmg file and drag to Applications"
     },
     {
       os: 'Linux',
       icon: '🐧',
-      version: t('desktop.linux.version', 'Ubuntu 18.04+'),
-      size: t('desktop.linux.size', '92 MB'),
+      version: "Ubuntu 18.04+",
+      size: "92 MB",
       downloadUrl: '#',
-      instructions: t('desktop.linux.instructions', 'Download the .AppImage and make executable')
+      instructions: "Download the .AppImage and make executable"
     }
   ];
 
@@ -61,9 +60,9 @@ const DesktopApp = () => {
       <div className="desktop-container">
         <header className="desktop-header">
           <div className="header-content">
-            <h1>{t('desktop.title', 'EaseMyTools Desktop')}</h1>
+            <h1>{"EaseMyTools Desktop"}</h1>
             <p className="subtitle">
-              {t('desktop.subtitle', 'Get the full power of EaseMyTools on your desktop. Faster, more secure, and works offline.')}
+              {"Get the full power of EaseMyTools on your desktop. Faster, more secure, and works offline."}
             </p>
             <div className="download-badges">
               {downloadOptions.map((option, index) => (
@@ -118,7 +117,7 @@ const DesktopApp = () => {
         </header>
 
         <section className="desktop-features">
-          <h2>{t('desktop.featuresTitle', 'Desktop Exclusive Features')}</h2>
+          <h2>{"Desktop Exclusive Features"}</h2>
           <div className="features-grid">
             {features.map((feature, index) => (
               <div key={index} className="feature-card">
@@ -131,7 +130,7 @@ const DesktopApp = () => {
         </section>
 
         <section className="download-section">
-          <h2>{t('desktop.downloadTitle', 'Download for Your Platform')}</h2>
+          <h2>{"Download for Your Platform"}</h2>
           <div className="download-grid">
             {downloadOptions.map((option, index) => (
               <div key={index} className="download-card">
@@ -143,7 +142,7 @@ const DesktopApp = () => {
                   </div>
                 </div>
                 <div className="download-details">
-                  <p className="file-size">{t('desktop.fileSize', 'File size:')} {option.size}</p>
+                  <p className="file-size">{"File size:"} {option.size}</p>
                   <p className="instructions">{option.instructions}</p>
                 </div>
                 <a
@@ -152,7 +151,7 @@ const DesktopApp = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {t('desktop.download', 'Download for')} {option.os}
+                  {"Download for"} {option.os}
                 </a>
               </div>
             ))}
@@ -161,8 +160,8 @@ const DesktopApp = () => {
 
         <section className="desktop-cta">
           <div className="cta-content">
-            <h2>{t('desktop.ctaTitle', 'Ready to Boost Your Productivity?')}</h2>
-            <p>{t('desktop.ctaText', 'Download the desktop app and experience the full power of EaseMyTools')}</p>
+            <h2>{"Ready to Boost Your Productivity?"}</h2>
+            <p>{"Download the desktop app and experience the full power of EaseMyTools"}</p>
             <div className="cta-buttons">
               {downloadOptions.map((option, index) => (
                 <a
@@ -173,7 +172,7 @@ const DesktopApp = () => {
                   rel="noopener noreferrer"
                 >
                   <span className="button-icon">{option.icon}</span>
-                  {t('desktop.download', 'Download for')} {option.os}
+                  {"Download for"} {option.os}
                 </a>
               ))}
             </div>

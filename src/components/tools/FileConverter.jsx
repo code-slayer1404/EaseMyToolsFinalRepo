@@ -1,5 +1,5 @@
 // import React, { useState, useRef, useCallback } from 'react';
-// import { useTranslation } from 'react-i18next';
+// 
 // import { useTheme } from '../../contexts/ThemeContext';
 // import '../../styles/tools/FileConverter.css';
 
@@ -92,11 +92,11 @@
 //         try {
 //             data = JSON.parse(jsonText);
 //         } catch (e) {
-//             throw new Error(t('errors.invalidJson'));
+//             throw new Error("Invalid JSON format");
 //         }
 
 //         if (!Array.isArray(data) || data.length === 0) {
-//             throw new Error(t('errors.invalidJson'));
+//             throw new Error("Invalid JSON format");
 //         }
 
 //         const headers = Object.keys(data[0]);
@@ -179,7 +179,7 @@
 //                     break;
                     
 //                 default:
-//                     throw new Error(t('errors.invalidFile'));
+//                     throw new Error("Invalid file format");
 //             }
 
 //             setConvertedContent(result);
@@ -188,7 +188,7 @@
 //         } catch (error) {
 //             console.error('Conversion error:', error);
 //             setConverting(false);
-//             alert(error.message || t('errors.conversionFailed'));
+//             alert(error.message || "Conversion failed");
 //         }
 //     };
 
@@ -196,13 +196,13 @@
 //         if (!uploadedFile) return;
 
 //         if (uploadedFile.size > 10 * 1024 * 1024) {
-//             alert(t('errors.fileTooLarge'));
+//             alert("File too large (max 10MB)");
 //             return;
 //         }
 
 //         const format = detectFileFormat(uploadedFile);
 //         if (!format) {
-//             alert(t('errors.invalidFile'));
+//             alert("Invalid file format");
 //             return;
 //         }
 
@@ -253,7 +253,7 @@
 
 //         } catch (error) {
 //             console.error('File reading error:', error);
-//             alert(t('errors.conversionFailed'));
+//             alert("Conversion failed");
 //         }
 //     }, [t, conversionSettings.csvDelimiter]);
 
@@ -326,16 +326,16 @@
 //     ];
 
 //     const delimiterOptions = [
-//         { value: ',', label: t('comma') },
-//         { value: ';', label: t('semicolon') },
-//         { value: '\t', label: t('tab') }
+//         { value: ',', label: "Comma" },
+//         { value: ';', label: "Semicolon" },
+//         { value: '\t', label: "Tab" }
 //     ];
 
 //     return (
 //         <div className={`file-converter ${theme}`}>
 //             <div className="tool-header">
-//                 <h1>{t('title')}</h1>
-//                 <p>{t('subtitle')}</p>
+//                 <h1>{"File Format Converter"}</h1>
+//                 <p>{"Convert between CSV, Excel, and JSON formats seamlessly"}</p>
 //             </div>
 
 //             <div className="converter-container">
@@ -348,10 +348,10 @@
 //                     >
 //                         <div className="upload-content">
 //                             <div className="upload-icon">📁</div>
-//                             <h3>{t('uploadArea')}</h3>
-//                             <p>{t('dragDrop')}</p>
-//                             <small>{t('supportedFormats')}</small>
-//                             <small>{t('maxSize')}</small>
+//                             <h3>{"Drop your file here or click to browse"}</h3>
+//                             <p>{"Drag & drop your file here"}</p>
+//                             <small>{"Supported formats: CSV, XLSX, JSON"}</small>
+//                             <small>{"Max file size: 10MB"}</small>
 //                         </div>
 //                         <input
 //                             ref={fileInputRef}
@@ -364,29 +364,29 @@
 
 //                     {file && (
 //                         <div className="file-info-card">
-//                             <h4>{t('fileInfo')}</h4>
+//                             <h4>{"File Information"}</h4>
 //                             <div className="info-grid">
 //                                 <div className="info-item">
-//                                     <label>{t('fileName')}:</label>
+//                                     <label>{"Name"}:</label>
 //                                     <span>{fileInfo.name}</span>
 //                                 </div>
 //                                 <div className="info-item">
-//                                     <label>{t('fileSize')}:</label>
+//                                     <label>{"Size"}:</label>
 //                                     <span>{(fileInfo.size / 1024).toFixed(2)} KB</span>
 //                                 </div>
 //                                 <div className="info-item">
-//                                     <label>{t('fileType')}:</label>
+//                                     <label>{"Type"}:</label>
 //                                     <span>{fileInfo.type}</span>
 //                                 </div>
 //                                 {fileInfo.rows !== undefined && (
 //                                     <div className="info-item">
-//                                         <label>{t('rows')}:</label>
+//                                         <label>{"Rows"}:</label>
 //                                         <span>{fileInfo.rows}</span>
 //                                     </div>
 //                                 )}
 //                                 {fileInfo.columns !== undefined && (
 //                                     <div className="info-item">
-//                                         <label>{t('columns')}:</label>
+//                                         <label>{"Columns"}:</label>
 //                                         <span>{fileInfo.columns}</span>
 //                                     </div>
 //                                 )}
@@ -399,7 +399,7 @@
 //                     <div className="conversion-section">
 //                         <div className="format-selection">
 //                             <div className="format-group">
-//                                 <label>{t('originalFormat')}</label>
+//                                 <label>{"Original Format"}</label>
 //                                 <div className="format-display">
 //                                     <span className="format-badge">{fileInfo.type}</span>
 //                                 </div>
@@ -408,7 +408,7 @@
 //                             <div className="conversion-arrow">→</div>
                             
 //                             <div className="format-group">
-//                                 <label>{t('targetFormat')}</label>
+//                                 <label>{"Convert To"}</label>
 //                                 <select
 //                                     value={conversionSettings.targetFormat}
 //                                     onChange={(e) => setConversionSettings(prev => ({
@@ -429,12 +429,12 @@
 //                         </div>
 
 //                         <div className="settings-section">
-//                             <h4>{t('conversionOptions')}</h4>
+//                             <h4>{"Conversion Options"}</h4>
                             
 //                             <div className="settings-grid">
 //                                 {(fileInfo.originalFormat === 'csv' || conversionSettings.targetFormat === 'csv') && (
 //                                     <div className="setting-group">
-//                                         <label>{t('csvDelimiter')}</label>
+//                                         <label>{"CSV Delimiter"}</label>
 //                                         <select
 //                                             value={conversionSettings.csvDelimiter}
 //                                             onChange={(e) => setConversionSettings(prev => ({
@@ -453,7 +453,7 @@
 
 //                                 {conversionSettings.targetFormat === 'json' && (
 //                                     <div className="setting-group">
-//                                         <label>{t('jsonFormat')}</label>
+//                                         <label>{"JSON Format"}</label>
 //                                         <select
 //                                             value={conversionSettings.jsonFormat}
 //                                             onChange={(e) => setConversionSettings(prev => ({
@@ -461,8 +461,8 @@
 //                                                 jsonFormat: e.target.value
 //                                             }))}
 //                                         >
-//                                             <option value="pretty">{t('prettyPrint')}</option>
-//                                             <option value="minified">{t('minified')}</option>
+//                                             <option value="pretty">{"Pretty Print"}</option>
+//                                             <option value="minified">{"Minified"}</option>
 //                                         </select>
 //                                     </div>
 //                                 )}
@@ -478,14 +478,14 @@
 //                                                     includeHeaders: e.target.checked
 //                                                 }))}
 //                                             />
-//                                             {t('includeHeaders')}
+//                                             {"Include Headers"}
 //                                         </label>
 //                                     </div>
 //                                 )}
 
 //                                 {conversionSettings.targetFormat === 'excel' && (
 //                                     <div className="setting-group">
-//                                         <label>{t('sheetName')}</label>
+//                                         <label>{"Sheet Name"}</label>
 //                                         <input
 //                                             type="text"
 //                                             value={conversionSettings.sheetName}
@@ -506,10 +506,10 @@
 //                                 className={`primary-btn ${converting ? 'converting' : ''}`}
 //                                 disabled={converting}
 //                             >
-//                                 {converting ? t('converting') : t('convert')}
+//                                 {converting ? "Converting..." : "Convert File"}
 //                             </button>
 //                             <button onClick={clearAll} className="secondary-btn">
-//                                 {t('clear')}
+//                                 {"Clear All"}
 //                             </button>
 //                         </div>
 //                     </div>
@@ -517,11 +517,11 @@
 
 //                 {(originalContent || convertedContent) && (
 //                     <div className="preview-section">
-//                         <h3>{t('preview')}</h3>
+//                         <h3>{"Preview"}</h3>
 //                         <div className="preview-container">
 //                             {originalContent && (
 //                                 <div className="preview-item">
-//                                     <h4>{t('original')}</h4>
+//                                     <h4>{"Original File"}</h4>
 //                                     <div className="preview-content">
 //                                         <pre>{originalContent.substring(0, 1000)}</pre>
 //                                         {originalContent.length > 1000 && (
@@ -532,7 +532,7 @@
 //                             )}
 //                             {convertedContent && (
 //                                 <div className="preview-item">
-//                                     <h4>{t('converted')}</h4>
+//                                     <h4>{"Converted File"}</h4>
 //                                     <div className="preview-content">
 //                                         <pre>{convertedContent.substring(0, 1000)}</pre>
 //                                         {convertedContent.length > 1000 && (
@@ -541,10 +541,10 @@
 //                                     </div>
 //                                     <div className="conversion-actions">
 //                                         <button onClick={downloadFile} className="download-btn">
-//                                             {t('download')}
+//                                             {"Download Converted File"}
 //                                         </button>
 //                                         <div className="success-message">
-//                                             ✓ {t('success.conversionComplete')}
+//                                             ✓ {"Conversion complete!"}
 //                                         </div>
 //                                     </div>
 //                                 </div>
@@ -554,13 +554,13 @@
 //                 )}
 
 //                 <div className="tips-section">
-//                     <h3>💡 {t('tips.title')}</h3>
+//                     <h3>💡 {"Conversion Tips"}</h3>
 //                     <div className="tips-list">
-//                         <li>{t('tips.csvToJson')}</li>
-//                         <li>{t('tips.jsonToCsv')}</li>
-//                         <li>{t('tips.excelTips')}</li>
-//                         <li>{t('tips.largeFiles')}</li>
-//                         <li>{t('tips.validation')}</li>
+//                         <li>{"CSV to JSON: First row becomes keys"}</li>
+//                         <li>{"JSON to CSV: Arrays of objects work best"}</li>
+//                         <li>{"Excel: Supports multiple sheets in XLSX"}</li>
+//                         <li>{"Large files may take longer to process"}</li>
+//                         <li>{"Invalid formats will show errors"}</li>
 //                     </div>
 //                 </div>
 //             </div>
@@ -573,12 +573,10 @@
 
 
 import React, { useState, useRef, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/FileConverter.css';
 
 const FileConverter = () => {
-    const { t } = useTranslation('fileConverter');
     const { theme } = useTheme();
     
     const [file, setFile] = useState(null);
@@ -650,14 +648,14 @@ const FileConverter = () => {
         try {
             const { data } = parseCSV(csvText, delimiter);
             if (data.length === 0) {
-                throw new Error(t('errors.emptyFile'));
+                throw new Error("File is empty");
             }
             
             return conversionSettings.jsonFormat === 'pretty' 
                 ? JSON.stringify(data, null, 2)
                 : JSON.stringify(data);
         } catch (error) {
-            throw new Error(t('errors.invalidCsv'));
+            throw new Error("Invalid CSV format");
         }
     };
 
@@ -666,11 +664,11 @@ const FileConverter = () => {
         try {
             data = JSON.parse(jsonText);
         } catch (e) {
-            throw new Error(t('errors.invalidJson'));
+            throw new Error("Invalid JSON format");
         }
 
         if (!Array.isArray(data) || data.length === 0) {
-            throw new Error(t('errors.invalidJson'));
+            throw new Error("Invalid JSON format");
         }
 
         const headers = Object.keys(data[0]);
@@ -710,7 +708,7 @@ const FileConverter = () => {
 
     const performConversion = async () => {
         if (!file) {
-            alert(t('noFile'));
+            alert("Please select a file first");
             return;
         }
 
@@ -749,7 +747,7 @@ const FileConverter = () => {
                     break;
                     
                 default:
-                    throw new Error(t('errors.invalidFile'));
+                    throw new Error("Invalid file format");
             }
 
             setConvertedContent(result);
@@ -758,7 +756,7 @@ const FileConverter = () => {
         } catch (error) {
             console.error('Conversion error:', error);
             setConverting(false);
-            alert(error.message || t('errors.conversionFailed'));
+            alert(error.message || "Conversion failed");
         }
     };
 
@@ -766,13 +764,13 @@ const FileConverter = () => {
         if (!uploadedFile) return;
 
         if (uploadedFile.size > 10 * 1024 * 1024) {
-            alert(t('errors.fileTooLarge'));
+            alert("File too large (max 10MB)");
             return;
         }
 
         const format = detectFileFormat(uploadedFile);
         if (!format) {
-            alert(t('errors.invalidFile'));
+            alert("Invalid file format");
             return;
         }
 
@@ -823,7 +821,7 @@ const FileConverter = () => {
 
         } catch (error) {
             console.error('File reading error:', error);
-            alert(t('errors.conversionFailed'));
+            alert("Conversion failed");
         }
     }, [t, conversionSettings.csvDelimiter]);
 
@@ -896,16 +894,16 @@ const FileConverter = () => {
     ];
 
     const delimiterOptions = [
-        { value: ',', label: t('comma') },
-        { value: ';', label: t('semicolon') },
-        { value: '\t', label: t('tab') }
+        { value: ',', label: "Comma" },
+        { value: ';', label: "Semicolon" },
+        { value: '\t', label: "Tab" }
     ];
 
     return (
         <div className={`file-converter ${theme}`}>
             <div className="tool-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"File Format Converter"}</h1>
+                <p>{"Convert between CSV, Excel, and JSON formats seamlessly"}</p>
             </div>
 
             <div className="converter-container">
@@ -918,10 +916,10 @@ const FileConverter = () => {
                     >
                         <div className="upload-content">
                             <div className="upload-icon">📁</div>
-                            <h3>{t('uploadArea')}</h3>
-                            <p>{t('dragDrop')}</p>
-                            <small>{t('supportedFormats')}</small>
-                            <small>{t('maxSize')}</small>
+                            <h3>{"Drop your file here or click to browse"}</h3>
+                            <p>{"Drag & drop your file here"}</p>
+                            <small>{"Supported formats: CSV, XLSX, JSON"}</small>
+                            <small>{"Max file size: 10MB"}</small>
                         </div>
                         <input
                             ref={fileInputRef}
@@ -934,29 +932,29 @@ const FileConverter = () => {
 
                     {file && (
                         <div className="file-info-card">
-                            <h4>{t('fileInfo')}</h4>
+                            <h4>{"File Information"}</h4>
                             <div className="info-grid">
                                 <div className="info-item">
-                                    <label>{t('fileName')}:</label>
+                                    <label>{"Name"}:</label>
                                     <span>{fileInfo.name}</span>
                                 </div>
                                 <div className="info-item">
-                                    <label>{t('fileSize')}:</label>
+                                    <label>{"Size"}:</label>
                                     <span>{(fileInfo.size / 1024).toFixed(2)} KB</span>
                                 </div>
                                 <div className="info-item">
-                                    <label>{t('fileType')}:</label>
+                                    <label>{"Type"}:</label>
                                     <span className="format-badge">{fileInfo.type}</span>
                                 </div>
                                 {fileInfo.rows !== undefined && (
                                     <div className="info-item">
-                                        <label>{t('rows')}:</label>
+                                        <label>{"Rows"}:</label>
                                         <span>{fileInfo.rows}</span>
                                     </div>
                                 )}
                                 {fileInfo.columns !== undefined && (
                                     <div className="info-item">
-                                        <label>{t('columns')}:</label>
+                                        <label>{"Columns"}:</label>
                                         <span>{fileInfo.columns}</span>
                                     </div>
                                 )}
@@ -969,7 +967,7 @@ const FileConverter = () => {
                     <div className="conversion-section">
                         <div className="format-selection">
                             <div className="format-group">
-                                <label>{t('originalFormat')}</label>
+                                <label>{"Original Format"}</label>
                                 <div className="format-display">
                                     <span className="format-badge">{fileInfo.type}</span>
                                 </div>
@@ -978,7 +976,7 @@ const FileConverter = () => {
                             <div className="conversion-arrow">→</div>
                             
                             <div className="format-group">
-                                <label>{t('targetFormat')}</label>
+                                <label>{"Convert To"}</label>
                                 <select
                                     value={conversionSettings.targetFormat}
                                     onChange={(e) => setConversionSettings(prev => ({
@@ -1000,12 +998,12 @@ const FileConverter = () => {
                         </div>
 
                         <div className="settings-section">
-                            <h4>{t('conversionOptions')}</h4>
+                            <h4>{"Conversion Options"}</h4>
                             
                             <div className="settings-grid">
                                 {(fileInfo.originalFormat === 'csv' || conversionSettings.targetFormat === 'csv') && (
                                     <div className="setting-group">
-                                        <label>{t('csvDelimiter')}</label>
+                                        <label>{"CSV Delimiter"}</label>
                                         <select
                                             value={conversionSettings.csvDelimiter}
                                             onChange={(e) => setConversionSettings(prev => ({
@@ -1024,7 +1022,7 @@ const FileConverter = () => {
 
                                 {conversionSettings.targetFormat === 'json' && (
                                     <div className="setting-group">
-                                        <label>{t('jsonFormat')}</label>
+                                        <label>{"JSON Format"}</label>
                                         <select
                                             value={conversionSettings.jsonFormat}
                                             onChange={(e) => setConversionSettings(prev => ({
@@ -1032,8 +1030,8 @@ const FileConverter = () => {
                                                 jsonFormat: e.target.value
                                             }))}
                                         >
-                                            <option value="pretty">{t('prettyPrint')}</option>
-                                            <option value="minified">{t('minified')}</option>
+                                            <option value="pretty">{"Pretty Print"}</option>
+                                            <option value="minified">{"Minified"}</option>
                                         </select>
                                     </div>
                                 )}
@@ -1050,14 +1048,14 @@ const FileConverter = () => {
                                                 }))}
                                             />
                                             <span className="checkmark"></span>
-                                            {t('includeHeaders')}
+                                            {"Include Headers"}
                                         </label>
                                     </div>
                                 )}
 
                                 {conversionSettings.targetFormat === 'excel' && (
                                     <div className="setting-group">
-                                        <label>{t('sheetName')}</label>
+                                        <label>{"Sheet Name"}</label>
                                         <input
                                             type="text"
                                             value={conversionSettings.sheetName}
@@ -1078,10 +1076,10 @@ const FileConverter = () => {
                                 className={`primary-btn ${converting ? 'converting' : ''}`}
                                 disabled={converting || !file}
                             >
-                                {converting ? t('converting') : t('convert')}
+                                {converting ? "Converting..." : "Convert File"}
                             </button>
                             <button onClick={clearAll} className="secondary-btn">
-                                {t('clear')}
+                                {"Clear All"}
                             </button>
                         </div>
                     </div>
@@ -1089,11 +1087,11 @@ const FileConverter = () => {
 
                 {(originalContent || convertedContent) && (
                     <div className="preview-section">
-                        <h3>{t('preview')}</h3>
+                        <h3>{"Preview"}</h3>
                         <div className="preview-container">
                             {originalContent && (
                                 <div className="preview-item">
-                                    <h4>{t('original')}</h4>
+                                    <h4>{"Original File"}</h4>
                                     <div className="preview-content">
                                         <pre>{originalContent.substring(0, 500)}</pre>
                                         {originalContent.length > 500 && (
@@ -1104,7 +1102,7 @@ const FileConverter = () => {
                             )}
                             {convertedContent && (
                                 <div className="preview-item">
-                                    <h4>{t('converted')}</h4>
+                                    <h4>{"Converted File"}</h4>
                                     <div className="preview-content">
                                         <pre>{convertedContent.substring(0, 500)}</pre>
                                         {convertedContent.length > 500 && (
@@ -1113,10 +1111,10 @@ const FileConverter = () => {
                                     </div>
                                     <div className="conversion-actions">
                                         <button onClick={downloadFile} className="download-btn">
-                                            {t('download')}
+                                            {"Download Converted File"}
                                         </button>
                                         <div className="success-message">
-                                            ✓ {t('success.conversionComplete')}
+                                            ✓ {"Conversion complete!"}
                                         </div>
                                     </div>
                                 </div>
@@ -1126,13 +1124,13 @@ const FileConverter = () => {
                 )}
 
                 <div className="tips-section">
-                    <h3>💡 {t('tips.title')}</h3>
+                    <h3>💡 {"Conversion Tips"}</h3>
                     <div className="tips-list">
-                        <li>{t('tips.csvToJson')}</li>
-                        <li>{t('tips.jsonToCsv')}</li>
-                        <li>{t('tips.excelTips')}</li>
-                        <li>{t('tips.largeFiles')}</li>
-                        <li>{t('tips.validation')}</li>
+                        <li>{"CSV to JSON: First row becomes keys"}</li>
+                        <li>{"JSON to CSV: Arrays of objects work best"}</li>
+                        <li>{"Excel: Supports multiple sheets in XLSX"}</li>
+                        <li>{"Large files may take longer to process"}</li>
+                        <li>{"Invalid formats will show errors"}</li>
                     </div>
                 </div>
             </div>

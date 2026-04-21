@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/TextDiffChecker.css';
 
+const t = (key, fallback) => fallback ?? key;
+
 const TextDiffChecker = () => {
-    const { t } = useTranslation('textDiff');
     const { theme } = useTheme();
     const [text1, setText1] = useState('');
     const [text2, setText2] = useState('');

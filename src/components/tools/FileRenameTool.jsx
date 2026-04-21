@@ -1,10 +1,10 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/FileRenameTool.css';
 
+const t = (key, fallback) => fallback ?? key;
+
 const FileRenameTool = () => {
-  const { t } = useTranslation('fileRenameTool');
   const { theme } = useTheme();
   
   const [files, setFiles] = useState([]);

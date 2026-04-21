@@ -80,8 +80,7 @@
 
 // import "../styles/Footer.css";
 // import { useTheme } from "../contexts/ThemeContext";
-// import LanguageSelector from "./LanguageSelector";
-
+// 
 // const Footer = () => {
 //   const { theme } = useTheme();
 
@@ -160,64 +159,60 @@
 
 
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import "../styles/Footer.css";
 import { useTheme } from "../contexts/ThemeContext";
-import LanguageSelector from "./LanguageSelector";
 
 const Footer = () => {
   console.log("Footer was rendered");
   
   const { theme } = useTheme();
-  const { t } = useTranslation();
 
   return (
     <footer className={`footer ${theme}`}>
       <div className="footer-container">
         <div className="footer-column">
           <h4>PRODUCT</h4>
-          <Link to="/" >{t('footer.home', 'Home')}</Link>
-          <Link to="/features" >{t('footer.features', 'Features')}</Link>
-          <Link to="/pricing" >{t('footer.pricing', 'Pricing')}</Link>
-          <Link to="/tools" >{t('footer.tools', 'Tools')}</Link>
-          <Link to="/faq" >{t('footer.faq', 'FAQ')}</Link>
+          <Link to="/" >{"Home"}</Link>
+          <Link to="/features" >{"Features"}</Link>
+          <Link to="/pricing" >{"Pricing"}</Link>
+          <Link to="/tools" >{"Tools"}</Link>
+          <Link to="/faq" >{"FAQ"}</Link>
         </div>
 
         <div className="footer-column">
           <h4>RESOURCES</h4>
-          <Link to="/desktop" >{t('footer.desktop', 'EaseMyTools Desktop')}</Link>
-          <Link to="/mobile" >{t('footer.mobile', 'EaseMyTools Mobile')}</Link>
-          <Link to="/api" >{t('footer.api', 'API')}</Link>
-          <Link to="/docs" >{t('footer.documentation', 'Documentation')}</Link>
+          <Link to="/desktop" >{"EaseMyTools Desktop"}</Link>
+          <Link to="/mobile" >{"EaseMyTools Mobile"}</Link>
+          <Link to="/api" >{"API"}</Link>
+          <Link to="/docs" >{"Documentation"}</Link>
         </div>
 
         <div className="footer-column">
           <h4>SOLUTIONS</h4>
-          <Link to="/business" >{t('footer.business', 'Business')}</Link>
-          <Link to="/education" onClick={()=>{window.scrollTo({top:0, behavior:"smooth"})}}>{t('footer.education', 'Education')}</Link>
+          <Link to="/business" >{"Business"}</Link>
+          <Link to="/education" onClick={()=>{window.scrollTo({top:0, behavior:"smooth"})}}>{"Education"}</Link>
         </div>
 
         <div className="footer-column">
           <h4>LEGAL</h4>
-          <Link to="/security" >{t('footer.security', 'Security')}</Link>
-          <Link to="/privacy-policy" >{t('footer.privacy', 'Privacy Policy')}</Link>
-          <Link to="/terms-conditions" >{t('footer.terms', 'Terms & Conditions')}</Link>
-          <Link to="/cookie-policy" >{t('footer.cookies', 'Cookie Policy')}</Link>
+          <Link to="/security" >{"Security"}</Link>
+          <Link to="/privacy-policy" >{"Privacy Policy"}</Link>
+          <Link to="/terms-conditions" >{"Terms & Conditions"}</Link>
+          <Link to="/cookie-policy" >{"Cookie Policy"}</Link>
         </div>
 
         <div className="footer-column">
           <h4>COMPANY</h4>
-          <Link to="/about" >{t('footer.about', 'About Us')}</Link>
-          <Link to="/contact" >{t('footer.contact', 'Contact Us')}</Link>
-          <Link to="/blog" >{t('footer.blog', 'Blog')}</Link>
-          <Link to="/press" >{t('footer.press', 'Press')}</Link>
+          <Link to="/about" >{"About Us"}</Link>
+          <Link to="/contact" >{"Contact Us"}</Link>
+          <Link to="/blog" >{"Blog"}</Link>
+          <Link to="/press" >{"Press"}</Link>
         </div>
       </div>
 
       <hr className="footer-divider" />
 
       <div className="footer-bottom">
-        <LanguageSelector />
 
         <div className="footer-social">
           <Link to="https://twitter.com/easemytools" target="_blank" rel="noopener noreferrer" title="Twitter">
@@ -238,7 +233,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-copy">
-          © {new Date().getFullYear()} EaseMyTools — {t('footer.rights', 'All Rights Reserved')}
+          © {new Date().getFullYear()} EaseMyTools — {"All Rights Reserved"}
         </div>
       </div>
     </footer>

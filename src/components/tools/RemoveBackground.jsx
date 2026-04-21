@@ -1,5 +1,5 @@
 // import React, { useState, useRef, useCallback } from 'react';
-// import { useTranslation } from 'react-i18next';
+// 
 // import { useTheme } from '../../contexts/ThemeContext';
 // import '../../styles/tools/RemoveBackground.css';
 
@@ -23,7 +23,7 @@
 
 //     const removeBackground = async () => {
 //         if (!file) {
-//             alert(t('noFile'));
+//             alert("Please select a file first");
 //             return;
 //         }
 
@@ -45,7 +45,7 @@
 
 //             if (!response.ok) {
 //                 const errorData = await response.json();
-//                 throw new Error(errorData.error || t('processingError'));
+//                 throw new Error(errorData.error || "Failed to remove background");
 //             }
 
 //             const blob = await response.blob();
@@ -57,7 +57,7 @@
 //         } catch (error) {
 //             console.error('Background removal error:', error);
 //             setProcessing(false);
-//             alert(error.message || t('processingError'));
+//             alert(error.message || "Failed to remove background");
 //         }
 //     };
 
@@ -65,12 +65,12 @@
 //         if (!uploadedFile) return;
 
 //         if (uploadedFile.size > 10 * 1024 * 1024) {
-//             alert(t('fileTooLarge'));
+//             alert("File is too large. Maximum size is 10MB");
 //             return;
 //         }
 
 //         if (!uploadedFile.type.startsWith('image/')) {
-//             alert(t('invalidFile'));
+//             alert("Please upload a valid image file");
 //             return;
 //         }
 
@@ -107,7 +107,7 @@
 //         if (!processedImage) return;
 
 //         const link = document.createElement('a');
-//         const fileName = `${t('downloadFileName')}-${Date.now()}.png`;
+//         const fileName = `${"no-bg-image"}-${Date.now()}.png`;
         
 //         link.download = fileName;
 //         link.href = processedImage;
@@ -146,8 +146,8 @@
 //     return (
 //         <div className={`remove-background ${theme}`}>
 //             <div className="tool-header">
-//                 <h1>{t('title')}</h1>
-//                 <p>{t('subtitle')}</p>
+//                 <h1>{"Background Remover"}</h1>
+//                 <p>{"Remove background from images automatically with AI"}</p>
 //             </div>
 
 //             <div className="remover-container">
@@ -160,10 +160,10 @@
 //                     >
 //                         <div className="upload-content">
 //                             <div className="upload-icon">🖼️</div>
-//                             <h3>{t('uploadArea')}</h3>
-//                             <p>{t('dragDrop')}</p>
-//                             <small>{t('supportedFormats')}</small>
-//                             <small>{t('maxSize')}</small>
+//                             <h3>{"Upload Image"}</h3>
+//                             <p>{"Drag & drop your image here or click to browse"}</p>
+//                             <small>{"Supported formats: PNG, JPG, JPEG, WebP"}</small>
+//                             <small>{"Max file size: 10MB"}</small>
 //                         </div>
 //                         <input
 //                             ref={fileInputRef}
@@ -179,9 +179,9 @@
 //                             <strong>{file.name}</strong>
 //                             <br />
 //                             <small>
-//                                 {t('fileSize')}: {(file.size / 1024).toFixed(2)} KB
+//                                 {"File size"}: {(file.size / 1024).toFixed(2)} KB
 //                                 {originalDimensions.current.width > 0 && (
-//                                     <> | {t('dimensions')}: {originalDimensions.current.width} × {originalDimensions.current.height}</>
+//                                     <> | {"Dimensions"}: {originalDimensions.current.width} × {originalDimensions.current.height}</>
 //                                 )}
 //                             </small>
 //                         </div>
@@ -190,7 +190,7 @@
 
 //                 {file && (
 //                     <div className="settings-section">
-//                         <h3>{t('advancedOptions')}</h3>
+//                         <h3>{"Advanced Options"}</h3>
                         
 //                         <div className="settings-grid">
 //                             <div className="setting-group">
@@ -240,7 +240,7 @@
 
 //                             <div className="setting-group full-width">
 //                                 <div className="api-info">
-//                                     <small>⚡ {t('subtitle')}</small>
+//                                     <small>⚡ {"Remove background from images automatically with AI"}</small>
 //                                 </div>
 //                             </div>
 //                         </div>
@@ -254,10 +254,10 @@
 //                             className={`primary-btn ${processing ? 'processing' : ''}`}
 //                             disabled={processing}
 //                         >
-//                             {processing ? t('processing') : t('removeBackground')}
+//                             {processing ? "Processing..." : "Remove Background"}
 //                         </button>
 //                         <button onClick={clearAll} className="secondary-btn">
-//                             {t('clear')}
+//                             {"Clear"}
 //                         </button>
 //                     </div>
 //                 )}
@@ -267,7 +267,7 @@
 //                         <div className="preview-container">
 //                             {originalImage && (
 //                                 <div className="preview-item">
-//                                     <h4>{t('original')}</h4>
+//                                     <h4>{"Original Image"}</h4>
 //                                     <img 
 //                                         src={originalImage} 
 //                                         alt="Original" 
@@ -277,7 +277,7 @@
 //                             )}
 //                             {processedImage && (
 //                                 <div className="preview-item">
-//                                     <h4>{t('result')}</h4>
+//                                     <h4>{"Background Removed"}</h4>
 //                                     <div className="result-container">
 //                                         <img 
 //                                             src={processedImage} 
@@ -288,12 +288,12 @@
 //                                         />
 //                                         <div className="result-actions">
 //                                             <button onClick={downloadImage} className="download-btn">
-//                                                 {t('download')}
+//                                                 {"Download"}
 //                                             </button>
 //                                         </div>
 //                                         {processingSettings.bg_mode === 'transparent' ? (
 //                                             <div className="transparency-note">
-//                                                 <small>✓ {t('transparency')}</small>
+//                                                 <small>✓ {"Transparency"}</small>
 //                                             </div>
 //                                         ) : (
 //                                             <div className="color-note">
@@ -339,7 +339,7 @@
 
 // src/components/tools/RemoveBackground.jsx
 // import React, { useState, useRef, useCallback } from 'react';
-// import { useTranslation } from 'react-i18next';
+// 
 // import { useTheme } from '../../contexts/ThemeContext';
 // import '../../styles/tools/RemoveBackground.css';
 
@@ -373,12 +373,12 @@
 //     if (!uploadedFile) return;
 
 //     if (uploadedFile.size > 15 * 1024 * 1024) {
-//       alert(t('fileTooLarge') || 'File too large (max 15MB)');
+//       alert("File is too large. Maximum size is 10MB" || 'File too large (max 15MB)');
 //       return;
 //     }
 
 //     if (!uploadedFile.type.startsWith('image/')) {
-//       alert(t('invalidFile') || 'Invalid file type');
+//       alert("Please upload a valid image file" || 'Invalid file type');
 //       return;
 //     }
 
@@ -409,7 +409,7 @@
 
 //   const callApi = async () => {
 //     if (!file) {
-//       alert(t('noFile') || 'Please upload an image first');
+//       alert("Please select a file first" || 'Please upload an image first');
 //       return;
 //     }
 
@@ -442,7 +442,7 @@
 //       setProcessedImage(url);
 //     } catch (err) {
 //       console.error(err);
-//       alert(err.message || t('processingError') || 'Error processing image');
+//       alert(err.message || "Failed to remove background" || 'Error processing image');
 //     } finally {
 //       setProcessing(false);
 //     }
@@ -475,8 +475,8 @@
 //   return (
 //     <div className={`remove-background ${theme}`}>
 //       <div className="tool-header">
-//         <h1>{t('title') || 'Remove Background'}</h1>
-//         <p>{t('subtitle') || 'Remove background and replace with color or image'}</p>
+//         <h1>{"Background Remover" || 'Remove Background'}</h1>
+//         <p>{"Remove background from images automatically with AI" || 'Remove background and replace with color or image'}</p>
 //       </div>
 
 //       <div className="remover-container">
@@ -489,10 +489,10 @@
 //           >
 //             <div className="upload-content">
 //               <div className="upload-icon">🖼️</div>
-//               <h3>{t('uploadArea') || 'Click or drop image here'}</h3>
-//               <p>{t('dragDrop') || 'Drag & drop an image'}</p>
-//               <small>{t('supportedFormats') || 'PNG, JPG, JPEG'}</small>
-//               <small>{t('maxSize') || 'Max 15MB'}</small>
+//               <h3>{"Upload Image" || 'Click or drop image here'}</h3>
+//               <p>{"Drag & drop your image here or click to browse" || 'Drag & drop an image'}</p>
+//               <small>{"Supported formats: PNG, JPG, JPEG, WebP" || 'PNG, JPG, JPEG'}</small>
+//               <small>{"Max file size: 10MB" || 'Max 15MB'}</small>
 //             </div>
 
 //             <input
@@ -509,9 +509,9 @@
 //               <strong>{file.name}</strong>
 //               <br />
 //               <small>
-//                 {t('fileSize') || 'Size'}: {(file.size / 1024).toFixed(2)} KB
+//                 {"File size" || 'Size'}: {(file.size / 1024).toFixed(2)} KB
 //                 {originalDimensions.current.width > 0 && (
-//                   <> | {t('dimensions') || 'Dimensions'}: {originalDimensions.current.width} × {originalDimensions.current.height}</>
+//                   <> | {"Dimensions" || 'Dimensions'}: {originalDimensions.current.width} × {originalDimensions.current.height}</>
 //                 )}
 //               </small>
 //             </div>
@@ -520,7 +520,7 @@
 
 //         {file && (
 //           <div className="settings-section">
-//             <h3>{t('advancedOptions') || 'Background Options'}</h3>
+//             <h3>{"Advanced Options" || 'Background Options'}</h3>
 //             <div className="settings-grid">
 //               <div className="setting-group">
 //                 <label>{t('backgroundMode') || 'Background Mode'}</label>
@@ -582,7 +582,7 @@
 
 //               <div className="setting-group full-width">
 //                 <div className="api-info">
-//                   <small>⚡ {t('subtitle') || 'Processed locally via backend'}</small>
+//                   <small>⚡ {"Remove background from images automatically with AI" || 'Processed locally via backend'}</small>
 //                 </div>
 //               </div>
 //             </div>
@@ -596,10 +596,10 @@
 //               className={`primary-btn ${processing ? 'processing' : ''}`}
 //               disabled={processing}
 //             >
-//               {processing ? (t('processing') || 'Processing...') : (t('removeBackground') || 'Apply')}
+//               {processing ? ("Processing..." || 'Processing...') : ("Remove Background" || 'Apply')}
 //             </button>
 //             <button onClick={clearAll} className="secondary-btn">
-//               {t('clear') || 'Clear'}
+//               {"Clear" || 'Clear'}
 //             </button>
 //           </div>
 //         )}
@@ -609,13 +609,13 @@
 //             <div className="preview-container">
 //               {originalImage && (
 //                 <div className="preview-item">
-//                   <h4>{t('original') || 'Original'}</h4>
+//                   <h4>{"Original Image" || 'Original'}</h4>
 //                   <img src={originalImage} alt="Original" className="preview-image" />
 //                 </div>
 //               )}
 //               {processedImage && (
 //                 <div className="preview-item">
-//                   <h4>{t('result') || 'Result'}</h4>
+//                   <h4>{"Background Removed" || 'Result'}</h4>
 //                   <div className="result-container">
 //                     <img
 //                       src={processedImage}
@@ -623,10 +623,10 @@
 //                       className={`preview-image result-image ${processingSettings.bg_mode === 'transparent' ? 'transparent-bg' : ''}`}
 //                     />
 //                     <div className="result-actions">
-//                       <button onClick={downloadImage} className="download-btn">{t('download') || 'Download'}</button>
+//                       <button onClick={downloadImage} className="download-btn">{"Download" || 'Download'}</button>
 //                     </div>
 //                     {processingSettings.bg_mode === 'transparent' ? (
-//                       <div className="transparency-note"><small>✓ {t('transparency') || 'Transparent background'}</small></div>
+//                       <div className="transparency-note"><small>✓ {"Transparency" || 'Transparent background'}</small></div>
 //                     ) : (
 //                       <div className="color-note"><small>✓ {processingSettings.bg_mode === 'color' ? processingSettings.bg_color : 'Photo background'}</small></div>
 //                     )}
@@ -672,7 +672,7 @@
 
 
 // import React, { useState, useRef, useCallback } from 'react';
-// import { useTranslation } from 'react-i18next';
+// 
 // import { useTheme } from '../../contexts/ThemeContext';
 // import '../../styles/tools/RemoveBackground.css';
 
@@ -943,12 +943,12 @@
 
 
 import React, { useState, useRef, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/RemoveBackground.css';
 
+const t = (key, fallback) => fallback ?? key;
+
 const RemoveBackground = () => {
-  const { t } = useTranslation('removeBg');
   const { theme } = useTheme();
   
   const API_BASE_URL = 'http://localhost:8000';
@@ -1016,12 +1016,12 @@ const RemoveBackground = () => {
     if (!uploadedFile) return;
     
     if (uploadedFile.size > 10 * 1024 * 1024) {
-      alert(t('fileTooLarge'));
+      alert("File is too large. Maximum size is 10MB");
       return;
     }
     
     if (!uploadedFile.type.startsWith('image/')) {
-      alert(t('invalidFile'));
+      alert("Please upload a valid image file");
       return;
     }
 
@@ -1050,7 +1050,7 @@ const RemoveBackground = () => {
     setProcessing(true);
     try {
       const resp = await fetch(url, { method: 'POST', body: formData });
-      if (!resp.ok) throw new Error(t('processingError'));
+      if (!resp.ok) throw new Error("Failed to remove background");
       const blob = await resp.blob();
       setProcessedImage(URL.createObjectURL(blob));
     } catch (e) {
@@ -1142,7 +1142,7 @@ const RemoveBackground = () => {
   const handleBgImageUpload = (uploadedFile) => {
     if (!uploadedFile) return;
     if (!uploadedFile.type.startsWith('image/')) {
-      alert(t('invalidFile'));
+      alert("Please upload a valid image file");
       return;
     }
     setBgPhotoFile(uploadedFile);
@@ -1194,7 +1194,7 @@ const RemoveBackground = () => {
         <div className="right-actions">
           {processedImage && (
             <button className="download-main" onClick={downloadImage} disabled={processing}>
-              ⬇️ {t('download')}
+              ⬇️ {"Download"}
             </button>
           )}
         </div>
@@ -1213,10 +1213,10 @@ const RemoveBackground = () => {
             {!originalImage ? (
               <div className="upload-placeholder">
                 <div className="upload-icon">🖼️</div>
-                <h3>{t('uploadArea')}</h3>
-                <p className="muted">{t('dragDrop')}</p>
-                <small className="muted">{t('supportedFormats')}</small>
-                <small className="muted">{t('maxSize')}</small>
+                <h3>{"Upload Image"}</h3>
+                <p className="muted">{"Drag & drop your image here or click to browse"}</p>
+                <small className="muted">{"Supported formats: PNG, JPG, JPEG, WebP"}</small>
+                <small className="muted">{"Max file size: 10MB"}</small>
               </div>
             ) : (
               <div className="preview-canvas-wrapper">
@@ -1277,14 +1277,14 @@ const RemoveBackground = () => {
             {/* Cutout Tab */}
             {activeTab === 'cutout' && (
               <div className="feature-content">
-                <h4>🎯 {t('removeBackground')}</h4>
+                <h4>🎯 {"Remove Background"}</h4>
                 <p className="muted">{t('cutoutDescription')}</p>
                 <button 
                   onClick={runCutout} 
                   className="primary-btn full-width"
                   disabled={processing || !file}
                 >
-                  {processing ? t('processing') : t('removeBackground')}
+                  {processing ? "Processing..." : "Remove Background"}
                 </button>
               </div>
             )}

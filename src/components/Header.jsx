@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Header.css";
 import { useTheme } from "../contexts/ThemeContext";
-import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { theme } = useTheme();
-  const { t } = useTranslation("header");
 
-  const words = t("words", { returnObjects: true }) || [];
+  const words = [{ text: "Everything", color: "#7C3AED" }, { text: "PDFs", color: "#E11D48" }, { text: "Videos", color: "#2563EB" }, { text: "Images", color: "#059669" }];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -26,7 +24,7 @@ const Header = () => {
   return (
     <div className={`hero-container ${theme}`}>
       <h1 className="hero-title">
-        {t("titleStart")}{" "}
+        {"Free Tools to Make"}{" "}
         <span
           key={currentWord.text}
           className="highlight"
@@ -34,9 +32,9 @@ const Header = () => {
         >
           {currentWord.text}
         </span>{" "}
-        {t("titleEnd")}
+        {"Simple"}
       </h1>
-      <p className="hero-subtitle">{t("subtitle")}</p>
+      <p className="hero-subtitle">{"We offer PDF, video, image and other online tools to make your life easier"}</p>
     </div>
   );
 };

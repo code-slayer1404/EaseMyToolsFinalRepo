@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/WebsiteCostCalculator.css';
 
+const t = (key, fallback) => fallback ?? key;
+
 const WebsiteCostCalculator = () => {
-    const { t } = useTranslation('websiteCostCalculator');
     const { theme } = useTheme();
     
     const [projectDetails, setProjectDetails] = useState({
@@ -142,28 +142,28 @@ const WebsiteCostCalculator = () => {
     }, [costs]);
 
     const projectTypes = [
-        { id: 'landing', name: t('projectTypes.landing'), baseCost: 1500 },
-        { id: 'brochure', name: t('projectTypes.brochure'), baseCost: 3000 },
-        { id: 'corporate', name: t('projectTypes.corporate'), baseCost: 8000 },
-        { id: 'ecommerce', name: t('projectTypes.ecommerce'), baseCost: 12000 },
-        { id: 'webapp', name: t('projectTypes.webapp'), baseCost: 20000 },
-        { id: 'custom', name: t('projectTypes.custom'), baseCost: 35000 }
+        { id: 'landing', name: "Landing Page", baseCost: 1500 },
+        { id: 'brochure', name: "Brochure Website", baseCost: 3000 },
+        { id: 'corporate', name: "Corporate Website", baseCost: 8000 },
+        { id: 'ecommerce', name: "E-commerce Store", baseCost: 12000 },
+        { id: 'webapp', name: "Web Application", baseCost: 20000 },
+        { id: 'custom', name: "Custom Platform", baseCost: 35000 }
     ];
 
     const designOptions = [
-        { id: 'template', name: t('designOptions.template'), multiplier: 1 },
-        { id: 'custom', name: t('designOptions.custom'), multiplier: 2 },
-        { id: 'premium', name: t('designOptions.premium'), multiplier: 3 },
-        { id: 'branding', name: t('designOptions.branding'), multiplier: 1.5 }
+        { id: 'template', name: "Template-Based", multiplier: 1 },
+        { id: 'custom', name: "Custom Design", multiplier: 2 },
+        { id: 'premium', name: "Premium Custom", multiplier: 3 },
+        { id: 'branding', name: "Branding Package", multiplier: 1.5 }
     ];
 
     const developmentPlatforms = [
-        { id: 'wordpress', name: t('developmentOptions.wordpress'), multiplier: 1 },
-        { id: 'shopify', name: t('developmentOptions.shopify'), multiplier: 1.2 },
-        { id: 'react', name: t('developmentOptions.react'), multiplier: 1.5 },
-        { id: 'vue', name: t('developmentOptions.vue'), multiplier: 1.4 },
-        { id: 'angular', name: t('developmentOptions.angular'), multiplier: 1.6 },
-        { id: 'customStack', name: t('developmentOptions.customStack'), multiplier: 2 }
+        { id: 'wordpress', name: "WordPress", multiplier: 1 },
+        { id: 'shopify', name: "Shopify", multiplier: 1.2 },
+        { id: 'react', name: "React/Next.js", multiplier: 1.5 },
+        { id: 'vue', name: "Vue/Nuxt.js", multiplier: 1.4 },
+        { id: 'angular', name: "Angular", multiplier: 1.6 },
+        { id: 'customStack', name: "Custom Stack", multiplier: 2 }
     ];
 
     const handleFeatureToggle = useCallback((feature) => {
@@ -223,8 +223,8 @@ const WebsiteCostCalculator = () => {
     return (
         <div className={`website-cost-calculator ${theme}`}>
             <div className="calculator-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"Website Cost Calculator"}</h1>
+                <p>{"Professional website development cost estimator for agencies and freelancers"}</p>
             </div>
 
             <div className="calculator-container">
@@ -232,9 +232,9 @@ const WebsiteCostCalculator = () => {
                 <div className="input-panel">
                     {/* Project Details */}
                     <section className="input-section">
-                        <h3>{t('projectDetails')}</h3>
+                        <h3>{"Project Details"}</h3>
                         <div className="input-group">
-                            <label>{t('projectName')}</label>
+                            <label>{"Project Name"}</label>
                             <input
                                 type="text"
                                 value={projectDetails.name}
@@ -242,11 +242,11 @@ const WebsiteCostCalculator = () => {
                                     ...prev,
                                     name: e.target.value
                                 }))}
-                                placeholder={t('projectNamePlaceholder')}
+                                placeholder={"Enter project name..."}
                             />
                         </div>
                         <div className="input-group">
-                            <label>{t('projectType')}</label>
+                            <label>{"Project Type"}</label>
                             <select
                                 value={projectDetails.type}
                                 onChange={(e) => setProjectDetails(prev => ({
@@ -265,7 +265,7 @@ const WebsiteCostCalculator = () => {
 
                     {/* Features */}
                     <section className="input-section">
-                        <h3>{t('features')}</h3>
+                        <h3>{"Features & Functionality"}</h3>
                         <div className="features-grid">
                             {Object.entries(features).map(([key, value]) => (
                                 <label key={key} className="checkbox-label">
@@ -282,7 +282,7 @@ const WebsiteCostCalculator = () => {
 
                     {/* Design */}
                     <section className="input-section">
-                        <h3>{t('design')}</h3>
+                        <h3>{"Design & UX"}</h3>
                         <div className="input-group">
                             <label>Design Approach</label>
                             <select
@@ -327,7 +327,7 @@ const WebsiteCostCalculator = () => {
 
                     {/* Development */}
                     <section className="input-section">
-                        <h3>{t('development')}</h3>
+                        <h3>{"Development"}</h3>
                         <div className="input-group">
                             <label>Development Platform</label>
                             <select
@@ -363,7 +363,7 @@ const WebsiteCostCalculator = () => {
 
                     {/* Team Rates */}
                     <section className="input-section">
-                        <h3>{t('team')}</h3>
+                        <h3>{"Team & Rates"}</h3>
                         {Object.entries(teamRates).map(([role, rate]) => (
                             <div key={role} className="input-group">
                                 <label>{t(`teamRoles.${role}`)} ($/hr)</label>
@@ -403,14 +403,14 @@ const WebsiteCostCalculator = () => {
                 {/* Right Panel - Results */}
                 <div className="results-panel">
                     <div className="cost-summary">
-                        <h3>{t('summary')}</h3>
+                        <h3>{"Cost Summary"}</h3>
                         <div className="total-cost">
-                            <span className="label">{t('totalCost')}:</span>
+                            <span className="label">{"Total Estimated Cost"}:</span>
                             <span className="amount">{formatCurrency(totalCost)}</span>
                         </div>
 
                         <div className="cost-breakdown">
-                            <h4>{t('breakdown')}</h4>
+                            <h4>{"Cost Breakdown"}</h4>
                             {Object.entries(costs).map(([category, cost]) => (
                                 <div key={category} className="breakdown-item">
                                     <span className="category">
@@ -423,17 +423,17 @@ const WebsiteCostCalculator = () => {
 
                         <div className="action-buttons">
                             <button onClick={exportToPDF} className="primary-btn">
-                                {t('exportOptions.pdf')}
+                                {"Export PDF Proposal"}
                             </button>
                             <button onClick={resetCalculator} className="secondary-btn">
-                                {t('reset')}
+                                {"Reset"}
                             </button>
                         </div>
                     </div>
 
                     {/* Project Assumptions */}
                     <div className="assumptions-section">
-                        <h4>{t('assumptions')}</h4>
+                        <h4>{"Assumptions"}</h4>
                         <ul>
                             <li>Project management included (15% of development cost)</li>
                             <li>Timeline: {timeline.duration}</li>

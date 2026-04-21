@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import '../styles/API.css';
 
 const API = () => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
   const [activeEndpoint, setActiveEndpoint] = useState(0);
 
@@ -13,19 +11,19 @@ const API = () => {
       name: 'remove-background',
       method: 'POST',
       path: '/api/v1/remove-background',
-      description: t('api.endpoints.removeBg.description', 'Remove background from images using AI'),
+      description: "Remove background from images using AI",
       parameters: [
         {
           name: 'image',
           type: 'file',
           required: true,
-          description: t('api.endpoints.removeBg.param1', 'Image file (JPEG, PNG, WebP)')
+          description: "Image file (JPEG, PNG, WebP)"
         },
         {
           name: 'bg_mode',
           type: 'string',
           required: false,
-          description: t('api.endpoints.removeBg.param2', 'Background mode: transparent or color')
+          description: "Background mode: transparent or color"
         }
       ],
       response: `{
@@ -40,25 +38,25 @@ const API = () => {
       name: 'image-resize',
       method: 'POST',
       path: '/api/v1/image-resize',
-      description: t('api.endpoints.resize.description', 'Resize images with quality preservation'),
+      description: "Resize images with quality preservation",
       parameters: [
         {
           name: 'image',
           type: 'file',
           required: true,
-          description: t('api.endpoints.resize.param1', 'Image file to resize')
+          description: "Image file to resize"
         },
         {
           name: 'width',
           type: 'integer',
           required: true,
-          description: t('api.endpoints.resize.param2', 'Target width in pixels')
+          description: "Target width in pixels"
         },
         {
           name: 'height',
           type: 'integer',
           required: true,
-          description: t('api.endpoints.resize.param3', 'Target height in pixels')
+          description: "Target height in pixels"
         }
       ],
       response: `{
@@ -111,48 +109,48 @@ print(response.json())`
     <div className={`api-page ${theme}`}>
       <div className="api-container">
         <header className="api-header">
-          <h1>{t('api.title', 'EaseMyTools API')}</h1>
+          <h1>{"EaseMyTools API"}</h1>
           <p className="api-subtitle">
-            {t('api.subtitle', 'Integrate our powerful tools directly into your applications with our REST API')}
+            {"Integrate our powerful tools directly into your applications with our REST API"}
           </p>
           <div className="api-actions">
             <button className="primary-button">
-              {t('api.getStarted', 'Get API Key')}
+              {"Get API Key"}
             </button>
             <button className="secondary-button">
-              {t('api.viewDocs', 'View Documentation')}
+              {"View Documentation"}
             </button>
           </div>
         </header>
 
         <section className="api-features">
-          <h2>{t('api.featuresTitle', 'Why Use Our API?')}</h2>
+          <h2>{"Why Use Our API?"}</h2>
           <div className="features-grid">
             <div className="feature-card">
               <div className="feature-icon">⚡</div>
-              <h3>{t('api.feature1.title', 'High Performance')}</h3>
-              <p>{t('api.feature1.description', 'Process thousands of requests per second with our scalable infrastructure')}</p>
+              <h3>{"High Performance"}</h3>
+              <p>{"Process thousands of requests per second with our scalable infrastructure"}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">🔒</div>
-              <h3>{t('api.feature2.title', 'Secure & Reliable')}</h3>
-              <p>{t('api.feature2.description', 'Enterprise-grade security with 99.9% uptime SLA')}</p>
+              <h3>{"Secure & Reliable"}</h3>
+              <p>{"Enterprise-grade security with 99.9% uptime SLA"}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">📚</div>
-              <h3>{t('api.feature3.title', 'Comprehensive Docs')}</h3>
-              <p>{t('api.feature3.description', 'Detailed documentation with code examples in multiple languages')}</p>
+              <h3>{"Comprehensive Docs"}</h3>
+              <p>{"Detailed documentation with code examples in multiple languages"}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">💬</div>
-              <h3>{t('api.feature4.title', 'Developer Support')}</h3>
-              <p>{t('api.feature4.description', 'Dedicated support team to help you integrate our API')}</p>
+              <h3>{"Developer Support"}</h3>
+              <p>{"Dedicated support team to help you integrate our API"}</p>
             </div>
           </div>
         </section>
 
         <section className="api-endpoints">
-          <h2>{t('api.endpointsTitle', 'Available Endpoints')}</h2>
+          <h2>{"Available Endpoints"}</h2>
           <div className="endpoints-container">
             <div className="endpoints-sidebar">
               {endpoints.map((endpoint, index) => (
@@ -177,13 +175,13 @@ print(response.json())`
                   </div>
                   
                   <div className="parameters-section">
-                    <h4>{t('api.parameters', 'Parameters')}</h4>
+                    <h4>{"Parameters"}</h4>
                     <div className="parameters-table">
                       <div className="table-header">
-                        <span>{t('api.parameter', 'Parameter')}</span>
-                        <span>{t('api.type', 'Type')}</span>
-                        <span>{t('api.required', 'Required')}</span>
-                        <span>{t('api.description', 'Description')}</span>
+                        <span>{"Parameter"}</span>
+                        <span>{"Type"}</span>
+                        <span>{"Required"}</span>
+                        <span>{"Description"}</span>
                       </div>
                       {endpoints[activeEndpoint].parameters.map((param, index) => (
                         <div key={index} className="table-row">
@@ -199,7 +197,7 @@ print(response.json())`
                   </div>
 
                   <div className="response-section">
-                    <h4>{t('api.response', 'Response')}</h4>
+                    <h4>{"Response"}</h4>
                     <pre className="response-code">
                       <code>{endpoints[activeEndpoint].response}</code>
                     </pre>
@@ -211,7 +209,7 @@ print(response.json())`
         </section>
 
         <section className="code-examples">
-          <h2>{t('api.codeExamples', 'Code Examples')}</h2>
+          <h2>{"Code Examples"}</h2>
           <div className="examples-tabs">
             {codeExamples.map((example, index) => (
               <div key={index} className="code-example">
@@ -227,45 +225,45 @@ print(response.json())`
         </section>
 
         <section className="api-pricing">
-          <h2>{t('api.pricingTitle', 'Simple Pricing')}</h2>
+          <h2>{"Simple Pricing"}</h2>
           <div className="pricing-cards">
             <div className="pricing-card">
-              <h3>{t('api.plan1.name', 'Developer')}</h3>
+              <h3>{"Developer"}</h3>
               <div className="price">$0</div>
-              <p>{t('api.plan1.description', 'Perfect for testing and development')}</p>
+              <p>{"Perfect for testing and development"}</p>
               <ul>
                 <li>1,000 requests/month</li>
                 <li>Basic support</li>
                 <li>All tools available</li>
               </ul>
               <button className="pricing-button">
-                {t('api.getStarted', 'Get Started')}
+                {"Get Started"}
               </button>
             </div>
             <div className="pricing-card highlighted">
-              <h3>{t('api.plan2.name', 'Startup')}</h3>
+              <h3>{"Startup"}</h3>
               <div className="price">$29<span>/month</span></div>
-              <p>{t('api.plan2.description', 'For growing applications')}</p>
+              <p>{"For growing applications"}</p>
               <ul>
                 <li>50,000 requests/month</li>
                 <li>Priority support</li>
                 <li>Advanced features</li>
               </ul>
               <button className="pricing-button primary">
-                {t('api.getStarted', 'Get Started')}
+                {"Get Started"}
               </button>
             </div>
             <div className="pricing-card">
-              <h3>{t('api.plan3.name', 'Enterprise')}</h3>
+              <h3>{"Enterprise"}</h3>
               <div className="price">$199<span>/month</span></div>
-              <p>{t('api.plan3.description', 'For high-volume applications')}</p>
+              <p>{"For high-volume applications"}</p>
               <ul>
                 <li>500,000 requests/month</li>
                 <li>24/7 support</li>
                 <li>Custom solutions</li>
               </ul>
               <button className="pricing-button">
-                {t('api.contactSales', 'Contact Sales')}
+                {"Contact Sales"}
               </button>
             </div>
           </div>

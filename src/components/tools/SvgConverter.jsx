@@ -1,10 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/SvgConverter.css';
 
 const SvgConverter = () => {
-    const { t } = useTranslation('svgConverter');
     const { theme } = useTheme();
     const [file, setFile] = useState(null);
     const [originalSvg, setOriginalSvg] = useState('');
@@ -28,12 +26,12 @@ const SvgConverter = () => {
         if (!uploadedFile) return;
 
         if (uploadedFile.size > 5 * 1024 * 1024) {
-            alert(t('fileTooLarge'));
+            alert("File is too large. Maximum size is 5MB");
             return;
         }
 
         if (!uploadedFile.type.includes('svg')) {
-            alert(t('invalidFile'));
+            alert("Please upload a valid SVG file");
             return;
         }
 
@@ -73,7 +71,7 @@ const SvgConverter = () => {
 
     const convertSvgToImage = async () => {
         if (!originalSvg) {
-            alert(t('noFile'));
+            alert("Please select a file first");
             return;
         }
 
@@ -159,7 +157,7 @@ const SvgConverter = () => {
 
             img.onerror = () => {
                 setConverting(false);
-                alert(t('conversionError'));
+                alert("Conversion failed");
                 URL.revokeObjectURL(url);
             };
 
@@ -168,7 +166,7 @@ const SvgConverter = () => {
         } catch (error) {
             console.error('Conversion error:', error);
             setConverting(false);
-            alert(t('conversionError'));
+            alert("Conversion failed");
         }
     };
 
@@ -177,7 +175,7 @@ const SvgConverter = () => {
 
         const link = document.createElement('a');
         const extension = conversionSettings.format;
-        const fileName = `${t('downloadFileName')}-${Date.now()}.${extension}`;
+        const fileName = `${"converted-image"}-${Date.now()}.${extension}`;
         
         link.download = fileName;
         link.href = convertedImage;
@@ -240,8 +238,8 @@ const SvgConverter = () => {
     return (
         <div className={`svg-converter ${theme}`}>
             <div className="tool-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"SVG Converter"}</h1>
+                <p>{"Convert SVG files to PNG, JPG, and other formats"}</p>
             </div>
 
             <div className="converter-container">
@@ -255,10 +253,10 @@ const SvgConverter = () => {
                     >
                         <div className="upload-content">
                             <div className="upload-icon">📁</div>
-                            <h3>{t('uploadArea')}</h3>
-                            <p>{t('dragDrop')}</p>
-                            <small>{t('supportedFormats')}</small>
-                            <small>{t('maxSize')}</small>
+                            <h3>{"Upload SVG File"}</h3>
+                            <p>{"Drag & drop your SVG file here or click to browse"}</p>
+                            <small>{"Supported formats: SVG, PNG, JPG, WebP"}</small>
+                            <small>{"Max file size: 5MB"}</small>
                         </div>
                         <input
                             ref={fileInputRef}
@@ -274,9 +272,9 @@ const SvgConverter = () => {
                             <strong>Selected file:</strong> {file.name}
                             <br />
                             <small>
-                                {t('fileSize')}: {(file.size / 1024).toFixed(2)} KB
+                                {"File size"}: {(file.size / 1024).toFixed(2)} KB
                                 {originalDimensions.current.width > 0 && (
-                                    <> | {t('dimensions')}: {originalDimensions.current.width} × {originalDimensions.current.height}</>
+                                    <> | {"Dimensions"}: {originalDimensions.current.width} × {originalDimensions.current.height}</>
                                 )}
                             </small>
                         </div>
@@ -286,11 +284,11 @@ const SvgConverter = () => {
                 {/* Conversion Settings */}
                 {file && (
                     <div className="settings-section">
-                        <h3>{t('convertTo')}</h3>
+                        <h3>{"Convert to"}</h3>
                         
                         <div className="settings-grid">
                             <div className="setting-group">
-                                <label>{t('format')}</label>
+                                <label>{"Format"}</label>
                                 <select
                                     value={conversionSettings.format}
                                     onChange={(e) => setConversionSettings(prev => ({
@@ -305,7 +303,7 @@ const SvgConverter = () => {
                             </div>
 
                             <div className="setting-group">
-                                <label>{t('backgroundColor')}</label>
+                                <label>{"Background Color"}</label>
                                 <select
                                     value={conversionSettings.backgroundColor}
                                     onChange={(e) => setConversionSettings(prev => ({
@@ -313,10 +311,10 @@ const SvgConverter = () => {
                                         backgroundColor: e.target.value
                                     }))}
                                 >
-                                    <option value="transparent">{t('transparent')}</option>
-                                    <option value="white">{t('white')}</option>
-                                    <option value="black">{t('black')}</option>
-                                    <option value="custom">{t('custom')}</option>
+                                    <option value="transparent">{"Transparent"}</option>
+                                    <option value="white">{"White"}</option>
+                                    <option value="black">{"Black"}</option>
+                                    <option value="custom">{"Custom"}</option>
                                 </select>
                                 {conversionSettings.backgroundColor === 'custom' && (
                                     <input
@@ -332,7 +330,7 @@ const SvgConverter = () => {
                             </div>
 
                             <div className="setting-group">
-                                <label>{t('quality')}: {conversionSettings.quality}%</label>
+                                <label>{"Quality"}: {conversionSettings.quality}%</label>
                                 <input
                                     type="range"
                                     min="10"
@@ -356,13 +354,13 @@ const SvgConverter = () => {
                                             maintainAspectRatio: e.target.checked
                                         }))}
                                     />
-                                    {t('maintainAspectRatio')}
+                                    {"Maintain aspect ratio"}
                                 </label>
                             </div>
                         </div>
 
                         <div className="dimensions-section">
-                            <h4>{t('resize')}</h4>
+                            <h4>{"Resize"}</h4>
                             <div className="preset-sizes">
                                 {presetSizes.map((preset, index) => (
                                     <button
@@ -382,7 +380,7 @@ const SvgConverter = () => {
                             </div>
                             <div className="dimension-inputs">
                                 <div className="dimension-group">
-                                    <label>{t('width')}</label>
+                                    <label>{"Width"}</label>
                                     <input
                                         type="number"
                                         value={conversionSettings.width}
@@ -392,7 +390,7 @@ const SvgConverter = () => {
                                     />
                                 </div>
                                 <div className="dimension-group">
-                                    <label>{t('height')}</label>
+                                    <label>{"Height"}</label>
                                     <input
                                         type="number"
                                         value={conversionSettings.height}
@@ -414,10 +412,10 @@ const SvgConverter = () => {
                             className="primary-btn"
                             disabled={converting}
                         >
-                            {converting ? 'Converting...' : t('convert')}
+                            {converting ? 'Converting...' : "Convert"}
                         </button>
                         <button onClick={clearAll} className="secondary-btn">
-                            {t('clear')}
+                            {"Clear"}
                         </button>
                     </div>
                 )}
@@ -428,7 +426,7 @@ const SvgConverter = () => {
                         <div className="preview-container">
                             {originalSvg && (
                                 <div className="preview-item">
-                                    <h4>{t('original')}</h4>
+                                    <h4>{"Original"}</h4>
                                     <div 
                                         className="preview-image original-svg"
                                         dangerouslySetInnerHTML={{ __html: originalSvg }}
@@ -437,14 +435,14 @@ const SvgConverter = () => {
                             )}
                             {convertedImage && (
                                 <div className="preview-item">
-                                    <h4>{t('converted')} ({conversionSettings.format.toUpperCase()})</h4>
+                                    <h4>{"Converted"} ({conversionSettings.format.toUpperCase()})</h4>
                                     <img 
                                         src={convertedImage} 
                                         alt="Converted" 
                                         className="preview-image"
                                     />
                                     <button onClick={downloadImage} className="download-btn">
-                                        {t('download')}
+                                        {"Download"}
                                     </button>
                                 </div>
                             )}

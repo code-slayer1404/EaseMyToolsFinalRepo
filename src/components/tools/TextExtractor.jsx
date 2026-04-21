@@ -1,10 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/TextExtractor.css';
 
 const TextExtractor = () => {
-    const { t } = useTranslation('textExtractor');
     const { theme } = useTheme();
     const [extractedText, setExtractedText] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
@@ -17,7 +15,7 @@ const TextExtractor = () => {
 
         // Check if file is an image
         if (!file.type.startsWith('image/')) {
-            alert(t('selectImage') || 'Please select an image file');
+            alert("Please select an image file" || 'Please select an image file');
             return;
         }
 
@@ -89,7 +87,7 @@ you would need to integrate with an OCR service like:
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(extractedText);
-        alert(t('copied') || 'Text copied to clipboard!');
+        alert("Text copied to clipboard!" || 'Text copied to clipboard!');
     };
 
     const downloadText = () => {
@@ -107,8 +105,8 @@ you would need to integrate with an OCR service like:
     return (
         <div className={`text-extractor ${theme}`} onPaste={handlePaste}>
             <div className="extractor-header">
-                <h1>{t('title') || 'Text Extractor'}</h1>
-                <p>{t('subtitle') || 'Extract text from images (OCR simulation)'}</p>
+                <h1>{"Text Extractor" || 'Text Extractor'}</h1>
+                <p>{"Extract text from images (OCR simulation)" || 'Extract text from images (OCR simulation)'}</p>
             </div>
 
             <div className="extractor-container">
@@ -125,20 +123,20 @@ you would need to integrate with an OCR service like:
                         <label htmlFor="file-upload" className="upload-label">
                             <div className="upload-icon">📁</div>
                             <div className="upload-text">
-                                {t('clickToUpload') || 'Click to upload image'}
+                                {"Click to upload image" || 'Click to upload image'}
                             </div>
                             <div className="upload-hint">
-                                {t('orPaste') || 'or paste image from clipboard'}
+                                {"or paste image from clipboard" || 'or paste image from clipboard'}
                             </div>
                             <div className="supported-formats">
-                                {t('supportedFormats') || 'Supported formats: JPG, PNG, GIF, BMP'}
+                                {"Supported formats: JPG, PNG, GIF, BMP" || 'Supported formats: JPG, PNG, GIF, BMP'}
                             </div>
                         </label>
                     </div>
 
                     {uploadedImage && (
                         <div className="image-preview">
-                            <h4>{t('imagePreview') || 'Image Preview'}</h4>
+                            <h4>{"Image Preview" || 'Image Preview'}</h4>
                             <img src={uploadedImage} alt="Uploaded preview" />
                         </div>
                     )}
@@ -147,22 +145,22 @@ you would need to integrate with an OCR service like:
                 {isProcessing && (
                     <div className="processing-indicator">
                         <div className="spinner"></div>
-                        <p>{t('processing') || 'Processing image...'}</p>
+                        <p>{"Processing image..." || 'Processing image...'}</p>
                     </div>
                 )}
 
                 {extractedText && (
                     <div className="result-section">
-                        <h3>{t('extractedText') || 'Extracted Text'}</h3>
+                        <h3>{"Extracted Text" || 'Extracted Text'}</h3>
                         <div className="text-output">
                             <pre>{extractedText}</pre>
                         </div>
                         <div className="result-actions">
                             <button onClick={copyToClipboard} className="copy-btn">
-                                {t('copyText') || 'Copy Text'}
+                                {"Copy Text" || 'Copy Text'}
                             </button>
                             <button onClick={downloadText} className="download-btn">
-                                {t('downloadText') || 'Download Text'}
+                                {"Download Text" || 'Download Text'}
                             </button>
                         </div>
                     </div>
@@ -170,30 +168,30 @@ you would need to integrate with an OCR service like:
 
                 <div className="action-buttons">
                     <button onClick={clearAll} className="clear-btn">
-                        {t('clearAll') || 'Clear All'}
+                        {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
                 <div className="info-section">
-                    <h4>{t('aboutOCR') || 'About OCR Technology'}</h4>
-                    <p>{t('ocrInfo') || 'OCR (Optical Character Recognition) technology converts different types of documents, such as scanned paper documents, PDF files or images captured by a digital camera into editable and searchable data.'}</p>
+                    <h4>{"About OCR Technology" || 'About OCR Technology'}</h4>
+                    <p>{"OCR (Optical Character Recognition) technology converts different types of documents, such as scanned paper documents, PDF files or images captured by a digital camera into editable and searchable data." || 'OCR (Optical Character Recognition) technology converts different types of documents, such as scanned paper documents, PDF files or images captured by a digital camera into editable and searchable data.'}</p>
                     
-                    <h5>{t('commonUses') || 'Common Uses:'}</h5>
+                    <h5>{"Common Uses:" || 'Common Uses:'}</h5>
                     <ul>
-                        <li>{t('use1') || 'Digitizing printed documents'}</li>
-                        <li>{t('use2') || 'Automating data entry from forms'}</li>
-                        <li>{t('use3') || 'Extracting text from screenshots'}</li>
-                        <li>{t('use4') || 'Processing business cards'}</li>
+                        <li>{"Digitizing printed documents" || 'Digitizing printed documents'}</li>
+                        <li>{"Automating data entry from forms" || 'Automating data entry from forms'}</li>
+                        <li>{"Extracting text from screenshots" || 'Extracting text from screenshots'}</li>
+                        <li>{"Processing business cards" || 'Processing business cards'}</li>
                     </ul>
 
                     <div className="limitations">
-                        <h5>{t('limitations') || 'Limitations:'}</h5>
-                        <p>{t('limitationNote') || 'Note: This is a simulation. For production use, consider:'}</p>
+                        <h5>{"Limitations:" || 'Limitations:'}</h5>
+                        <p>{"Note: This is a simulation. For production use, consider:" || 'Note: This is a simulation. For production use, consider:'}</p>
                         <ul>
-                            <li>{t('limitation1') || 'Google Cloud Vision API'}</li>
-                            <li>{t('limitation2') || 'Amazon Textract'}</li>
-                            <li>{t('limitation3') || 'Tesseract.js (open source)'}</li>
-                            <li>{t('limitation4') || 'Microsoft Azure Computer Vision'}</li>
+                            <li>{"Google Cloud Vision API" || 'Google Cloud Vision API'}</li>
+                            <li>{"Amazon Textract" || 'Amazon Textract'}</li>
+                            <li>{"Tesseract.js (open source)" || 'Tesseract.js (open source)'}</li>
+                            <li>{"Microsoft Azure Computer Vision" || 'Microsoft Azure Computer Vision'}</li>
                         </ul>
                     </div>
                 </div>

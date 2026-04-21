@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/AgeCalculator.css';
 
 const AgeCalculator = () => {
-    const { t } = useTranslation('ageCalculator');
     const { theme } = useTheme();
     const [birthDate, setBirthDate] = useState('');
     const [age, setAge] = useState(null);
 
     const calculateAge = () => {
         if (!birthDate) {
-            alert(t('selectDate') || 'Please select your birth date');
+            alert("Please select your birth date" || 'Please select your birth date');
             return;
         }
 
@@ -64,13 +62,13 @@ const AgeCalculator = () => {
     return (
         <div className={`age-calculator ${theme}`}>
             <div className="calculator-header">
-                <h1>{t('title') || 'Age Calculator'}</h1>
-                <p>{t('subtitle') || 'Calculate your exact age in years, months, and days'}</p>
+                <h1>{"Age Calculator" || 'Age Calculator'}</h1>
+                <p>{"Calculate your exact age in years, months, and days" || 'Calculate your exact age in years, months, and days'}</p>
             </div>
 
             <div className="calculator-container">
                 <div className="input-section">
-                    <label>{t('birthDate') || 'Your Birth Date'}</label>
+                    <label>{"Your Birth Date" || 'Your Birth Date'}</label>
                     <input
                         type="date"
                         value={birthDate}
@@ -82,42 +80,42 @@ const AgeCalculator = () => {
 
                 <div className="action-buttons">
                     <button onClick={calculateAge} className="calculate-btn">
-                        {t('calculateAge') || 'Calculate Age'}
+                        {"Calculate Age" || 'Calculate Age'}
                     </button>
                     <button onClick={clearAll} className="clear-btn">
-                        {t('clear') || 'Clear'}
+                        {"Clear" || 'Clear'}
                     </button>
                 </div>
 
                 {age && (
                     <div className="results-section">
-                        <h3>{t('yourAge') || 'Your Age'}</h3>
+                        <h3>{"Your Age" || 'Your Age'}</h3>
                         <div className="age-display">
                             <div className="age-unit">
                                 <span className="age-number">{age.years}</span>
-                                <span className="age-label">{t('years') || 'Years'}</span>
+                                <span className="age-label">{"Years" || 'Years'}</span>
                             </div>
                             <div className="age-unit">
                                 <span className="age-number">{age.months}</span>
-                                <span className="age-label">{t('months') || 'Months'}</span>
+                                <span className="age-label">{"Months" || 'Months'}</span>
                             </div>
                             <div className="age-unit">
                                 <span className="age-number">{age.days}</span>
-                                <span className="age-label">{t('days') || 'Days'}</span>
+                                <span className="age-label">{"Days" || 'Days'}</span>
                             </div>
                         </div>
 
                         <div className="additional-stats">
                             <div className="stat">
-                                <span className="stat-label">{t('totalDays') || 'Total Days'}:</span>
+                                <span className="stat-label">{"Total Days" || 'Total Days'}:</span>
                                 <span className="stat-value">{age.totalDays.toLocaleString()}</span>
                             </div>
                             <div className="stat">
-                                <span className="stat-label">{t('nextBirthday') || 'Days until next birthday'}:</span>
+                                <span className="stat-label">{"Days until next birthday" || 'Days until next birthday'}:</span>
                                 <span className="stat-value">{age.nextBirthday}</span>
                             </div>
                             <div className="stat">
-                                <span className="stat-label">{t('birthDay') || 'Birth Day'}:</span>
+                                <span className="stat-label">{"Birth Day" || 'Birth Day'}:</span>
                                 <span className="stat-value">{new Date(birthDate).toLocaleDateString('en-US', { weekday: 'long' })}</span>
                             </div>
                         </div>
@@ -125,11 +123,11 @@ const AgeCalculator = () => {
                 )}
 
                 <div className="fun-facts">
-                    <h4>{t('funFacts') || 'Fun Facts'}</h4>
+                    <h4>{"Fun Facts" || 'Fun Facts'}</h4>
                     <ul>
-                        <li>{t('fact1') || 'You have lived through approximately ' + (age ? Math.floor(age.totalDays / 30.44) : '0') + ' months'}</li>
-                        <li>{t('fact2') || 'You have experienced about ' + (age ? Math.floor(age.totalDays / 7) : '0') + ' weekends'}</li>
-                        <li>{t('fact3') || 'Your next birthday is in ' + (age ? age.nextBirthday : '0') + ' days'}</li>
+                        <li>{`You have lived through approximately ${months} months` || 'You have lived through approximately ' + (age ? Math.floor(age.totalDays / 30.44) : '0') + ' months'}</li>
+                        <li>{`You have experienced about ${weekends} weekends` || 'You have experienced about ' + (age ? Math.floor(age.totalDays / 7) : '0') + ' weekends'}</li>
+                        <li>{`Your next birthday is in ${days} days` || 'Your next birthday is in ' + (age ? age.nextBirthday : '0') + ' days'}</li>
                     </ul>
                 </div>
             </div>

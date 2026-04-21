@@ -1,10 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/ImageToSvg.css';
 
 const ImageToSvg = () => {
-    const { t } = useTranslation('imageToSvg');
     const { theme } = useTheme();
     const [file, setFile] = useState(null);
     const [originalImage, setOriginalImage] = useState('');
@@ -33,12 +31,12 @@ const ImageToSvg = () => {
         if (!uploadedFile) return;
 
         if (uploadedFile.size > 10 * 1024 * 1024) {
-            alert(t('fileTooLarge'));
+            alert("File is too large. Maximum size is 10MB");
             return;
         }
 
         if (!uploadedFile.type.startsWith('image/')) {
-            alert(t('invalidFile'));
+            alert("Please upload a valid image file");
             return;
         }
 
@@ -109,7 +107,7 @@ const ImageToSvg = () => {
     // Convert image to SVG using canvas and manual tracing
     const convertToSvg = async () => {
         if (!originalImage) {
-            alert(t('noFile'));
+            alert("Please select a file first");
             return;
         }
 
@@ -154,7 +152,7 @@ const ImageToSvg = () => {
 
             img.onerror = () => {
                 setProcessing(false);
-                alert(t('conversionError'));
+                alert("Conversion failed");
             };
 
             img.src = originalImage;
@@ -162,7 +160,7 @@ const ImageToSvg = () => {
         } catch (error) {
             console.error('Conversion error:', error);
             setProcessing(false);
-            alert(t('conversionError'));
+            alert("Conversion failed");
         }
     };
 
@@ -363,8 +361,8 @@ const ImageToSvg = () => {
     return (
         <div className={`image-to-svg ${theme}`}>
             <div className="tool-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"Image to SVG Converter"}</h1>
+                <p>{"Convert raster images (PNG, JPG, WebP) to scalable SVG format"}</p>
             </div>
 
             <div className="converter-container">
@@ -378,10 +376,10 @@ const ImageToSvg = () => {
                     >
                         <div className="upload-content">
                             <div className="upload-icon">🖼️</div>
-                            <h3>{t('uploadArea')}</h3>
-                            <p>{t('dragDrop')}</p>
-                            <small>{t('supportedFormats')}</small>
-                            <small>{t('maxSize')}</small>
+                            <h3>{"Upload Image File"}</h3>
+                            <p>{"Drag & drop your image here or click to browse"}</p>
+                            <small>{"Supported formats: PNG, JPG, JPEG, WebP, GIF"}</small>
+                            <small>{"Max file size: 10MB"}</small>
                         </div>
                         <input
                             ref={fileInputRef}
@@ -397,9 +395,9 @@ const ImageToSvg = () => {
                             <strong>Selected file:</strong> {file.name}
                             <br />
                             <small>
-                                {t('fileSize')}: {(file.size / 1024).toFixed(2)} KB
+                                {"File size"}: {(file.size / 1024).toFixed(2)} KB
                                 {originalDimensions.current.width > 0 && (
-                                    <> | {t('dimensions')}: {originalDimensions.current.width} × {originalDimensions.current.height}</>
+                                    <> | {"Dimensions"}: {originalDimensions.current.width} × {originalDimensions.current.height}</>
                                 )}
                             </small>
                         </div>
@@ -409,11 +407,11 @@ const ImageToSvg = () => {
                 {/* Conversion Settings */}
                 {file && (
                     <div className="settings-section">
-                        <h3>{t('conversionMode')}</h3>
+                        <h3>{"Conversion Mode"}</h3>
                         
                         <div className="settings-grid">
                             <div className="setting-group">
-                                <label>{t('traceMethod')}</label>
+                                <label>{"Trace Method"}</label>
                                 <select
                                     value={conversionSettings.mode}
                                     onChange={(e) => setConversionSettings(prev => ({
@@ -421,28 +419,28 @@ const ImageToSvg = () => {
                                         mode: e.target.value
                                     }))}
                                 >
-                                    <option value="posterized">{t('fullColor')}</option>
-                                    <option value="grayscale">{t('grayscale')}</option>
-                                    <option value="blackWhite">{t('blackWhite')}</option>
+                                    <option value="posterized">{"Full Color"}</option>
+                                    <option value="grayscale">{"Grayscale"}</option>
+                                    <option value="blackWhite">{"Black & White"}</option>
                                 </select>
                             </div>
 
                             <div className="setting-group">
-                                <label>{t('accuracy')}</label>
+                                <label>{"Accuracy"}</label>
                                 <select
                                     value={conversionSettings.accuracy}
                                     onChange={(e) => handleAccuracyChange(e.target.value)}
                                 >
-                                    <option value="low">{t('low')}</option>
-                                    <option value="medium">{t('medium')}</option>
-                                    <option value="high">{t('high')}</option>
-                                    <option value="veryHigh">{t('veryHigh')}</option>
+                                    <option value="low">{"Low"}</option>
+                                    <option value="medium">{"Medium"}</option>
+                                    <option value="high">{"High"}</option>
+                                    <option value="veryHigh">{"Very High"}</option>
                                 </select>
                             </div>
 
                             {conversionSettings.mode === 'posterized' && (
                                 <div className="setting-group">
-                                    <label>{t('maxColors')}: {conversionSettings.colors}</label>
+                                    <label>{"Max Colors"}: {conversionSettings.colors}</label>
                                     <input
                                         type="range"
                                         min="2"
@@ -458,7 +456,7 @@ const ImageToSvg = () => {
 
                             {conversionSettings.mode === 'blackWhite' && (
                                 <div className="setting-group">
-                                    <label>{t('threshold')}: {conversionSettings.threshold}</label>
+                                    <label>{"Threshold"}: {conversionSettings.threshold}</label>
                                     <input
                                         type="range"
                                         min="0"
@@ -473,7 +471,7 @@ const ImageToSvg = () => {
                             )}
 
                             <div className="setting-group">
-                                <label>{t('simplify')}: {conversionSettings.simplify}</label>
+                                <label>{"Simplify"}: {conversionSettings.simplify}</label>
                                 <input
                                     type="range"
                                         min="0.5"
@@ -490,7 +488,7 @@ const ImageToSvg = () => {
 
                         {/* Advanced Options */}
                         <details className="advanced-options">
-                            <summary>{t('advancedOptions')}</summary>
+                            <summary>{"Advanced Options"}</summary>
                             <div className="advanced-grid">
                                 <div className="setting-group">
                                     <label className="checkbox-label">
@@ -502,7 +500,7 @@ const ImageToSvg = () => {
                                                 optimize: e.target.checked
                                             }))}
                                         />
-                                        {t('optimize')}
+                                        {"Optimize SVG"}
                                     </label>
                                 </div>
 
@@ -516,7 +514,7 @@ const ImageToSvg = () => {
                                                 removeSmallShapes: e.target.checked
                                             }))}
                                         />
-                                        {t('removeSmallShapes')}
+                                        {"Remove small shapes"}
                                     </label>
                                 </div>
 
@@ -530,7 +528,7 @@ const ImageToSvg = () => {
                                                 roundCoordinates: e.target.checked
                                             }))}
                                         />
-                                        {t('roundCoordinates')}
+                                        {"Round coordinates"}
                                     </label>
                                 </div>
                             </div>
@@ -546,10 +544,10 @@ const ImageToSvg = () => {
                             className="primary-btn"
                             disabled={processing}
                         >
-                            {processing ? t('processing') : t('convert')}
+                            {processing ? "Processing image..." : "Convert to SVG"}
                         </button>
                         <button onClick={clearAll} className="secondary-btn">
-                            {t('clear')}
+                            {"Clear"}
                         </button>
                     </div>
                 )}
@@ -560,7 +558,7 @@ const ImageToSvg = () => {
                         <div className="preview-container">
                             {originalImage && (
                                 <div className="preview-item">
-                                    <h4>{t('original')}</h4>
+                                    <h4>{"Original Image"}</h4>
                                     <img 
                                         src={originalImage} 
                                         alt="Original" 
@@ -570,22 +568,22 @@ const ImageToSvg = () => {
                             )}
                             {svgOutput && (
                                 <div className="preview-item">
-                                    <h4>{t('svgOutput')}</h4>
+                                    <h4>{"SVG Output"}</h4>
                                     <div 
                                         className="preview-svg"
                                         dangerouslySetInnerHTML={{ __html: svgOutput }}
                                     />
                                     <div className="svg-actions">
                                         <button onClick={downloadSvg} className="download-btn">
-                                            {t('download')}
+                                            {"Download SVG"}
                                         </button>
                                         <button onClick={copySvgCode} className="copy-btn">
-                                            {t('copy')}
+                                            {"Copy SVG Code"}
                                         </button>
                                     </div>
                                     {svgOutput.length > 0 && (
                                         <div className="file-info">
-                                            <small>{t('svgSize')}: {(svgOutput.length / 1024).toFixed(2)} KB</small>
+                                            <small>{"SVG Size"}: {(svgOutput.length / 1024).toFixed(2)} KB</small>
                                         </div>
                                     )}
                                 </div>
@@ -595,7 +593,7 @@ const ImageToSvg = () => {
                         {/* SVG Code Preview */}
                         {svgOutput && (
                             <div className="code-section">
-                                <h4>{t('svgCode')}</h4>
+                                <h4>{"SVG Code"}</h4>
                                 <pre className="svg-code">
                                     {svgOutput}
                                 </pre>

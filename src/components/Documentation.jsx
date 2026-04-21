@@ -1,56 +1,54 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import '../styles/Documentation.css';
 
 const Documentation = () => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
   const [activeSection, setActiveSection] = useState('getting-started');
 
   const sections = [
     {
       id: 'getting-started',
-      title: t('docs.gettingStarted.title', 'Getting Started'),
-      content: t('docs.gettingStarted.content', 'Learn how to quickly start using EaseMyTools in your projects.'),
+      title: "Getting Started",
+      content: "Learn how to quickly start using EaseMyTools in your projects.",
       subsections: [
         {
-          title: t('docs.gettingStarted.quickStart', 'Quick Start'),
-          content: `# ${t('docs.gettingStarted.quickStart', 'Quick Start')}
+          title: "Quick Start",
+          content: `# ${"Quick Start"}
 
-${t('docs.gettingStarted.quickStartText', 'Start using EaseMyTools in just a few minutes:')}
+${"Start using EaseMyTools in just a few minutes:"}
 
-1. **${t('docs.gettingStarted.step1', 'Choose Your Tool')}** - Browse our collection of 50+ tools
-2. **${t('docs.gettingStarted.step2', 'Upload Your File')}** - Drag and drop or click to upload
-3. **${t('docs.gettingStarted.step3', 'Process')}** - Let our tools work their magic
-4. **${t('docs.gettingStarted.step4', 'Download')}** - Get your processed file instantly
+1. **${"Choose Your Tool"}** - Browse our collection of 50+ tools
+2. **${"Upload Your File"}** - Drag and drop or click to upload
+3. **${"Process"}** - Let our tools work their magic
+4. **${"Download"}** - Get your processed file instantly
 
-${t('docs.gettingStarted.note', 'All processing happens locally in your browser for maximum privacy and speed.')}`
+${"All processing happens locally in your browser for maximum privacy and speed."}`
         },
         {
-          title: t('docs.gettingStarted.account', 'Creating an Account'),
-          content: `# ${t('docs.gettingStarted.account', 'Creating an Account')}
+          title: "Creating an Account",
+          content: `# ${"Creating an Account"}
 
-${t('docs.gettingStarted.accountText', 'While not required, creating an account unlocks additional features:')}
+${"While not required, creating an account unlocks additional features:"}
 
-- **${t('docs.gettingStarted.benefit1', 'Save Preferences')}** - Remember your favorite settings
-- **${t('docs.gettingStarted.benefit2', 'Usage History')}** - Track your past conversions
-- **${t('docs.gettingStarted.benefit3', 'Advanced Features')}** - Access premium tools
+- **${"Save Preferences"}** - Remember your favorite settings
+- **${"Usage History"}** - Track your past conversions
+- **${"Advanced Features"}** - Access premium tools
 
-${t('docs.gettingStarted.signup', 'Sign up for free at')} [${t('docs.gettingStarted.signupLink', 'https://easemytools.com/signup')}](https://easemytools.com/signup)`
+${"Sign up for free at"} [${"https://easemytools.com/signup"}](https://easemytools.com/signup)`
         }
       ]
     },
     {
       id: 'api-integration',
-      title: t('docs.api.title', 'API Integration'),
-      content: t('docs.api.content', 'Learn how to integrate our tools into your applications.'),
+      title: "API Integration",
+      content: "Learn how to integrate our tools into your applications.",
       subsections: [
         {
-          title: t('docs.api.authentication', 'Authentication'),
-          content: `# ${t('docs.api.authentication', 'Authentication')}
+          title: "Authentication",
+          content: `# ${"Authentication"}
 
-${t('docs.api.authText', 'All API requests require authentication using your API key:')}
+${"All API requests require authentication using your API key:"}
 
 \`\`\`javascript
 const headers = {
@@ -59,45 +57,45 @@ const headers = {
 };
 \`\`\`
 
-${t('docs.api.getKey', 'Get your API key from the')} [${t('docs.api.apiDashboard', 'API Dashboard')}](https://easemytools.com/api)`
+${"Get your API key from the"} [${"API Dashboard"}](https://easemytools.com/api)`
         },
         {
-          title: t('docs.api.rateLimiting', 'Rate Limiting'),
-          content: `# ${t('docs.api.rateLimiting', 'Rate Limiting')}
+          title: "Rate Limiting",
+          content: `# ${"Rate Limiting"}
 
-${t('docs.api.rateText', 'We implement rate limiting to ensure fair usage:')}
+${"We implement rate limiting to ensure fair usage:"}
 
-- **${t('docs.api.freeTier', 'Free Tier')}**: 1,000 requests/month
-- **${t('docs.api.startupTier', 'Startup Tier')}**: 50,000 requests/month
-- **${t('docs.api.enterpriseTier', 'Enterprise Tier')}**: 500,000 requests/month
+- **${"Free Tier"}**: 1,000 requests/month
+- **${"Startup Tier"}**: 50,000 requests/month
+- **${"Enterprise Tier"}**: 500,000 requests/month
 
-${t('docs.api.rateNote', 'Rate limits reset at the beginning of each calendar month.')}`
+${"Rate limits reset at the beginning of each calendar month."}`
         }
       ]
     },
     {
       id: 'tutorials',
-      title: t('docs.tutorials.title', 'Tutorials'),
-      content: t('docs.tutorials.content', 'Step-by-step guides for common use cases.'),
+      title: "Tutorials",
+      content: "Step-by-step guides for common use cases.",
       subsections: [
         {
-          title: t('docs.tutorials.bulkProcessing', 'Bulk File Processing'),
-          content: `# ${t('docs.tutorials.bulkProcessing', 'Bulk File Processing')}
+          title: "Bulk File Processing",
+          content: `# ${"Bulk File Processing"}
 
-${t('docs.tutorials.bulkText', 'Learn how to process multiple files efficiently:')}
+${"Learn how to process multiple files efficiently:"}
 
-1. **${t('docs.tutorials.step1', 'Prepare Your Files')}** - Organize files in a single folder
-2. **${t('docs.tutorials.step2', 'Use Batch Tools')}** - Select tools that support batch processing
-3. **${t('docs.tutorials.step3', 'Monitor Progress')}** - Track processing in real-time
-4. **${t('docs.tutorials.step4', 'Download Results')}** - Get all processed files at once
+1. **${"Prepare Your Files"}** - Organize files in a single folder
+2. **${"Use Batch Tools"}** - Select tools that support batch processing
+3. **${"Monitor Progress"}** - Track processing in real-time
+4. **${"Download Results"}** - Get all processed files at once
 
-${t('docs.tutorials.tip', 'Pro Tip: Use our desktop app for faster bulk processing.')}`
+${"Pro Tip: Use our desktop app for faster bulk processing."}`
         },
         {
-          title: t('docs.tutorials.workflow', 'Automating Workflows'),
-          content: `# ${t('docs.tutorials.workflow', 'Automating Workflows')}
+          title: "Automating Workflows",
+          content: `# ${"Automating Workflows"}
 
-${t('docs.tutorials.workflowText', 'Create automated workflows using our API:')}
+${"Create automated workflows using our API:"}
 
 \`\`\`python
 import requests
@@ -111,7 +109,7 @@ def process_images(folder_path):
             save_result(response)
 \`\`\`
 
-${t('docs.tutorials.workflowNote', 'This example shows how to automate image processing for a folder of images.')}`
+${"This example shows how to automate image processing for a folder of images."}`
         }
       ]
     }
@@ -121,16 +119,16 @@ ${t('docs.tutorials.workflowNote', 'This example shows how to automate image pro
     <div className={`documentation-page ${theme}`}>
       <div className="docs-container">
         <header className="docs-header">
-          <h1>{t('docs.title', 'Documentation')}</h1>
+          <h1>{"Documentation"}</h1>
           <p className="docs-subtitle">
-            {t('docs.subtitle', 'Comprehensive guides and tutorials for EaseMyTools')}
+            {"Comprehensive guides and tutorials for EaseMyTools"}
           </p>
         </header>
 
         <div className="docs-layout">
           <nav className="docs-sidebar">
             <div className="sidebar-content">
-              <h3>{t('docs.contents', 'Contents')}</h3>
+              <h3>{"Contents"}</h3>
               <ul className="sidebar-nav">
                 {sections.map((section) => (
                   <li key={section.id}>
@@ -183,17 +181,17 @@ ${t('docs.tutorials.workflowNote', 'This example shows how to automate image pro
         </div>
 
         <div className="docs-support">
-          <h2>{t('docs.needHelp', 'Need Help?')}</h2>
-          <p>{t('docs.supportText', "Can't find what you're looking for? Our support team is here to help.")}</p>
+          <h2>{"Need Help?"}</h2>
+          <p>{"Can't find what you're looking for? Our support team is here to help."}</p>
           <div className="support-links">
             <a href="/contact" className="support-link">
-              {t('docs.contactSupport', 'Contact Support')}
+              {"Contact Support"}
             </a>
             <a href="/api" className="support-link">
-              {t('docs.apiReference', 'API Reference')}
+              {"API Reference"}
             </a>
             <a href="/faq" className="support-link">
-              {t('docs.viewFaq', 'View FAQ')}
+              {"View FAQ"}
             </a>
           </div>
         </div>

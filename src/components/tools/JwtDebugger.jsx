@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/JwtDebugger.css';
 
 const JwtDebugger = () => {
-    const { t } = useTranslation('jwtDebugger');
     const { theme } = useTheme();
     const [jwtToken, setJwtToken] = useState('');
     const [decoded, setDecoded] = useState(null);
@@ -14,13 +12,13 @@ const JwtDebugger = () => {
         try {
             setError('');
             if (!jwtToken.trim()) {
-                setError(t('invalidToken'));
+                setError("Invalid JWT token");
                 return;
             }
 
             const parts = jwtToken.split('.');
             if (parts.length !== 3) {
-                throw new Error(t('invalidToken'));
+                throw new Error("Invalid JWT token");
             }
 
             const header = JSON.parse(atob(parts[0]));
@@ -77,17 +75,17 @@ const JwtDebugger = () => {
     return (
         <div className={`jwt-debugger ${theme}`}>
             <div className="tool-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"JWT Debugger"}</h1>
+                <p>{"Decode and verify JSON Web Tokens"}</p>
             </div>
 
             <div className="debugger-container">
                 <div className="input-section">
-                    <label>{t('jwtInput')}</label>
+                    <label>{"JWT Token"}</label>
                     <textarea
                         value={jwtToken}
                         onChange={(e) => setJwtToken(e.target.value)}
-                        placeholder={t('jwtPlaceholder')}
+                        placeholder={"Paste your JWT token here..."}
                         rows="4"
                         className={error ? 'error' : ''}
                     />
@@ -95,10 +93,10 @@ const JwtDebugger = () => {
 
                 <div className="action-buttons">
                     <button onClick={decodeJWT} className="primary-btn">
-                        {t('decode')}
+                        {"Decode JWT"}
                     </button>
                     <button onClick={clearAll} className="secondary-btn">
-                        {t('clear')}
+                        {"Clear"}
                     </button>
                 </div>
 
@@ -111,18 +109,18 @@ const JwtDebugger = () => {
                 {decoded && (
                     <div className="results-section">
                         <div className="token-info">
-                            <h3>{t('tokenInfo')}</h3>
+                            <h3>{"Token Information"}</h3>
                             <div className="info-grid">
                                 <div className="info-item">
-                                    <span className="info-label">{t('algorithm')}:</span>
+                                    <span className="info-label">{"Algorithm"}:</span>
                                     <span className="info-value">{decoded.header.alg || 'N/A'}</span>
                                 </div>
                                 <div className="info-item">
-                                    <span className="info-label">{t('tokenType')}:</span>
+                                    <span className="info-label">{"Token Type"}:</span>
                                     <span className="info-value">{decoded.header.typ || 'N/A'}</span>
                                 </div>
                                 <div className="info-item">
-                                    <span className="info-label">{t('expiration')}:</span>
+                                    <span className="info-label">{"Expiration"}:</span>
                                     <span className={`info-value ${decoded.isExpired ? 'expired' : ''}`}>
                                         {formatTimestamp(decoded.payload.exp)}
                                         {decoded.expiresIn && (
@@ -133,23 +131,23 @@ const JwtDebugger = () => {
                                     </span>
                                 </div>
                                 <div className="info-item">
-                                    <span className="info-label">{t('issuedAt')}:</span>
+                                    <span className="info-label">{"Issued At"}:</span>
                                     <span className="info-value">{formatTimestamp(decoded.payload.iat)}</span>
                                 </div>
                                 <div className="info-item">
-                                    <span className="info-label">{t('issuer')}:</span>
+                                    <span className="info-label">{"Issuer"}:</span>
                                     <span className="info-value">{decoded.payload.iss || 'N/A'}</span>
                                 </div>
                                 <div className="info-item">
-                                    <span className="info-label">{t('subject')}:</span>
+                                    <span className="info-label">{"Subject"}:</span>
                                     <span className="info-value">{decoded.payload.sub || 'N/A'}</span>
                                 </div>
                                 <div className="info-item">
-                                    <span className="info-label">{t('audience')}:</span>
+                                    <span className="info-label">{"Audience"}:</span>
                                     <span className="info-value">{decoded.payload.aud || 'N/A'}</span>
                                 </div>
                                 <div className="info-item">
-                                    <span className="info-label">{t('tokenId')}:</span>
+                                    <span className="info-label">{"Token ID"}:</span>
                                     <span className="info-value">{decoded.payload.jti || 'N/A'}</span>
                                 </div>
                             </div>
@@ -158,12 +156,12 @@ const JwtDebugger = () => {
                         <div className="jwt-parts">
                             <div className="jwt-part">
                                 <div className="part-header">
-                                    <h4>{t('header')}</h4>
+                                    <h4>{"Header"}</h4>
                                     <button 
                                         onClick={() => copyToClipboard(decoded.header)}
                                         className="copy-btn-small"
                                     >
-                                        {t('copyHeader')}
+                                        {"Copy Header"}
                                     </button>
                                 </div>
                                 <pre className="json-output">{JSON.stringify(decoded.header, null, 2)}</pre>
@@ -171,12 +169,12 @@ const JwtDebugger = () => {
 
                             <div className="jwt-part">
                                 <div className="part-header">
-                                    <h4>{t('payload')}</h4>
+                                    <h4>{"Payload"}</h4>
                                     <button 
                                         onClick={() => copyToClipboard(decoded.payload)}
                                         className="copy-btn-small"
                                     >
-                                        {t('copyPayload')}
+                                        {"Copy Payload"}
                                     </button>
                                 </div>
                                 <pre className="json-output">{JSON.stringify(decoded.payload, null, 2)}</pre>
@@ -184,9 +182,9 @@ const JwtDebugger = () => {
 
                             <div className="jwt-part">
                                 <div className="part-header">
-                                    <h4>{t('signature')}</h4>
+                                    <h4>{"Signature"}</h4>
                                     <span className={`verification ${decoded.signature ? 'verified' : 'not-verified'}`}>
-                                        {decoded.signature ? t('verified') : t('notVerified')}
+                                        {decoded.signature ? "Verified" : "Not Verified"}
                                     </span>
                                 </div>
                                 <div className="signature-output">
@@ -200,10 +198,10 @@ const JwtDebugger = () => {
                 <div className="jwt-info">
                     <h4>JWT Information</h4>
                     <ul>
-                        <li>{t('info1')}</li>
-                        <li>{t('info2')}</li>
-                        <li>{t('info3')}</li>
-                        <li>{t('info4')}</li>
+                        <li>{"JWT consists of three parts: header, payload, and signature"}</li>
+                        <li>{"Header contains token type and algorithm information"}</li>
+                        <li>{"Payload contains the claims or data"}</li>
+                        <li>{"Signature ensures the token hasn't been tampered with"}</li>
                     </ul>
                 </div>
             </div>

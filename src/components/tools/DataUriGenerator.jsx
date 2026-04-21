@@ -1,10 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/DataUriGenerator.css';
 
 const DataUriGenerator = () => {
-    const { t } = useTranslation('dataUriGenerator');
     const { theme } = useTheme();
     const [inputType, setInputType] = useState('text');
     const [text, setText] = useState('');
@@ -116,8 +114,8 @@ const DataUriGenerator = () => {
     return (
         <div className={`data-uri-generator ${theme}`}>
             <div className="tool-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"Data URI Generator"}</h1>
+                <p>{"Convert files and text to Data URIs"}</p>
             </div>
 
             <div className="generator-container">
@@ -130,7 +128,7 @@ const DataUriGenerator = () => {
                                 checked={inputType === 'text'}
                                 onChange={(e) => setInputType(e.target.value)}
                             />
-                            {t('textInput')}
+                            {"Text Input"}
                         </label>
                         <label>
                             <input
@@ -139,28 +137,28 @@ const DataUriGenerator = () => {
                                 checked={inputType === 'file'}
                                 onChange={(e) => setInputType(e.target.value)}
                             />
-                            {t('fileInput')}
+                            {"File Input"}
                         </label>
                     </div>
 
                     {inputType === 'text' && (
                         <div className="text-input-section">
                             <div className="text-type-selector">
-                                <label>{t('textType')}:</label>
+                                <label>{"Text Type"}:</label>
                                 <select value={textType} onChange={(e) => setTextType(e.target.value)}>
-                                    <option value="plainText">{t('plainText')}</option>
-                                    <option value="html">{t('html')}</option>
-                                    <option value="css">{t('css')}</option>
-                                    <option value="javascript">{t('javascript')}</option>
-                                    <option value="json">{t('json')}</option>
-                                    <option value="xml">{t('xml')}</option>
-                                    <option value="svg">{t('svg')}</option>
+                                    <option value="plainText">{"Plain Text"}</option>
+                                    <option value="html">{"HTML"}</option>
+                                    <option value="css">{"CSS"}</option>
+                                    <option value="javascript">{"JavaScript"}</option>
+                                    <option value="json">{"JSON"}</option>
+                                    <option value="xml">{"XML"}</option>
+                                    <option value="svg">{"SVG"}</option>
                                 </select>
                             </div>
                             <textarea
                                 value={text}
                                 onChange={(e) => setText(e.target.value)}
-                                placeholder={t('textPlaceholder')}
+                                placeholder={"Enter text to convert..."}
                                 rows="8"
                             />
                         </div>
@@ -182,7 +180,7 @@ const DataUriGenerator = () => {
                                             <span>({formatFileSize(file.size)})</span>
                                         </div>
                                     ) : (
-                                        <span className="no-file">{t('noFileSelected')}</span>
+                                        <span className="no-file">{"No file selected"}</span>
                                     )}
                                 </div>
                             </div>
@@ -192,38 +190,38 @@ const DataUriGenerator = () => {
 
                 <div className="action-buttons">
                     <button onClick={generateDataUri} className="primary-btn">
-                        {t('generateUri')}
+                        {"Generate Data URI"}
                     </button>
                     <button onClick={clearAll} className="secondary-btn">
-                        {t('clear')}
+                        {"Clear"}
                     </button>
                 </div>
 
                 {fileInfo && (
                     <div className="file-info-section">
-                        <h3>{t('fileInfo')}</h3>
+                        <h3>{"File Information"}</h3>
                         <div className="info-grid">
                             <div className="info-item">
-                                <span className="info-label">{t('fileName')}:</span>
+                                <span className="info-label">{"File Name"}:</span>
                                 <span className="info-value">{fileInfo.name}</span>
                             </div>
                             <div className="info-item">
-                                <span className="info-label">{t('fileSize')}:</span>
+                                <span className="info-label">{"File Size"}:</span>
                                 <span className="info-value">{formatFileSize(fileInfo.size)}</span>
                             </div>
                             <div className="info-item">
-                                <span className="info-label">{t('mimeType')}:</span>
+                                <span className="info-label">{"MIME Type"}:</span>
                                 <span className="info-value">{fileInfo.type}</span>
                             </div>
                             {fileInfo.characterCount && (
                                 <div className="info-item">
-                                    <span className="info-label">{t('characterCount')}:</span>
+                                    <span className="info-label">{"Character Count"}:</span>
                                     <span className="info-value">{fileInfo.characterCount.toLocaleString()}</span>
                                 </div>
                             )}
                             {fileInfo.uriLength && (
                                 <div className="info-item">
-                                    <span className="info-label">{t('uriLength')}:</span>
+                                    <span className="info-label">{"URI Length"}:</span>
                                     <span className="info-value">{fileInfo.uriLength.toLocaleString()} characters</span>
                                 </div>
                             )}
@@ -235,12 +233,12 @@ const DataUriGenerator = () => {
                     <div className="results-section">
                         <div className="data-uri-output">
                             <div className="output-header">
-                                <h3>{t('dataUri')}</h3>
+                                <h3>{"Data URI"}</h3>
                                 <button 
                                     onClick={copyUri}
                                     className={`copy-btn ${copied ? 'copied' : ''}`}
                                 >
-                                    {copied ? '✓' : t('copyUri')}
+                                    {copied ? '✓' : "Copy URI"}
                                 </button>
                             </div>
                             <textarea
@@ -251,13 +249,13 @@ const DataUriGenerator = () => {
                             />
                             {copied && (
                                 <div className="copied-message">
-                                    {t('uriCopied')}
+                                    {"URI copied to clipboard!"}
                                 </div>
                             )}
                         </div>
 
                         <div className="preview-section">
-                            <h3>{t('preview')}</h3>
+                            <h3>{"Preview"}</h3>
                             <div className="preview-container">
                                 {getPreview()}
                             </div>
@@ -266,12 +264,12 @@ const DataUriGenerator = () => {
                 )}
 
                 <div className="data-uri-info">
-                    <h4>{t('dataUriInfo')}</h4>
+                    <h4>{"Data URI Information"}</h4>
                     <ul>
-                        <li>{t('info1')}</li>
-                        <li>{t('info2')}</li>
-                        <li>{t('info3')}</li>
-                        <li>{t('info4')}</li>
+                        <li>{"Data URIs allow embedding data directly in web pages"}</li>
+                        <li>{"Useful for small images, icons, and data files"}</li>
+                        <li>{"Can increase page load speed for small resources"}</li>
+                        <li>{"Not recommended for large files (> 100KB)"}</li>
                     </ul>
                 </div>
             </div>

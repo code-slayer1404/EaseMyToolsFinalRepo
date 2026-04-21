@@ -1,31 +1,30 @@
-import { useTranslation } from 'react-i18next';
+
 import { useTheme } from '../contexts/ThemeContext';
 import '../styles/MobileApp.css';
 
 const MobileApp = () => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
 
   const features = [
     {
       icon: '📱',
-      title: t('mobile.feature1.title', 'Optimized for Mobile'),
-      description: t('mobile.feature1.description', 'All tools perfectly adapted for touch screens and mobile devices')
+      title: "Optimized for Mobile",
+      description: "All tools perfectly adapted for touch screens and mobile devices"
     },
     {
       icon: '⚡',
-      title: t('mobile.feature2.title', 'Offline Capability'),
-      description: t('mobile.feature2.description', 'Use many tools without internet connection')
+      title: "Offline Capability",
+      description: "Use many tools without internet connection"
     },
     {
       icon: '🔒',
-      title: t('mobile.feature3.title', 'Enhanced Security'),
-      description: t('mobile.feature3.description', 'Additional security features for mobile usage')
+      title: "Enhanced Security",
+      description: "Additional security features for mobile usage"
     },
     {
       icon: '💾',
-      title: t('mobile.feature4.title', 'Local Storage'),
-      description: t('mobile.feature4.description', 'Save your work directly to your device')
+      title: "Local Storage",
+      description: "Save your work directly to your device"
     }
   ];
 
@@ -34,13 +33,13 @@ const MobileApp = () => {
       name: 'App Store',
       icon: '🍎',
       url: '#',
-      buttonText: t('mobile.downloadiOS', 'Download on the App Store')
+      buttonText: "Download on the App Store"
     },
     {
       name: 'Google Play',
       icon: '🤖',
       url: '#',
-      buttonText: t('mobile.downloadAndroid', 'Get it on Google Play')
+      buttonText: "Get it on Google Play"
     }
   ];
 
@@ -49,9 +48,9 @@ const MobileApp = () => {
       <div className="mobile-container">
         <header className="mobile-header">
           <div className="header-content">
-            <h1>{t('mobile.title', 'EaseMyTools Mobile')}</h1>
+            <h1>{"EaseMyTools Mobile"}</h1>
             <p className="subtitle">
-              {t('mobile.subtitle', 'Take your favorite tools anywhere. Download our mobile app for iOS and Android.')}
+              {"Take your favorite tools anywhere. Download our mobile app for iOS and Android."}
             </p>
             <div className="app-badges">
               {appStores.map((store, index) => (
@@ -64,7 +63,7 @@ const MobileApp = () => {
                 >
                   <span className="store-icon">{store.icon}</span>
                   <div className="store-info">
-                    <span className="available">{t('mobile.available', 'Available on')}</span>
+                    <span className="available">{"Available on"}</span>
                     <span className="store-name">{store.name}</span>
                   </div>
                 </a>
@@ -92,7 +91,7 @@ const MobileApp = () => {
         </header>
 
         <section className="mobile-features">
-          <h2>{t('mobile.featuresTitle', 'Why Use Our Mobile App?')}</h2>
+          <h2>{"Why Use Our Mobile App?"}</h2>
           <div className="features-grid">
             {features.map((feature, index) => (
               <div key={index} className="feature-card">
@@ -106,8 +105,8 @@ const MobileApp = () => {
 
         <section className="mobile-cta">
           <div className="cta-content">
-            <h2>{t('mobile.ctaTitle', 'Ready to Get Started?')}</h2>
-            <p>{t('mobile.ctaText', 'Download the app now and have all your tools in your pocket')}</p>
+            <h2>{"Ready to Get Started?"}</h2>
+            <p>{"Download the app now and have all your tools in your pocket"}</p>
             <div className="cta-buttons">
               {appStores.map((store, index) => (
                 <a
