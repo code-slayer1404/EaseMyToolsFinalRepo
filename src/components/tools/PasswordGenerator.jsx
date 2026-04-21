@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/PasswordGenerator.css';
 
+const t = (key, fallback) => fallback ?? key;
+
 const PasswordGenerator = () => {
-    const { t } = useTranslation('passwordGenerator');
     const { theme } = useTheme();
     const [password, setPassword] = useState('');
     const [length, setLength] = useState(16);
@@ -91,8 +91,8 @@ const PasswordGenerator = () => {
     return (
         <div className={`password-generator ${theme}`}>
             <div className="tool-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"Password Generator"}</h1>
+                <p>{"Generate strong and secure passwords"}</p>
             </div>
 
             <div className="generator-container">
@@ -109,18 +109,18 @@ const PasswordGenerator = () => {
                             className={`copy-btn ${copied ? 'copied' : ''}`}
                             disabled={!password}
                         >
-                            {copied ? '✓' : t('copyPassword')}
+                            {copied ? '✓' : "Copy Password"}
                         </button>
                     </div>
                     {copied && (
                         <div className="copied-message">
-                            {t('passwordCopied')}
+                            {"Password copied to clipboard!"}
                         </div>
                     )}
                 </div>
 
                 <div className="strength-meter">
-                    <label>{t('passwordStrength')}:</label>
+                    <label>{"Password Strength"}:</label>
                     <div className="strength-bars">
                         {[1, 2, 3, 4, 5].map(level => (
                             <div
@@ -136,7 +136,7 @@ const PasswordGenerator = () => {
 
                 <div className="settings-section">
                     <div className="setting-group">
-                        <label htmlFor="length">{t('passwordLength')}: {length}</label>
+                        <label htmlFor="length">{"Password Length"}: {length}</label>
                         <input
                             id="length"
                             type="range"
@@ -155,7 +155,7 @@ const PasswordGenerator = () => {
                                 checked={includeUppercase}
                                 onChange={(e) => setIncludeUppercase(e.target.checked)}
                             />
-                            {t('includeUppercase')}
+                            {"Include Uppercase Letters (A-Z)"}
                         </label>
 
                         <label className="checkbox-label">
@@ -164,7 +164,7 @@ const PasswordGenerator = () => {
                                 checked={includeLowercase}
                                 onChange={(e) => setIncludeLowercase(e.target.checked)}
                             />
-                            {t('includeLowercase')}
+                            {"Include Lowercase Letters (a-z)"}
                         </label>
 
                         <label className="checkbox-label">
@@ -173,7 +173,7 @@ const PasswordGenerator = () => {
                                 checked={includeNumbers}
                                 onChange={(e) => setIncludeNumbers(e.target.checked)}
                             />
-                            {t('includeNumbers')}
+                            {"Include Numbers (0-9)"}
                         </label>
 
                         <label className="checkbox-label">
@@ -182,7 +182,7 @@ const PasswordGenerator = () => {
                                 checked={includeSymbols}
                                 onChange={(e) => setIncludeSymbols(e.target.checked)}
                             />
-                            {t('includeSymbols')}
+                            {"Include Symbols (!@#$%^&*)"}
                         </label>
 
                         <label className="checkbox-label">
@@ -191,7 +191,7 @@ const PasswordGenerator = () => {
                                 checked={excludeSimilar}
                                 onChange={(e) => setExcludeSimilar(e.target.checked)}
                             />
-                            {t('excludeSimilar')}
+                            {"Exclude Similar Characters (i, l, 1, L, o, 0, O)"}
                         </label>
 
                         <label className="checkbox-label">
@@ -200,24 +200,24 @@ const PasswordGenerator = () => {
                                 checked={excludeAmbiguous}
                                 onChange={(e) => setExcludeAmbiguous(e.target.checked)}
                             />
-                            {t('excludeAmbiguous')}
+                            {"Exclude Ambiguous Characters ({ } [ ] ( ) / \\ ' \" ` ~ , ; : . < > )"}
                         </label>
                     </div>
                 </div>
 
                 <div className="action-buttons">
                     <button onClick={generatePassword} className="primary-btn">
-                        {t('regenerate')}
+                        {"Regenerate"}
                     </button>
                 </div>
 
                 <div className="password-tips">
-                    <h4>{t('passwordTips')}</h4>
+                    <h4>{"Password Security Tips"}</h4>
                     <ul>
-                        <li>{t('tip1')}</li>
-                        <li>{t('tip2')}</li>
-                        <li>{t('tip3')}</li>
-                        <li>{t('tip4')}</li>
+                        <li>{"Use at least 12 characters"}</li>
+                        <li>{"Include uppercase, lowercase, numbers, and symbols"}</li>
+                        <li>{"Avoid common words and patterns"}</li>
+                        <li>{"Use unique passwords for different accounts"}</li>
                     </ul>
                 </div>
             </div>

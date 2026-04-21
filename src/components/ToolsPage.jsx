@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import "../styles/ToolsPage.css";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
-import { useTranslation } from "react-i18next";
 import { getToolCategories, getAllTools } from "../data/toolsData";
 import Header from "./Header";
 
@@ -11,7 +10,6 @@ const AUTO_SCROLL_INTERVAL = 2500;
 const ToolsPage = () => {
     const navigate = useNavigate();
     const { theme } = useTheme();
-    const { t } = useTranslation("tools");
 
     const toolCategories = getToolCategories();
     const allTools = getAllTools();
@@ -126,7 +124,7 @@ const ToolsPage = () => {
                 <div className="search-container">
                     <div className="search-bar">
                         <input
-                            placeholder={t("searchPlaceholder")}
+                            placeholder={"Search tools..."}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onFocus={() => setIsOpen(true)}

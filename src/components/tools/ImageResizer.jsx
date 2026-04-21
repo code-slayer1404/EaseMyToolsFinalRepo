@@ -1,10 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/ImageResizer.css';
 
 const ImageResizer = () => {
-    const { t } = useTranslation('imageResizer');
     const { theme } = useTheme();
     const [originalImage, setOriginalImage] = useState(null);
     const [resizedImage, setResizedImage] = useState(null);
@@ -21,7 +19,7 @@ const ImageResizer = () => {
         if (!file) return;
 
         if (!file.type.startsWith('image/')) {
-            alert(t('selectImage') || 'Please select an image file');
+            alert("Please select an image file" || 'Please select an image file');
             return;
         }
 
@@ -42,7 +40,7 @@ const ImageResizer = () => {
 
     const resizeImage = () => {
         if (!originalImage) {
-            alert(t('uploadImage') || 'Please upload an image first');
+            alert("Please upload an image first" || 'Please upload an image first');
             return;
         }
 
@@ -148,8 +146,8 @@ const ImageResizer = () => {
     return (
         <div className={`image-resizer ${theme}`}>
             <div className="resizer-header">
-                <h1>{t('title') || 'Image Resizer'}</h1>
-                <p>{t('subtitle') || 'Resize images while maintaining quality'}</p>
+                <h1>{"Image Resizer" || 'Image Resizer'}</h1>
+                <p>{"Resize images while maintaining quality" || 'Resize images while maintaining quality'}</p>
             </div>
 
             <div className="resizer-container">
@@ -165,42 +163,42 @@ const ImageResizer = () => {
                     <label htmlFor="image-upload" className="upload-label">
                         <div className="upload-icon">🖼️</div>
                         <div className="upload-text">
-                            {t('clickToUpload') || 'Click to upload image'}
+                            {"Click to upload image" || 'Click to upload image'}
                         </div>
                         <div className="upload-hint">
-                            {t('supportedFormats') || 'Supported formats: JPG, PNG, GIF, BMP, WebP'}
+                            {"Supported formats: JPG, PNG, GIF, BMP, WebP" || 'Supported formats: JPG, PNG, GIF, BMP, WebP'}
                         </div>
                     </label>
                 </div>
 
                 {originalImage && (
                     <div className="resize-controls">
-                        <h3>{t('resizeSettings') || 'Resize Settings'}</h3>
+                        <h3>{"Resize Settings" || 'Resize Settings'}</h3>
                         
                         <div className="preset-buttons">
-                            <h4>{t('presets') || 'Quick Presets:'}</h4>
+                            <h4>{"Quick Presets:" || 'Quick Presets:'}</h4>
                             <div className="preset-grid">
                                 <button onClick={() => applyPreset('facebook')} className="preset-btn">
-                                    {t('facebookPreset') || 'Facebook (1200×630)'}
+                                    {"Facebook (1200×630)" || 'Facebook (1200×630)'}
                                 </button>
                                 <button onClick={() => applyPreset('instagram')} className="preset-btn">
-                                    {t('instagramPreset') || 'Instagram (1080×1080)'}
+                                    {"Instagram (1080×1080)" || 'Instagram (1080×1080)'}
                                 </button>
                                 <button onClick={() => applyPreset('twitter')} className="preset-btn">
-                                    {t('twitterPreset') || 'Twitter (1200×675)'}
+                                    {"Twitter (1200×675)" || 'Twitter (1200×675)'}
                                 </button>
                                 <button onClick={() => applyPreset('thumbnail')} className="preset-btn">
-                                    {t('thumbnailPreset') || 'Thumbnail (300×300)'}
+                                    {"Thumbnail (300×300)" || 'Thumbnail (300×300)'}
                                 </button>
                                 <button onClick={() => applyPreset('hd')} className="preset-btn">
-                                    {t('hdPreset') || 'HD (1920×1080)'}
+                                    {"HD (1920×1080)" || 'HD (1920×1080)'}
                                 </button>
                             </div>
                         </div>
 
                         <div className="size-controls">
                             <div className="size-input">
-                                <label>{t('width') || 'Width'}</label>
+                                <label>{"Width" || 'Width'}</label>
                                 <input
                                     type="number"
                                     value={width}
@@ -211,7 +209,7 @@ const ImageResizer = () => {
                                 <span>px</span>
                             </div>
                             <div className="size-input">
-                                <label>{t('height') || 'Height'}</label>
+                                <label>{"Height" || 'Height'}</label>
                                 <input
                                     type="number"
                                     value={height}
@@ -230,11 +228,11 @@ const ImageResizer = () => {
                                     checked={maintainAspectRatio}
                                     onChange={(e) => setMaintainAspectRatio(e.target.checked)}
                                 />
-                                {t('maintainAspectRatio') || 'Maintain aspect ratio'}
+                                {"Maintain aspect ratio" || 'Maintain aspect ratio'}
                             </label>
                             
                             <div className="quality-control">
-                                <label>{t('quality') || 'Quality'}: {Math.round(quality * 100)}%</label>
+                                <label>{"Quality" || 'Quality'}: {Math.round(quality * 100)}%</label>
                                 <input
                                     type="range"
                                     min="0.1"
@@ -248,7 +246,7 @@ const ImageResizer = () => {
                         </div>
 
                         <button onClick={resizeImage} className="resize-btn">
-                            {t('resizeImage') || 'Resize Image'}
+                            {"Resize Image" || 'Resize Image'}
                         </button>
                     </div>
                 )}
@@ -256,7 +254,7 @@ const ImageResizer = () => {
                 <div className="preview-section">
                     {originalImage && (
                         <div className="image-preview original">
-                            <h4>{t('original') || 'Original'}</h4>
+                            <h4>{"Original" || 'Original'}</h4>
                             <img src={originalImage} alt="Original" />
                             <div className="image-info">
                                 {originalSize.width} × {originalSize.height} px
@@ -266,13 +264,13 @@ const ImageResizer = () => {
 
                     {resizedImage && (
                         <div className="image-preview resized">
-                            <h4>{t('resized') || 'Resized'}</h4>
+                            <h4>{"Resized" || 'Resized'}</h4>
                             <img src={resizedImage} alt="Resized" />
                             <div className="image-info">
                                 {width} × {height} px
                             </div>
                             <button onClick={downloadResizedImage} className="download-btn">
-                                {t('download') || 'Download Resized Image'}
+                                {"Download Resized Image" || 'Download Resized Image'}
                             </button>
                         </div>
                     )}
@@ -280,22 +278,22 @@ const ImageResizer = () => {
 
                 <div className="action-buttons">
                     <button onClick={clearAll} className="clear-btn">
-                        {t('clearAll') || 'Clear All'}
+                        {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
                 <canvas ref={canvasRef} style={{ display: 'none' }} />
 
                 <div className="info-section">
-                    <h4>{t('aboutImageResizing') || 'About Image Resizing'}</h4>
-                    <p>{t('resizeInfo') || 'Image resizing is the process of changing the dimensions of an image while maintaining its visual quality. This is useful for optimizing images for web, social media, or storage.'}</p>
+                    <h4>{"About Image Resizing" || 'About Image Resizing'}</h4>
+                    <p>{"Image resizing is the process of changing the dimensions of an image while maintaining its visual quality. This is useful for optimizing images for web, social media, or storage." || 'Image resizing is the process of changing the dimensions of an image while maintaining its visual quality. This is useful for optimizing images for web, social media, or storage.'}</p>
                     
-                    <h5>{t('tips') || 'Tips:'}</h5>
+                    <h5>{"Tips:" || 'Tips:'}</h5>
                     <ul>
-                        <li>{t('tip1') || 'Maintain aspect ratio to prevent distortion'}</li>
-                        <li>{t('tip2') || 'Use higher quality for important images'}</li>
-                        <li>{t('tip3') || 'Consider file size for web optimization'}</li>
-                        <li>{t('tip4') || 'Test different sizes for different platforms'}</li>
+                        <li>{"Maintain aspect ratio to prevent distortion" || 'Maintain aspect ratio to prevent distortion'}</li>
+                        <li>{"Use higher quality for important images" || 'Use higher quality for important images'}</li>
+                        <li>{"Consider file size for web optimization" || 'Consider file size for web optimization'}</li>
+                        <li>{"Test different sizes for different platforms" || 'Test different sizes for different platforms'}</li>
                     </ul>
                 </div>
             </div>

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/CaseConverter.css';
 
-const CaseConverter = () => {
-    const { t } = useTranslation("caseConverter"); // <-- i18next
+const CaseConverter = () => { // <-- i18next
     const { theme } = useTheme();
     const [inputText, setInputText] = useState('');
     const [convertedText, setConvertedText] = useState('');
@@ -34,7 +32,7 @@ const CaseConverter = () => {
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(convertedText);
-        alert(t('caseConverter:copied', 'Text copied to clipboard!'));
+        alert("Text copied to clipboard!");
     };
 
     const clearText = () => {
@@ -45,17 +43,17 @@ const CaseConverter = () => {
     return (
         <div className={`case-converter ${theme}`}>
             <div className="converter-header">
-                <h1>{t('caseConverter:title', 'Text Case Converter')}</h1>
-                <p>{t('caseConverter:subtitle', 'Convert text between different cases instantly')}</p>
+                <h1>{"Text Case Converter"}</h1>
+                <p>{"Convert text between different cases instantly"}</p>
             </div>
 
             <div className="converter-container">
                 <div className="input-section">
-                    <label>{t('caseConverter:inputLabel', 'Input Text')}</label>
+                    <label>{"Input Text"}</label>
                     <textarea
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
-                        placeholder={t('caseConverter:inputPlaceholder', 'Enter your text here...')}
+                        placeholder={"Enter your text here..."}
                         className="text-input"
                         // @ts-ignore
                         rows="6"
@@ -64,28 +62,28 @@ const CaseConverter = () => {
 
                 <div className="button-group">
                     <button onClick={convertToUpperCase} className="convert-btn">
-                        {t('caseConverter:upperCase', 'UPPERCASE')}
+                        {"UPPERCASE"}
                     </button>
                     <button onClick={convertToLowerCase} className="convert-btn">
-                        {t('caseConverter:lowerCase', 'lowercase')}
+                        {"lowercase"}
                     </button>
                     <button onClick={convertToSentenceCase} className="convert-btn">
-                        {t('caseConverter:sentenceCase', 'Sentence case')}
+                        {"Sentence case"}
                     </button>
                     <button onClick={convertToTitleCase} className="convert-btn">
-                        {t('caseConverter:titleCase', 'Title Case')}
+                        {"Title Case"}
                     </button>
                     <button onClick={clearText} className="clear-btn">
-                        {t('caseConverter:clear', 'Clear')}
+                        {"Clear"}
                     </button>
                 </div>
 
                 <div className="output-section">
-                    <label>{t('caseConverter:outputLabel', 'Converted Text')}</label>
+                    <label>{"Converted Text"}</label>
                     <textarea
                         value={convertedText}
                         readOnly
-                        placeholder={t('caseConverter:outputPlaceholder', 'Converted text will appear here...')}
+                        placeholder={"Converted text will appear here..."}
                         className="text-output"
                         // @ts-ignore
                         rows="6"
@@ -95,11 +93,11 @@ const CaseConverter = () => {
                 {convertedText && (
                     <div className="action-buttons">
                         <button onClick={copyToClipboard} className="copy-btn">
-                            {t('caseConverter:copy', 'Copy to Clipboard')}
+                            {"Copy to Clipboard"}
                         </button>
                         <div className="text-stats">
-                            <span>{t('caseConverter:characters', 'Characters')}: {convertedText.length}</span>
-                            <span>{t('caseConverter:words', 'Words')}: {convertedText.split(/\s+/).filter(word => word.length > 0).length}</span>
+                            <span>{"Characters"}: {convertedText.length}</span>
+                            <span>{"Words"}: {convertedText.split(/\s+/).filter(word => word.length > 0).length}</span>
                         </div>
                     </div>
                 )}

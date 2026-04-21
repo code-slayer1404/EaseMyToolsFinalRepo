@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/CSVtoJSON.css';
 
 const CSVtoJSON = () => {
-    const { t } = useTranslation('csvToJson');
     const { theme } = useTheme();
     const [csvInput, setCsvInput] = useState('');
     const [jsonOutput, setJsonOutput] = useState('');
@@ -13,7 +11,7 @@ const CSVtoJSON = () => {
 
     const convertCSVtoJSON = () => {
         if (!csvInput.trim()) {
-            alert(t('enterCSV') || 'Please enter CSV data');
+            alert("Please enter CSV data" || 'Please enter CSV data');
             return;
         }
 
@@ -60,20 +58,20 @@ const CSVtoJSON = () => {
 
             setJsonOutput(JSON.stringify(result, null, 2));
         } catch (error) {
-            alert(t('conversionError') || 'Error converting CSV to JSON: ' + error.message);
+            alert("Error converting CSV to JSON" || 'Error converting CSV to JSON: ' + error.message);
         }
     };
 
     const convertJSONtoCSV = () => {
         if (!jsonOutput.trim()) {
-            alert(t('enterJSON') || 'Please enter JSON data');
+            alert("Please enter JSON data" || 'Please enter JSON data');
             return;
         }
 
         try {
             const data = JSON.parse(jsonOutput);
             if (!Array.isArray(data)) {
-                alert(t('arrayRequired') || 'JSON must be an array of objects');
+                alert("JSON must be an array of objects" || 'JSON must be an array of objects');
                 return;
             }
 
@@ -113,7 +111,7 @@ const CSVtoJSON = () => {
 
             setCsvInput(csv.trim());
         } catch (error) {
-            alert(t('invalidJSON') || 'Invalid JSON: ' + error.message);
+            alert("Invalid JSON" || 'Invalid JSON: ' + error.message);
         }
     };
 
@@ -124,7 +122,7 @@ const CSVtoJSON = () => {
 
     const copyToClipboard = (text) => {
         navigator.clipboard.writeText(text);
-        alert(t('copied') || 'Copied to clipboard!');
+        alert("Copied to clipboard!" || 'Copied to clipboard!');
     };
 
     const downloadFile = (content, filename, contentType) => {
@@ -152,19 +150,19 @@ const CSVtoJSON = () => {
     return (
         <div className={`csv-json-converter ${theme}`}>
             <div className="converter-header">
-                <h1>{t('title') || 'CSV to JSON Converter'}</h1>
-                <p>{t('subtitle') || 'Convert between CSV and JSON formats'}</p>
+                <h1>{"CSV to JSON Converter" || 'CSV to JSON Converter'}</h1>
+                <p>{"Convert between CSV and JSON formats" || 'Convert between CSV and JSON formats'}</p>
             </div>
 
             <div className="converter-container">
                 <div className="settings-panel">
                     <div className="setting">
-                        <label>{t('delimiter') || 'Delimiter'}</label>
+                        <label>{"Delimiter" || 'Delimiter'}</label>
                         <select value={delimiter} onChange={(e) => setDelimiter(e.target.value)}>
-                            <option value=",">, {t('comma') || 'Comma'}</option>
-                            <option value=";">; {t('semicolon') || 'Semicolon'}</option>
-                            <option value="\t">\t {t('tab') || 'Tab'}</option>
-                            <option value="|">| {t('pipe') || 'Pipe'}</option>
+                            <option value=",">, {"Comma" || 'Comma'}</option>
+                            <option value=";">; {"Semicolon" || 'Semicolon'}</option>
+                            <option value="\t">\t {"Tab" || 'Tab'}</option>
+                            <option value="|">| {"Pipe" || 'Pipe'}</option>
                         </select>
                     </div>
                     <div className="setting">
@@ -174,55 +172,55 @@ const CSVtoJSON = () => {
                                 checked={hasHeaders}
                                 onChange={(e) => setHasHeaders(e.target.checked)}
                             />
-                            {t('firstRowHeaders') || 'First row contains headers'}
+                            {"First row contains headers" || 'First row contains headers'}
                         </label>
                     </div>
                 </div>
 
                 <div className="input-output-section">
                     <div className="input-section">
-                        <label>{t('csvInput') || 'CSV Input'}</label>
+                        <label>{"CSV Input" || 'CSV Input'}</label>
                         <textarea
                             value={csvInput}
                             onChange={(e) => setCsvInput(e.target.value)}
-                            placeholder={t('csvPlaceholder') || 'Paste your CSV data here...'}
+                            placeholder={"Paste your CSV data here..." || 'Paste your CSV data here...'}
                             className="text-input"
                             rows="8"
                         />
                         <div className="input-actions">
                             <button onClick={downloadCSV} className="download-btn" disabled={!csvInput}>
-                                {t('downloadCSV') || 'Download CSV'}
+                                {"Download CSV" || 'Download CSV'}
                             </button>
                             <button onClick={() => copyToClipboard(csvInput)} className="copy-btn" disabled={!csvInput}>
-                                {t('copyCSV') || 'Copy CSV'}
+                                {"Copy CSV" || 'Copy CSV'}
                             </button>
                         </div>
                     </div>
 
                     <div className="conversion-buttons">
                         <button onClick={convertCSVtoJSON} className="convert-btn">
-                            {t('csvToJson') || 'CSV → JSON'}
+                            {"CSV → JSON" || 'CSV → JSON'}
                         </button>
                         <button onClick={convertJSONtoCSV} className="convert-btn">
-                            {t('jsonToCsv') || 'JSON → CSV'}
+                            {"JSON → CSV" || 'JSON → CSV'}
                         </button>
                     </div>
 
                     <div className="output-section">
-                        <label>{t('jsonOutput') || 'JSON Output'}</label>
+                        <label>{"JSON Output" || 'JSON Output'}</label>
                         <textarea
                             value={jsonOutput}
                             onChange={(e) => setJsonOutput(e.target.value)}
-                            placeholder={t('jsonPlaceholder') || 'JSON output will appear here...'}
+                            placeholder={"JSON output will appear here..." || 'JSON output will appear here...'}
                             className="text-output"
                             rows="8"
                         />
                         <div className="output-actions">
                             <button onClick={downloadJSON} className="download-btn" disabled={!jsonOutput}>
-                                {t('downloadJSON') || 'Download JSON'}
+                                {"Download JSON" || 'Download JSON'}
                             </button>
                             <button onClick={() => copyToClipboard(jsonOutput)} className="copy-btn" disabled={!jsonOutput}>
-                                {t('copyJSON') || 'Copy JSON'}
+                                {"Copy JSON" || 'Copy JSON'}
                             </button>
                         </div>
                     </div>
@@ -230,21 +228,21 @@ const CSVtoJSON = () => {
 
                 <div className="action-buttons">
                     <button onClick={clearAll} className="clear-btn">
-                        {t('clearAll') || 'Clear All'}
+                        {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
                 <div className="info-section">
-                    <h4>{t('about') || 'About CSV and JSON'}</h4>
-                    <p><strong>CSV</strong> {t('csvInfo') || '(Comma-Separated Values) is a simple file format used to store tabular data.'}</p>
-                    <p><strong>JSON</strong> {t('jsonInfo') || '(JavaScript Object Notation) is a lightweight data-interchange format that is easy for humans to read and write.'}</p>
+                    <h4>{"About CSV and JSON" || 'About CSV and JSON'}</h4>
+                    <p><strong>CSV</strong> {"(Comma-Separated Values) is a simple file format used to store tabular data." || '(Comma-Separated Values) is a simple file format used to store tabular data.'}</p>
+                    <p><strong>JSON</strong> {"(JavaScript Object Notation) is a lightweight data-interchange format that is easy for humans to read and write." || '(JavaScript Object Notation) is a lightweight data-interchange format that is easy for humans to read and write.'}</p>
                     
-                    <h5>{t('commonUses') || 'Common Uses:'}</h5>
+                    <h5>{"Common Uses:" || 'Common Uses:'}</h5>
                     <ul>
-                        <li>{t('use1') || 'Data migration between systems'}</li>
-                        <li>{t('use2') || 'Exporting data from databases'}</li>
-                        <li>{t('use3') || 'API data formatting'}</li>
-                        <li>{t('use4') || 'Spreadsheet data processing'}</li>
+                        <li>{"Data migration between systems" || 'Data migration between systems'}</li>
+                        <li>{"Exporting data from databases" || 'Exporting data from databases'}</li>
+                        <li>{"API data formatting" || 'API data formatting'}</li>
+                        <li>{"Spreadsheet data processing" || 'Spreadsheet data processing'}</li>
                     </ul>
                 </div>
             </div>
@@ -257,7 +255,7 @@ export default CSVtoJSON;
 
 
 // import React, { useState, useRef } from 'react';
-// import { useTranslation } from 'react-i18next';
+// 
 // import { useTheme } from '../../contexts/ThemeContext';
 // import '../../styles/tools/CsvToJson.css';
 
@@ -273,10 +271,10 @@ export default CSVtoJSON;
 //     const fileInputRef = useRef(null);
 
 //     const delimiters = {
-//         ',': t('comma'),
-//         ';': t('semicolon'),
-//         '\t': t('tab'),
-//         '|': t('pipe')
+//         ',': "Comma",
+//         ';': "Semicolon",
+//         '\t': "Tab",
+//         '|': "Pipe"
 //     };
 
 //     const parseCSV = (text) => {
@@ -390,8 +388,8 @@ export default CSVtoJSON;
 //     return (
 //         <div className={`csv-to-json ${theme}`}>
 //             <div className="tool-header">
-//                 <h1>{t('title')}</h1>
-//                 <p>{t('subtitle')}</p>
+//                 <h1>{"CSV to JSON Converter"}</h1>
+//                 <p>{"Convert between CSV and JSON formats"}</p>
 //             </div>
 
 //             <div className="converter-container">
@@ -419,11 +417,11 @@ export default CSVtoJSON;
 //                     </div>
 
 //                     <div className="csv-input-section">
-//                         <label>{t('csvInput')}</label>
+//                         <label>{"CSV Input"}</label>
 //                         <textarea
 //                             value={csvInput}
 //                             onChange={(e) => setCsvInput(e.target.value)}
-//                             placeholder={t('csvPlaceholder')}
+//                             placeholder={"Paste your CSV data here..."}
 //                             rows="8"
 //                         />
 //                     </div>
@@ -431,7 +429,7 @@ export default CSVtoJSON;
 
 //                 <div className="settings-section">
 //                     <div className="setting-group">
-//                         <label>{t('delimiter')}</label>
+//                         <label>{"Delimiter"}</label>
 //                         <select value={delimiter} onChange={(e) => setDelimiter(e.target.value)}>
 //                             {Object.entries(delimiters).map(([value, label]) => (
 //                                 <option key={value} value={value}>{label}</option>
@@ -479,7 +477,7 @@ export default CSVtoJSON;
 //                 {jsonOutput && (
 //                     <div className="output-section">
 //                         <div className="output-header">
-//                             <h3>{t('jsonOutput')}</h3>
+//                             <h3>{"JSON Output"}</h3>
 //                             <div className="output-actions">
 //                                 <button onClick={copyJson} className="copy-btn">
 //                                     {t('copyJson')}

@@ -2,13 +2,11 @@
 import React, { useState, useRef } from "react";
 import "../../styles/tools/Base64Converter.css";
 import { useTheme } from "../../contexts/ThemeContext";
-import { useTranslation } from "react-i18next";
 
 const Base64Converter = () => {
     console.log("Base64Converter was rendered");
     
     const { theme } = useTheme();
-    const { t } = useTranslation("base64");
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const [mode, setMode] = useState("encode");
@@ -66,20 +64,20 @@ const Base64Converter = () => {
 
     return (
         <div className={`base64-container ${theme}`}>
-            <h2 className="title">{t("title")}</h2>
+            <h2 className="title">{"🔤 Base64 Converter"}</h2>
 
             <div className="mode-selector">
                 <button
                     className={mode === "encode" ? "active" : ""}
                     onClick={() => setMode("encode")}
                 >
-                    {t("encode")}
+                    {"Encode"}
                 </button>
                 <button
                     className={mode === "decode" ? "active" : ""}
                     onClick={() => setMode("decode")}
                 >
-                    {t("decode")}
+                    {"Decode"}
                 </button>
             </div>
 
@@ -87,7 +85,7 @@ const Base64Converter = () => {
                 <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder={t("inputPlaceholder")}
+                    placeholder={"Enter text to encode/decode..."}
                     className="text-area"
                     rows={6}
                 />
@@ -99,7 +97,7 @@ const Base64Converter = () => {
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
             >
-                <p>{t("dragDrop")}</p>
+                <p>{"📂 Drag & drop a file here or click to browse"}</p>
                 <input
                     type="file"
                     ref={fileInputRef}
@@ -109,7 +107,7 @@ const Base64Converter = () => {
             </div>
 
             <button className="action-btn convert-btn" onClick={handleEncode}>
-                {mode === "encode" ? t("encode") : t("decode")}
+                {mode === "encode" ? "Encode" : "Decode"}
             </button>
 
             {output && (
@@ -117,19 +115,19 @@ const Base64Converter = () => {
                     <textarea
                         value={output}
                         readOnly
-                        placeholder={t("outputPlaceholder")}
+                        placeholder={"Result will appear here..."}
                         className="text-area output"
                         rows={6}
                     />
                     <div className="output-actions">
                         <button className="action-btn" onClick={copyToClipboard}>
-                            {t("copy")}
+                            {"📋 Copy"}
                         </button>
                         <button className="action-btn" onClick={downloadFile}>
-                            {t("downloadText")}
+                            {"📥 Download as File"}
                         </button>
                         <button className="action-btn clear-btn" onClick={clearAll}>
-                            {t("clear")}
+                            {"🗑️ Clear"}
                         </button>
                     </div>
                 </div>

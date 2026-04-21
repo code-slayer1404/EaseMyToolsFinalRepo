@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/URLEncoder.css';
 
 const URLEncoder = () => {
-    const { t } = useTranslation('urlEncoder');
     const { theme } = useTheme();
     const [inputText, setInputText] = useState('');
     const [outputText, setOutputText] = useState('');
@@ -12,7 +10,7 @@ const URLEncoder = () => {
 
     const processText = () => {
         if (!inputText.trim()) {
-            alert(t('enterText') || 'Please enter some text');
+            alert("Please enter some text" || 'Please enter some text');
             return;
         }
 
@@ -25,7 +23,7 @@ const URLEncoder = () => {
                 setOutputText(decoded);
             }
         } catch (error) {
-            alert(t('invalidInput') || 'Invalid input for the selected operation');
+            alert("Invalid input for the selected operation" || 'Invalid input for the selected operation');
         }
     };
 
@@ -36,7 +34,7 @@ const URLEncoder = () => {
 
     const copyToClipboard = (text) => {
         navigator.clipboard.writeText(text);
-        alert(t('copied') || 'Copied to clipboard!');
+        alert("Copied to clipboard!" || 'Copied to clipboard!');
     };
 
     const swapOperation = () => {
@@ -47,7 +45,7 @@ const URLEncoder = () => {
 
     const processFullURL = () => {
         if (!inputText.trim()) {
-            alert(t('enterURL') || 'Please enter a URL');
+            alert("Please enter a URL" || 'Please enter a URL');
             return;
         }
 
@@ -60,15 +58,15 @@ const URLEncoder = () => {
                 setOutputText(decoded);
             }
         } catch (error) {
-            alert(t('invalidURL') || 'Invalid URL for the selected operation');
+            alert("Invalid URL for the selected operation" || 'Invalid URL for the selected operation');
         }
     };
 
     return (
         <div className={`url-encoder ${theme}`}>
             <div className="encoder-header">
-                <h1>{t('title') || 'URL Encoder/Decoder'}</h1>
-                <p>{t('subtitle') || 'Encode and decode URL strings online'}</p>
+                <h1>{"URL Encoder/Decoder" || 'URL Encoder/Decoder'}</h1>
+                <p>{"Encode and decode URL strings online" || 'Encode and decode URL strings online'}</p>
             </div>
 
             <div className="encoder-container">
@@ -77,21 +75,21 @@ const URLEncoder = () => {
                         className={`op-btn ${operation === 'encode' ? 'active' : ''}`}
                         onClick={() => setOperation('encode')}
                     >
-                        {t('encode') || 'Encode'}
+                        {"Encode" || 'Encode'}
                     </button>
                     <button 
                         className={`op-btn ${operation === 'decode' ? 'active' : ''}`}
                         onClick={() => setOperation('decode')}
                     >
-                        {t('decode') || 'Decode'}
+                        {"Decode" || 'Decode'}
                     </button>
                 </div>
 
                 <div className="input-section">
                     <label>
                         {operation === 'encode' 
-                            ? t('textToEncode') || 'Text to Encode'
-                            : t('urlToDecode') || 'URL to Decode'
+                            ? "Text to Encode" || 'Text to Encode'
+                            : "URL to Decode" || 'URL to Decode'
                         }
                     </label>
                     <textarea
@@ -99,8 +97,8 @@ const URLEncoder = () => {
                         onChange={(e) => setInputText(e.target.value)}
                         placeholder={
                             operation === 'encode' 
-                                ? t('enterTextToEncode') || 'Enter text to encode to URL format...'
-                                : t('enterURLToDecode') || 'Enter URL to decode...'
+                                ? "Enter text to encode to URL format..." || 'Enter text to encode to URL format...'
+                                : "Enter URL to decode..." || 'Enter URL to decode...'
                         }
                         className="text-input"
                         rows="4"
@@ -110,21 +108,21 @@ const URLEncoder = () => {
                 <div className="action-buttons">
                     <button onClick={processText} className="process-btn">
                         {operation === 'encode' 
-                            ? t('encodeComponent') || 'Encode Component'
-                            : t('decodeComponent') || 'Decode Component'
+                            ? "Encode Component" || 'Encode Component'
+                            : "Decode Component" || 'Decode Component'
                         }
                     </button>
                     <button onClick={processFullURL} className="process-btn full">
                         {operation === 'encode' 
-                            ? t('encodeFullURL') || 'Encode Full URL'
-                            : t('decodeFullURL') || 'Decode Full URL'
+                            ? "Encode Full URL" || 'Encode Full URL'
+                            : "Decode Full URL" || 'Decode Full URL'
                         }
                     </button>
                     <button onClick={swapOperation} className="swap-btn">
-                        {t('swap') || 'Swap'}
+                        {"Swap" || 'Swap'}
                     </button>
                     <button onClick={clearAll} className="clear-btn">
-                        {t('clear') || 'Clear All'}
+                        {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
@@ -132,8 +130,8 @@ const URLEncoder = () => {
                     <div className="output-section">
                         <label>
                             {operation === 'encode' 
-                                ? t('encodedResult') || 'Encoded Result'
-                                : t('decodedResult') || 'Decoded Result'
+                                ? "Encoded Result" || 'Encoded Result'
+                                : "Decoded Result" || 'Decoded Result'
                             }
                         </label>
                         <div className="output-container">
@@ -142,32 +140,32 @@ const URLEncoder = () => {
                                 onClick={() => copyToClipboard(outputText)} 
                                 className="copy-btn"
                             >
-                                {t('copy') || 'Copy'}
+                                {"Copy" || 'Copy'}
                             </button>
                         </div>
                     </div>
                 )}
 
                 <div className="info-section">
-                    <h4>{t('aboutURLEncoding') || 'About URL Encoding'}</h4>
-                    <p><strong>{t('encodeURIComponent') || 'encodeURIComponent()'}:</strong> {t('componentInfo') || 'Encodes all characters except: A-Z a-z 0-9 - _ . ! ~ * \' ( )'}</p>
-                    <p><strong>{t('encodeURI') || 'encodeURI()'}:</strong> {t('uriInfo') || 'Encodes a complete URL, preserving characters like : / ? & ='}</p>
+                    <h4>{"About URL Encoding" || 'About URL Encoding'}</h4>
+                    <p><strong>{"encodeURIComponent()" || 'encodeURIComponent()'}:</strong> {"Encodes all characters except: A-Z a-z 0-9 - _ . ! ~ * ' ( )" || 'Encodes all characters except: A-Z a-z 0-9 - _ . ! ~ * \' ( )'}</p>
+                    <p><strong>{"encodeURI()" || 'encodeURI()'}:</strong> {"Encodes a complete URL, preserving characters like : / ? & =" || 'Encodes a complete URL, preserving characters like : / ? & ='}</p>
                     
-                    <h5>{t('commonUses') || 'Common Uses:'}</h5>
+                    <h5>{"Common Uses:" || 'Common Uses:'}</h5>
                     <ul>
-                        <li>{t('use1') || 'Query parameters in URLs'}</li>
-                        <li>{t('use2') || 'Form data submission'}</li>
-                        <li>{t('use3') || 'API requests with special characters'}</li>
-                        <li>{t('use4') || 'Handling user input in web applications'}</li>
+                        <li>{"Query parameters in URLs" || 'Query parameters in URLs'}</li>
+                        <li>{"Form data submission" || 'Form data submission'}</li>
+                        <li>{"API requests with special characters" || 'API requests with special characters'}</li>
+                        <li>{"Handling user input in web applications" || 'Handling user input in web applications'}</li>
                     </ul>
 
                     <div className="examples">
-                        <h5>{t('examples') || 'Examples:'}</h5>
+                        <h5>{"Examples:" || 'Examples:'}</h5>
                         <div className="example">
-                            <strong>{t('encodeExample') || 'Encode:'}</strong> "hello world" → "hello%20world"
+                            <strong>{"Encode:" || 'Encode:'}</strong> "hello world" → "hello%20world"
                         </div>
                         <div className="example">
-                            <strong>{t('decodeExample') || 'Decode:'}</strong> "hello%20world" → "hello world"
+                            <strong>{"Decode:" || 'Decode:'}</strong> "hello%20world" → "hello world"
                         </div>
                     </div>
                 </div>

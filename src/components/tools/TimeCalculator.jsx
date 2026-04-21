@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/TimeCalculator.css';
 
 const TimeCalculator = () => {
-    const { t } = useTranslation('timeCalculator');
     const { theme } = useTheme();
     const [calculationType, setCalculationType] = useState('add');
     const [time1, setTime1] = useState({ hours: 0, minutes: 0, seconds: 0 });
@@ -35,7 +33,7 @@ const TimeCalculator = () => {
 
     const calculateDateDifference = () => {
         if (!startDate || !endDate) {
-            alert(t('selectBothDates') || 'Please select both dates');
+            alert("Please select both dates" || 'Please select both dates');
             return;
         }
 
@@ -43,7 +41,7 @@ const TimeCalculator = () => {
         const end = new Date(endDate);
         
         if (start > end) {
-            alert(t('startBeforeEnd') || 'Start date must be before end date');
+            alert("Start date must be before end date" || 'Start date must be before end date');
             return;
         }
 
@@ -81,8 +79,8 @@ const TimeCalculator = () => {
     return (
         <div className={`time-calculator ${theme}`}>
             <div className="calculator-header">
-                <h1>{t('title') || 'Time Calculator'}</h1>
-                <p>{t('subtitle') || 'Add, subtract time and calculate date differences'}</p>
+                <h1>{"Time Calculator" || 'Time Calculator'}</h1>
+                <p>{"Add, subtract time and calculate date differences" || 'Add, subtract time and calculate date differences'}</p>
             </div>
 
             <div className="calculator-container">
@@ -91,23 +89,23 @@ const TimeCalculator = () => {
                         className={`type-btn ${calculationType === 'add' ? 'active' : ''}`}
                         onClick={() => setCalculationType('add')}
                     >
-                        {t('addSubtractTime') || 'Add/Subtract Time'}
+                        {"Add/Subtract Time" || 'Add/Subtract Time'}
                     </button>
                     <button 
                         className={`type-btn ${calculationType === 'date' ? 'active' : ''}`}
                         onClick={() => setCalculationType('date')}
                     >
-                        {t('dateDifference') || 'Date Difference'}
+                        {"Date Difference" || 'Date Difference'}
                     </button>
                 </div>
 
                 {calculationType === 'add' && (
                     <div className="time-section">
-                        <h3>{t('addSubtractTime') || 'Add/Subtract Time'}</h3>
+                        <h3>{"Add/Subtract Time" || 'Add/Subtract Time'}</h3>
                         
                         <div className="time-inputs">
                             <div className="time-group">
-                                <label>{t('time1') || 'Time 1'}</label>
+                                <label>{"Time 1" || 'Time 1'}</label>
                                 <div className="time-controls">
                                     <input
                                         type="number"
@@ -153,7 +151,7 @@ const TimeCalculator = () => {
                             </div>
 
                             <div className="time-group">
-                                <label>{t('time2') || 'Time 2'}</label>
+                                <label>{"Time 2" || 'Time 2'}</label>
                                 <div className="time-controls">
                                     <input
                                         type="number"
@@ -185,19 +183,19 @@ const TimeCalculator = () => {
                         </div>
 
                         <button onClick={calculateTime} className="calculate-btn">
-                            {t('calculate') || 'Calculate'}
+                            {"Calculate" || 'Calculate'}
                         </button>
 
                         {result && (
                             <div className="result-section">
-                                <h4>{t('result') || 'Result'}</h4>
+                                <h4>{"Result" || 'Result'}</h4>
                                 <div className="result-display">
                                     <div className="result-time">{formatTime(result)}</div>
                                     <div className="result-breakdown">
-                                        <div>{result.hours} {t('hours') || 'hours'}</div>
-                                        <div>{result.minutes} {t('minutes') || 'minutes'}</div>
-                                        <div>{result.seconds} {t('seconds') || 'seconds'}</div>
-                                        <div>{result.totalSeconds} {t('totalSeconds') || 'total seconds'}</div>
+                                        <div>{result.hours} {"hours" || 'hours'}</div>
+                                        <div>{result.minutes} {"minutes" || 'minutes'}</div>
+                                        <div>{result.seconds} {"seconds" || 'seconds'}</div>
+                                        <div>{result.totalSeconds} {"Total Seconds" || 'total seconds'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -207,11 +205,11 @@ const TimeCalculator = () => {
 
                 {calculationType === 'date' && (
                     <div className="date-section">
-                        <h3>{t('dateDifference') || 'Date Difference'}</h3>
+                        <h3>{"Date Difference" || 'Date Difference'}</h3>
                         
                         <div className="date-inputs">
                             <div className="date-group">
-                                <label>{t('startDate') || 'Start Date'}</label>
+                                <label>{"Start Date" || 'Start Date'}</label>
                                 <input
                                     type="date"
                                     value={startDate}
@@ -220,7 +218,7 @@ const TimeCalculator = () => {
                                 />
                             </div>
                             <div className="date-group">
-                                <label>{t('endDate') || 'End Date'}</label>
+                                <label>{"End Date" || 'End Date'}</label>
                                 <input
                                     type="date"
                                     value={endDate}
@@ -231,36 +229,36 @@ const TimeCalculator = () => {
                         </div>
 
                         <button onClick={calculateDateDifference} className="calculate-btn">
-                            {t('calculateDifference') || 'Calculate Difference'}
+                            {"Calculate Difference" || 'Calculate Difference'}
                         </button>
 
                         {dateResult && (
                             <div className="result-section">
-                                <h4>{t('difference') || 'Difference'}</h4>
+                                <h4>{"Difference" || 'Difference'}</h4>
                                 <div className="date-result">
                                     <div className="result-grid">
                                         <div className="result-item">
                                             <span className="value">{dateResult.days}</span>
-                                            <span className="label">{t('days') || 'Days'}</span>
+                                            <span className="label">{"Days" || 'Days'}</span>
                                         </div>
                                         <div className="result-item">
                                             <span className="value">{dateResult.hours}</span>
-                                            <span className="label">{t('hours') || 'Hours'}</span>
+                                            <span className="label">{"hours" || 'Hours'}</span>
                                         </div>
                                         <div className="result-item">
                                             <span className="value">{dateResult.minutes}</span>
-                                            <span className="label">{t('minutes') || 'Minutes'}</span>
+                                            <span className="label">{"minutes" || 'Minutes'}</span>
                                         </div>
                                         <div className="result-item">
                                             <span className="value">{dateResult.seconds}</span>
-                                            <span className="label">{t('seconds') || 'Seconds'}</span>
+                                            <span className="label">{"seconds" || 'Seconds'}</span>
                                         </div>
                                     </div>
                                     <div className="total-breakdown">
-                                        <div>{t('totalDays') || 'Total Days'}: {dateResult.totalDays.toFixed(2)}</div>
-                                        <div>{t('totalHours') || 'Total Hours'}: {dateResult.totalHours.toFixed(2)}</div>
-                                        <div>{t('totalMinutes') || 'Total Minutes'}: {dateResult.totalMinutes.toFixed(2)}</div>
-                                        <div>{t('totalSeconds') || 'Total Seconds'}: {dateResult.totalSeconds.toFixed(2)}</div>
+                                        <div>{"Total Days" || 'Total Days'}: {dateResult.totalDays.toFixed(2)}</div>
+                                        <div>{"Total Hours" || 'Total Hours'}: {dateResult.totalHours.toFixed(2)}</div>
+                                        <div>{"Total Minutes" || 'Total Minutes'}: {dateResult.totalMinutes.toFixed(2)}</div>
+                                        <div>{"Total Seconds" || 'Total Seconds'}: {dateResult.totalSeconds.toFixed(2)}</div>
                                     </div>
                                 </div>
                             </div>
@@ -269,7 +267,7 @@ const TimeCalculator = () => {
                 )}
 
                 <button onClick={clearAll} className="clear-btn">
-                    {t('clearAll') || 'Clear All'}
+                    {"Clear All" || 'Clear All'}
                 </button>
             </div>
         </div>

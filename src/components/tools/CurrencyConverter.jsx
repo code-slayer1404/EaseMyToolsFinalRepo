@@ -1,5 +1,5 @@
 // import React, { useState, useEffect, useCallback, useRef } from 'react';
-// import { useTranslation } from 'react-i18next';
+// 
 // import { useTheme } from '../../contexts/ThemeContext';
 // import '../../styles/tools/CurrencyConverter.css';
 
@@ -71,7 +71,7 @@
 
 //         } catch (err) {
 //             console.error('Error fetching currencies:', err);
-//             setError(t('error'));
+//             setError("Error fetching exchange rates");
 //         } finally {
 //             setLoading(false);
 //         }
@@ -109,7 +109,7 @@
 
 //         } catch (err) {
 //             console.error('Error converting currency:', err);
-//             setError(t('error'));
+//             setError("Error fetching exchange rates");
 //         } finally {
 //             setLoading(false);
 //         }
@@ -229,8 +229,8 @@
 //     return (
 //         <div className={`currency-converter ${theme}`}>
 //             <div className="tool-header">
-//                 <h1>{t('title')}</h1>
-//                 <p>{t('subtitle')}</p>
+//                 <h1>{"Currency Converter"}</h1>
+//                 <p>{"Real-time exchange rates with historical data"}</p>
 //             </div>
 
 //             <div className="converter-container">
@@ -238,7 +238,7 @@
 //                 <div className="conversion-card">
 //                     <div className="conversion-form">
 //                         <div className="amount-section">
-//                             <label>{t('amount')}</label>
+//                             <label>{"Amount"}</label>
 //                             <div className="amount-input-container">
 //                                 <input
 //                                     type="number"
@@ -257,7 +257,7 @@
 
 //                         <div className="currency-selection">
 //                             <div className="currency-group">
-//                                 <label>{t('from')}</label>
+//                                 <label>{"From"}</label>
 //                                 <select
 //                                     value={conversion.from}
 //                                     onChange={(e) => handleCurrencyChange('from', e.target.value)}
@@ -274,13 +274,13 @@
 //                             <button 
 //                                 className="swap-btn"
 //                                 onClick={swapCurrencies}
-//                                 title={t('swap')}
+//                                 title={"Swap Currencies"}
 //                             >
 //                                 ⇄
 //                             </button>
 
 //                             <div className="currency-group">
-//                                 <label>{t('to')}</label>
+//                                 <label>{"To"}</label>
 //                                 <select
 //                                     value={conversion.to}
 //                                     onChange={(e) => handleCurrencyChange('to', e.target.value)}
@@ -298,7 +298,7 @@
 //                         {loading && (
 //                             <div className="loading-indicator">
 //                                 <div className="spinner"></div>
-//                                 <span>{t('calculating')}</span>
+//                                 <span>{"Calculating..."}</span>
 //                             </div>
 //                         )}
 
@@ -309,7 +309,7 @@
 //                                     onClick={() => fetchCurrencies(conversion.from)}
 //                                     className="retry-btn"
 //                                 >
-//                                     {t('retry')}
+//                                     {"Retry"}
 //                                 </button>
 //                             </div>
 //                         )}
@@ -321,13 +321,13 @@
 //                                         {formatCurrency(conversion.result, conversion.to)}
 //                                     </span>
 //                                     <span className="result-label">
-//                                         {t('convertedAmount')}
+//                                         {"Converted Amount"}
 //                                     </span>
 //                                 </div>
                                 
 //                                 <div className="conversion-details">
 //                                     <div className="rate-info">
-//                                         <span className="rate-label">{t('exchangeRate')}:</span>
+//                                         <span className="rate-label">{"Exchange Rate"}:</span>
 //                                         <span className="rate-value">
 //                                             1 {conversion.from} = {formatNumber(conversion.rate)} {conversion.to}
 //                                         </span>
@@ -335,7 +335,7 @@
                                     
 //                                     {conversion.lastUpdated && (
 //                                         <div className="update-info">
-//                                             <span className="update-label">{t('lastUpdated')}:</span>
+//                                             <span className="update-label">{"Last Updated"}:</span>
 //                                             <span className="update-value">
 //                                                 {conversion.lastUpdated}
 //                                                 {conversion.cached && <span className="cached-badge">Cached</span>}
@@ -350,7 +350,7 @@
 
 //                 {/* Popular Currencies */}
 //                 <div className="popular-currencies">
-//                     <h3>{t('popularCurrencies')}</h3>
+//                     <h3>{"Popular Currencies"}</h3>
 //                     <div className="popular-grid">
 //                         {popularCurrencies.map(currencyCode => (
 //                             <button
@@ -367,11 +367,11 @@
 //                 {/* Currency List */}
 //                 <div className="currency-list-section">
 //                     <div className="section-header">
-//                         <h3>{t('allCurrencies')}</h3>
+//                         <h3>{"All Currencies"}</h3>
 //                         <div className="search-box">
 //                             <input
 //                                 type="text"
-//                                 placeholder={t('searchCurrency')}
+//                                 placeholder={"Search currency..."}
 //                                 value={searchTerm}
 //                                 onChange={(e) => setSearchTerm(e.target.value)}
 //                                 className="search-input"
@@ -400,13 +400,13 @@
 
 //                 {/* Tips Section */}
 //                 <div className="tips-section">
-//                     <h3>💡 {t('tips.title')}</h3>
+//                     <h3>💡 {"Conversion Tips"}</h3>
 //                     <div className="tips-list">
-//                         <div className="tip-item">{t('tips.tip1')}</div>
-//                         <div className="tip-item">{t('tips.tip2')}</div>
-//                         <div className="tip-item">{t('tips.tip3')}</div>
-//                         <div className="tip-item">{t('tips.tip4')}</div>
-//                         <div className="tip-item">{t('tips.tip5')}</div>
+//                         <div className="tip-item">{"Rates are updated every 10 minutes"}</div>
+//                         <div className="tip-item">{"Click swap to quickly reverse conversion"}</div>
+//                         <div className="tip-item">{"Use historical data to track trends"}</div>
+//                         <div className="tip-item">{"Bookmark frequently used conversions"}</div>
+//                         <div className="tip-item">{"All rates are for informational purposes"}</div>
 //                     </div>
 //                 </div>
 //             </div>
@@ -423,12 +423,12 @@
 
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/CurrencyConverter.css';
 
+const t = (key, fallback) => fallback ?? key;
+
 const CurrencyConverter = () => {
-    const { t } = useTranslation('currencyConverter');
     const { theme } = useTheme();
     
     const [currencies, setCurrencies] = useState([]);
@@ -505,7 +505,7 @@ const CurrencyConverter = () => {
 
         } catch (err) {
             console.error('Error fetching currencies:', err);
-            setError(t('error'));
+            setError("Error fetching exchange rates");
         } finally {
             setLoading(false);
         }
@@ -545,7 +545,7 @@ const CurrencyConverter = () => {
 
         } catch (err) {
             console.error('Error converting currency:', err);
-            setError(t('error'));
+            setError("Error fetching exchange rates");
         } finally {
             setLoading(false);
         }
@@ -682,8 +682,8 @@ const CurrencyConverter = () => {
     return (
         <div className={`currency-converter ${theme}`}>
             <div className="tool-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"Currency Converter"}</h1>
+                <p>{"Real-time exchange rates with historical data"}</p>
             </div>
 
             <div className="converter-container">
@@ -691,7 +691,7 @@ const CurrencyConverter = () => {
                 <div className="conversion-card">
                     <div className="conversion-form">
                         <div className="amount-section">
-                            <label>{t('amount')}</label>
+                            <label>{"Amount"}</label>
                             <div className="amount-input-container">
                                 <input
                                     type="number"
@@ -710,7 +710,7 @@ const CurrencyConverter = () => {
 
                         <div className="currency-selection">
                             <div className="currency-group">
-                                <label>{t('from')}</label>
+                                <label>{"From"}</label>
                                 <select
                                     value={conversion.from}
                                     onChange={(e) => handleCurrencyChange('from', e.target.value)}
@@ -727,14 +727,14 @@ const CurrencyConverter = () => {
                             <button 
                                 className="swap-btn"
                                 onClick={swapCurrencies}
-                                title={t('swap')}
+                                title={"Swap Currencies"}
                                 disabled={loading}
                             >
                                 ⇄
                             </button>
 
                             <div className="currency-group">
-                                <label>{t('to')}</label>
+                                <label>{"To"}</label>
                                 <select
                                     value={conversion.to}
                                     onChange={(e) => handleCurrencyChange('to', e.target.value)}
@@ -752,7 +752,7 @@ const CurrencyConverter = () => {
                         {loading && (
                             <div className="loading-indicator">
                                 <div className="spinner"></div>
-                                <span>{t('calculating')}</span>
+                                <span>{"Calculating..."}</span>
                             </div>
                         )}
 
@@ -763,7 +763,7 @@ const CurrencyConverter = () => {
                                     onClick={() => fetchCurrencies(conversion.from)}
                                     className="retry-btn"
                                 >
-                                    {t('retry')}
+                                    {"Retry"}
                                 </button>
                             </div>
                         )}
@@ -775,20 +775,20 @@ const CurrencyConverter = () => {
                                         {formatCurrency(conversion.result, conversion.to)}
                                     </span>
                                     <span className="result-label">
-                                        {t('convertedAmount')}
+                                        {"Converted Amount"}
                                     </span>
                                 </div>
                                 
                                 <div className="conversion-details">
                                     <div className="rate-info">
-                                        <span className="rate-label">{t('exchangeRate')}:</span>
+                                        <span className="rate-label">{"Exchange Rate"}:</span>
                                         <span className="rate-value">
                                             1 {conversion.from} = {formatNumber(conversion.rate)} {conversion.to}
                                         </span>
                                     </div>
                                     
                                     <div className="cache-info">
-                                        <span className="cache-label">{t('lastUpdated')}:</span>
+                                        <span className="cache-label">{"Last Updated"}:</span>
                                         <span className="cache-value">
                                             {new Date().toLocaleTimeString()}
                                             {conversion.cached && <span className="cached-badge">Cached</span>}
@@ -800,7 +800,7 @@ const CurrencyConverter = () => {
                                     className="history-toggle-btn"
                                     onClick={toggleHistory}
                                 >
-                                    {showHistory ? t('hideHistory') : t('viewHistory')}
+                                    {showHistory ? "Hide History" : "View History"}
                                 </button>
                             </div>
                         )}
@@ -809,7 +809,7 @@ const CurrencyConverter = () => {
                     {/* Historical Data Section */}
                     {showHistory && historicalData.length > 0 && (
                         <div className="historical-section">
-                            <h3>{t('historicalTrend')}</h3>
+                            <h3>{"Historical Trend (7 Days)"}</h3>
                             <div className="trend-indicator">
                                 <span className="trend-icon">{trendIcon}</span>
                                 <span className="trend-text">{trendText}</span>
@@ -847,14 +847,14 @@ const CurrencyConverter = () => {
 
                     {showHistory && historicalData.length === 0 && !loading && (
                         <div className="no-history">
-                            <p>{t('noHistoricalData')}</p>
+                            <p>{"No historical data available"}</p>
                         </div>
                     )}
                 </div>
 
                 {/* Popular Currencies */}
                 <div className="popular-currencies">
-                    <h3>{t('popularCurrencies')}</h3>
+                    <h3>{"Popular Currencies"}</h3>
                     <div className="popular-grid">
                         {popularCurrencies.map(currencyCode => (
                             <button
@@ -872,11 +872,11 @@ const CurrencyConverter = () => {
                 {/* Currency List */}
                 <div className="currency-list-section">
                     <div className="section-header">
-                        <h3>{t('allCurrencies')}</h3>
+                        <h3>{"All Currencies"}</h3>
                         <div className="search-box">
                             <input
                                 type="text"
-                                placeholder={t('searchCurrency')}
+                                placeholder={"Search currency..."}
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="search-input"
@@ -905,13 +905,13 @@ const CurrencyConverter = () => {
 
                 {/* Tips Section */}
                 <div className="tips-section">
-                    <h3>💡 {t('tips.title')}</h3>
+                    <h3>💡 {"Conversion Tips"}</h3>
                     <div className="tips-list">
-                        <div className="tip-item">{t('tips.tip1')}</div>
-                        <div className="tip-item">{t('tips.tip2')}</div>
-                        <div className="tip-item">{t('tips.tip3')}</div>
-                        <div className="tip-item">{t('tips.tip4')}</div>
-                        <div className="tip-item">{t('tips.tip5')}</div>
+                        <div className="tip-item">{"Rates are updated every 10 minutes"}</div>
+                        <div className="tip-item">{"Click swap to quickly reverse conversion"}</div>
+                        <div className="tip-item">{"Use historical data to track trends"}</div>
+                        <div className="tip-item">{"Bookmark frequently used conversions"}</div>
+                        <div className="tip-item">{"All rates are for informational purposes"}</div>
                     </div>
                 </div>
             </div>

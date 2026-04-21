@@ -1,10 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/RegexGenerator.css';
 
 const RegexGenerator = () => {
-    const { t } = useTranslation('regexGenerator');
     const { theme } = useTheme();
     
     const [description, setDescription] = useState('');
@@ -16,25 +14,25 @@ const RegexGenerator = () => {
     const [error, setError] = useState('');
 
     const examples = [
-        { description: t('examplesList.email'), prompt: "email addresses" },
-        { description: t('examplesList.phone'), prompt: "US phone numbers in format (555) 123-4567" },
-        { description: t('examplesList.url'), prompt: "URLs starting with http or https" },
-        { description: t('examplesList.ip'), prompt: "IP addresses like 192.168.1.1" },
-        { description: t('examplesList.date'), prompt: "dates in YYYY-MM-DD format" },
-        { description: t('examplesList.strongPassword'), prompt: "strong password with at least 8 characters, one uppercase, one lowercase, one number and one special character" },
-        { description: t('examplesList.htmlTags'), prompt: "HTML tags like <div> or <p class='text'>" },
-        { description: t('examplesList.creditCard'), prompt: "credit card numbers (16 digits with optional spaces or dashes)" }
+        { description: "Match email addresses", prompt: "email addresses" },
+        { description: "Match US phone numbers", prompt: "US phone numbers in format (555) 123-4567" },
+        { description: "Match URLs", prompt: "URLs starting with http or https" },
+        { description: "Match IP addresses", prompt: "IP addresses like 192.168.1.1" },
+        { description: "Match dates (YYYY-MM-DD)", prompt: "dates in YYYY-MM-DD format" },
+        { description: "Strong password validation", prompt: "strong password with at least 8 characters, one uppercase, one lowercase, one number and one special character" },
+        { description: "Match HTML tags", prompt: "HTML tags like <div> or <p class='text'>" },
+        { description: "Match credit card numbers", prompt: "credit card numbers (16 digits with optional spaces or dashes)" }
     ];
 
     const cheatsheetItems = [
-        t('cheatsheetItems.digits'),
-        t('cheatsheetItems.wordChars'),
-        t('cheatsheetItems.whitespace'),
-        t('cheatsheetItems.quantifiers'),
-        t('cheatsheetItems.groups'),
-        t('cheatsheetItems.alternation'),
-        t('cheatsheetItems.anchors'),
-        t('cheatsheetItems.characterClasses')
+        "Digits: \\d",
+        "Word characters: \\w",
+        "Whitespace: \\s",
+        "Quantifiers: *, +, ?, {n}",
+        "Groups: ()",
+        "Alternation: |",
+        "Anchors: ^, $",
+        "Character classes: []"
     ];
 
     const generateRegex = useCallback(async () => {
@@ -55,7 +53,7 @@ const RegexGenerator = () => {
             setExplanation(generated.explanation);
             
         } catch (err) {
-            setError(t('error'));
+            setError("Error generating regex");
             console.error('Regex generation error:', err);
         } finally {
             setIsGenerating(false);
@@ -179,20 +177,20 @@ const RegexGenerator = () => {
     return (
         <div className={`regex-generator ${theme}`}>
             <div className="tool-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"Regex Generator"}</h1>
+                <p>{"Generate regular expressions from natural language descriptions"}</p>
             </div>
 
             <div className="regex-container">
                 {/* Input Section */}
                 <div className="input-section">
                     <div className="input-group">
-                        <label htmlFor="description">{t('inputPlaceholder')}</label>
+                        <label htmlFor="description">{"Describe what pattern you want to match..."}</label>
                         <textarea
                             id="description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder={t('inputPlaceholder')}
+                            placeholder={"Describe what pattern you want to match..."}
                             rows="3"
                         />
                     </div>
@@ -203,17 +201,17 @@ const RegexGenerator = () => {
                             className={`primary-btn ${isGenerating ? 'generating' : ''}`}
                             disabled={isGenerating || !description.trim()}
                         >
-                            {isGenerating ? t('generating') : t('generateBtn')}
+                            {isGenerating ? "Generating..." : "Generate Regex"}
                         </button>
                         <button onClick={clearAll} className="secondary-btn">
-                            {t('clearBtn')}
+                            {"Clear"}
                         </button>
                     </div>
                 </div>
 
                 {/* Examples Section */}
                 <div className="examples-section">
-                    <h3>{t('examples')}</h3>
+                    <h3>{"Examples"}</h3>
                     <div className="examples-grid">
                         {examples.map((example, index) => (
                             <button
@@ -247,14 +245,14 @@ const RegexGenerator = () => {
                                             onClick={() => copyToClipboard(regex)}
                                             className="copy-btn"
                                         >
-                                            {t('copyBtn')}
+                                            {"Copy"}
                                         </button>
                                     </div>
                                 </div>
 
                                 {explanation && (
                                     <div className="result-group">
-                                        <label>{t('explanation')}</label>
+                                        <label>{"Explanation"}</label>
                                         <div className="explanation-box">
                                             {explanation}
                                         </div>
@@ -268,12 +266,12 @@ const RegexGenerator = () => {
                 {/* Test Section */}
                 {regex && (
                     <div className="test-section">
-                        <h3>{t('testSection')}</h3>
+                        <h3>{"Test Your Regex"}</h3>
                         <div className="input-group">
                             <textarea
                                 value={testText}
                                 onChange={(e) => setTestText(e.target.value)}
-                                placeholder={t('testInputPlaceholder')}
+                                placeholder={"Enter text to test the regex pattern..."}
                                 rows="3"
                                 onBlur={testRegex}
                             />
@@ -281,7 +279,7 @@ const RegexGenerator = () => {
                         
                         {matches.length > 0 ? (
                             <div className="matches-section">
-                                <h4>{t('matches')} ({matches.length})</h4>
+                                <h4>{"Matches"} ({matches.length})</h4>
                                 <div className="matches-list">
                                     {matches.map((match, index) => (
                                         <div key={index} className="match-item">
@@ -293,7 +291,7 @@ const RegexGenerator = () => {
                             </div>
                         ) : testText && (
                             <div className="no-matches">
-                                {t('noMatches')}
+                                {"No matches found"}
                             </div>
                         )}
                     </div>
@@ -301,7 +299,7 @@ const RegexGenerator = () => {
 
                 {/* Cheatsheet Section */}
                 <div className="cheatsheet-section">
-                    <h3>{t('cheatsheet')}</h3>
+                    <h3>{"Regex Cheatsheet"}</h3>
                     <div className="cheatsheet-grid">
                         {cheatsheetItems.map((item, index) => (
                             <div key={index} className="cheatsheet-item">
@@ -320,7 +318,7 @@ export default RegexGenerator;
 
 
 // import React, { useState, useCallback, useEffect } from 'react';
-// import { useTranslation } from 'react-i18next';
+// 
 // import { useTheme } from '../../contexts/ThemeContext';
 // import '../../styles/tools/RegexGenerator.css';
 
@@ -379,17 +377,17 @@ export default RegexGenerator;
 
 //     const advancedExamples = [
 //         { 
-//             name: t('examplesList.email'), 
+//             name: "Match email addresses", 
 //             pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
 //             description: 'Validates email addresses'
 //         },
 //         { 
-//             name: t('examplesList.phone'), 
+//             name: "Match US phone numbers", 
 //             pattern: '^\\+?1?[-.\\s]?\\(?[2-9]\\d{2}\\)?[-.\\s]?[2-9]\\d{2}[-.\\s]?\\d{4}$',
 //             description: 'Matches various phone number formats'
 //         },
 //         { 
-//             name: t('examplesList.url'), 
+//             name: "Match URLs", 
 //             pattern: 'https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)',
 //             description: 'Extracts URLs from text'
 //         },
@@ -424,7 +422,7 @@ export default RegexGenerator;
 //             setRegexTree(result.tree || []);
             
 //         } catch (err) {
-//             setError(t('error'));
+//             setError("Error generating regex");
 //             console.error('Regex generation error:', err);
 //         } finally {
 //             setIsGenerating(false);
@@ -672,14 +670,14 @@ export default RegexGenerator;
 //                             <textarea
 //                                 value={testText}
 //                                 onChange={(e) => setTestText(e.target.value)}
-//                                 placeholder={t('testInputPlaceholder')}
+//                                 placeholder={"Enter text to test the regex pattern..."}
 //                                 rows="4"
 //                             />
 //                         </div>
                         
 //                         {matches.length > 0 ? (
 //                             <div className="matches-section">
-//                                 <h4>{t('matches')} ({matches.length})</h4>
+//                                 <h4>{"Matches"} ({matches.length})</h4>
 //                                 <div className="matches-list">
 //                                     {matches.map((match, index) => (
 //                                         <div key={index} className="match-item">
@@ -700,7 +698,7 @@ export default RegexGenerator;
 //                             </div>
 //                         ) : testText && (
 //                             <div className="no-matches">
-//                                 {t('noMatches')}
+//                                 {"No matches found"}
 //                             </div>
 //                         )}
 //                     </div>
@@ -807,8 +805,8 @@ export default RegexGenerator;
 //     return (
 //         <div className={`regex-generator enhanced ${theme}`}>
 //             <div className="tool-header">
-//                 <h1>{t('title')}</h1>
-//                 <p>{t('subtitle')}</p>
+//                 <h1>{"Regex Generator"}</h1>
+//                 <p>{"Generate regular expressions from natural language descriptions"}</p>
 //             </div>
 
 //             {/* Mode Selector */}
@@ -836,7 +834,7 @@ export default RegexGenerator;
 //                         <textarea
 //                             value={description}
 //                             onChange={(e) => setDescription(e.target.value)}
-//                             placeholder={t('inputPlaceholder')}
+//                             placeholder={"Describe what pattern you want to match..."}
 //                             rows="3"
 //                         />
 //                     </div>
@@ -868,7 +866,7 @@ export default RegexGenerator;
 //                                 className={`primary-btn ${isGenerating ? 'generating' : ''}`}
 //                                 disabled={isGenerating || !description.trim()}
 //                             >
-//                                 {isGenerating ? t('generating') : t('generateBtn')}
+//                                 {isGenerating ? "Generating..." : "Generate Regex"}
 //                             </button>
 //                         )}
 //                         {activeMode === 'analyze' && (
@@ -889,7 +887,7 @@ export default RegexGenerator;
 //                             setSplitResults([]);
 //                             setError('');
 //                         }} className="secondary-btn">
-//                             {t('clearBtn')}
+//                             {"Clear"}
 //                         </button>
 //                     </div>
 //                 </div>
@@ -906,7 +904,7 @@ export default RegexGenerator;
 //                                         onClick={() => copyToClipboard(regex)}
 //                                         className="copy-btn"
 //                                     >
-//                                         {t('copyBtn')}
+//                                         {"Copy"}
 //                                     </button>
 //                                     <button 
 //                                         onClick={escapeRegex}
@@ -926,7 +924,7 @@ export default RegexGenerator;
 
 //                         {explanation && (
 //                             <div className="result-group">
-//                                 <label>{t('explanation')}</label>
+//                                 <label>{"Explanation"}</label>
 //                                 <div className="explanation-box">
 //                                     {explanation}
 //                                 </div>
@@ -958,7 +956,7 @@ export default RegexGenerator;
 
 //                 {/* Examples Section */}
 //                 <div className="examples-section">
-//                     <h3>{t('examples')}</h3>
+//                     <h3>{"Examples"}</h3>
 //                     <div className="examples-grid">
 //                         {advancedExamples.map((example, index) => (
 //                             <div key={index} className="example-card">

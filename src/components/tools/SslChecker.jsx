@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/SslChecker.css';
 
+const t = (key, fallback) => fallback ?? key;
+
 const SslChecker = () => {
-    const { t } = useTranslation('sslChecker');
     const { theme } = useTheme();
     const [domain, setDomain] = useState('');
     const [certificate, setCertificate] = useState(null);
@@ -18,7 +18,7 @@ const SslChecker = () => {
             setCertificate(null);
 
             if (!domain.trim()) {
-                setError(t('invalidDomain'));
+                setError("Please enter a valid domain");
                 setLoading(false);
                 return;
             }
@@ -32,7 +32,7 @@ const SslChecker = () => {
             const response = await fetch(`${proxyUrl}${targetUrl}`);
             
             if (!response.ok) {
-                throw new Error(t('error'));
+                throw new Error("Error fetching certificate");
             }
 
             // Simulate certificate data (in real app, you'd parse the actual certificate)
@@ -95,20 +95,20 @@ const SslChecker = () => {
     return (
         <div className={`ssl-checker ${theme}`}>
             <div className="tool-header">
-                <h1>{t('title')}</h1>
-                <p>{t('subtitle')}</p>
+                <h1>{"SSL Certificate Checker"}</h1>
+                <p>{"Check SSL certificate information for any domain"}</p>
             </div>
 
             <div className="checker-container">
                 <div className="input-section">
-                    <label>{t('domainInput')}</label>
+                    <label>{"Domain Name"}</label>
                     <div className="domain-input-group">
                         <span className="protocol">https://</span>
                         <input
                             type="text"
                             value={domain}
                             onChange={(e) => setDomain(e.target.value)}
-                            placeholder={t('domainPlaceholder')}
+                            placeholder={"Enter domain (e.g., example.com)"}
                             disabled={loading}
                         />
                     </div>
@@ -120,10 +120,10 @@ const SslChecker = () => {
                         className="primary-btn"
                         disabled={loading}
                     >
-                        {loading ? t('checking') : t('checkCertificate')}
+                        {loading ? "Checking certificate..." : "Check Certificate"}
                     </button>
                     <button onClick={clearAll} className="secondary-btn">
-                        {t('clear')}
+                        {"Clear"}
                     </button>
                 </div>
 
@@ -141,64 +141,64 @@ const SslChecker = () => {
                             </div>
                             {certificate.daysRemaining > 0 && (
                                 <div className="days-remaining">
-                                    {certificate.daysRemaining} {t('daysRemaining')}
+                                    {certificate.daysRemaining} {"Days Remaining"}
                                 </div>
                             )}
                         </div>
 
                         <div className="certificate-details">
-                            <h3>{t('results')}</h3>
+                            <h3>{"Certificate Information"}</h3>
                             <div className="details-grid">
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('domain')}:</span>
+                                    <span className="detail-label">{"Domain"}:</span>
                                     <span className="detail-value">{certificate.domain}</span>
                                 </div>
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('issuer')}:</span>
+                                    <span className="detail-label">{"Issuer"}:</span>
                                     <span className="detail-value">{certificate.issuer}</span>
                                 </div>
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('subject')}:</span>
+                                    <span className="detail-label">{"Subject"}:</span>
                                     <span className="detail-value">{certificate.subject}</span>
                                 </div>
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('validFrom')}:</span>
+                                    <span className="detail-label">{"Valid From"}:</span>
                                     <span className="detail-value">{formatDate(certificate.validFrom)}</span>
                                 </div>
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('validUntil')}:</span>
+                                    <span className="detail-label">{"Valid Until"}:</span>
                                     <span className="detail-value">{formatDate(certificate.validUntil)}</span>
                                 </div>
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('serialNumber')}:</span>
+                                    <span className="detail-label">{"Serial Number"}:</span>
                                     <span className="detail-value serial">{certificate.serialNumber}</span>
                                 </div>
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('signatureAlgorithm')}:</span>
+                                    <span className="detail-label">{"Signature Algorithm"}:</span>
                                     <span className="detail-value">{certificate.signatureAlgorithm}</span>
                                 </div>
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('keyAlgorithm')}:</span>
+                                    <span className="detail-label">{"Key Algorithm"}:</span>
                                     <span className="detail-value">{certificate.keyAlgorithm}</span>
                                 </div>
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('keySize')}:</span>
+                                    <span className="detail-label">{"Key Size"}:</span>
                                     <span className="detail-value">{certificate.keySize} bits</span>
                                 </div>
                                 {certificate.san && certificate.san.length > 0 && (
                                     <div className="detail-item">
-                                        <span className="detail-label">{t('san')}:</span>
+                                        <span className="detail-label">{"Subject Alternative Names"}:</span>
                                         <span className="detail-value">
                                             {certificate.san.join(', ')}
                                         </span>
                                     </div>
                                 )}
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('ocsp')}:</span>
+                                    <span className="detail-label">{"OCSP"}:</span>
                                     <span className="detail-value url">{certificate.ocsp}</span>
                                 </div>
                                 <div className="detail-item">
-                                    <span className="detail-label">{t('crl')}:</span>
+                                    <span className="detail-label">{"CRL"}:</span>
                                     <span className="detail-value url">{certificate.crl}</span>
                                 </div>
                             </div>
@@ -207,12 +207,12 @@ const SslChecker = () => {
                 )}
 
                 <div className="certificate-tips">
-                    <h4>{t('certificateTips')}</h4>
+                    <h4>{"SSL Certificate Tips"}</h4>
                     <ul>
-                        <li>{t('tip1')}</li>
-                        <li>{t('tip2')}</li>
-                        <li>{t('tip3')}</li>
-                        <li>{t('tip4')}</li>
+                        <li>{"SSL certificates typically expire after 1 year"}</li>
+                        <li>{"Green lock indicates valid SSL certificate"}</li>
+                        <li>{"Always check certificate validity for security"}</li>
+                        <li>{"Use certificates from trusted Certificate Authorities"}</li>
                     </ul>
                 </div>
             </div>

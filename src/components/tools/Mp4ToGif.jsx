@@ -1,5 +1,5 @@
 // // // import React, { useState, useRef } from 'react';
-// // // import { useTranslation } from 'react-i18next';
+// // // 
 // // // import { useTheme } from '../../contexts/ThemeContext';
 // // // import '../../styles/tools/Mp4ToGif.css';
 
@@ -137,8 +137,8 @@
 // // //     return (
 // // //         <div className={`mp4-to-gif ${theme}`}>
 // // //             <div className="tool-header">
-// // //                 <h1>{t('title')}</h1>
-// // //                 <p>{t('subtitle')}</p>
+// // //                 <h1>{"MP4 to GIF Converter"}</h1>
+// // //                 <p>{"Convert MP4 videos to animated GIFs"}</p>
 // // //             </div>
 
 // // //             <div className="converter-container">
@@ -159,11 +159,11 @@
 // // //                         {!videoFile ? (
 // // //                             <div className="upload-content">
 // // //                                 <div className="upload-icon">🎥</div>
-// // //                                 <span className="upload-text">{t('uploadVideo')}</span>
-// // //                                 <span className="drag-text">{t('dragDrop')}</span>
+// // //                                 <span className="upload-text">{"Upload MP4 Video"}</span>
+// // //                                 <span className="drag-text">{"or drag and drop MP4 file here"}</span>
 // // //                                 <div className="file-info">
-// // //                                     <span>{t('supportedFormats')}</span>
-// // //                                     <span>{t('maxSize')}</span>
+// // //                                     <span>{"Supported formats: MP4, MOV, AVI"}</span>
+// // //                                     <span>{"Max file size: 50MB"}</span>
 // // //                                 </div>
 // // //                             </div>
 // // //                         ) : (
@@ -178,7 +178,7 @@
 
 // // //                 {videoUrl && (
 // // //                     <div className="video-preview">
-// // //                         <h3>{t('preview')}</h3>
+// // //                         <h3>{"Preview"}</h3>
 // // //                         <video
 // // //                             ref={videoRef}
 // // //                             src={videoUrl}
@@ -189,10 +189,10 @@
 // // //                 )}
 
 // // //                 <div className="settings-section">
-// // //                     <h3>{t('conversionSettings')}</h3>
+// // //                     <h3>{"Conversion Settings"}</h3>
 // // //                     <div className="settings-grid">
 // // //                         <div className="setting-group">
-// // //                             <label>{t('startTime')}</label>
+// // //                             <label>{"Start Time (seconds)"}</label>
 // // //                             <input
 // // //                                 type="number"
 // // //                                 value={settings.startTime}
@@ -203,7 +203,7 @@
 // // //                         </div>
 
 // // //                         <div className="setting-group">
-// // //                             <label>{t('duration')}</label>
+// // //                             <label>{"Duration (seconds)"}</label>
 // // //                             <input
 // // //                                 type="number"
 // // //                                 value={settings.duration}
@@ -215,7 +215,7 @@
 // // //                         </div>
 
 // // //                         <div className="setting-group">
-// // //                             <label>{t('gifWidth')}</label>
+// // //                             <label>{"GIF Width (pixels)"}</label>
 // // //                             <input
 // // //                                 type="number"
 // // //                                 value={settings.width}
@@ -227,7 +227,7 @@
 // // //                         </div>
 
 // // //                         <div className="setting-group">
-// // //                             <label>{t('frameRate')}</label>
+// // //                             <label>{"Frame Rate (FPS)"}</label>
 // // //                             <select 
 // // //                                 value={settings.frameRate} 
 // // //                                 onChange={(e) => updateSetting('frameRate', parseInt(e.target.value))}
@@ -241,14 +241,14 @@
 // // //                         </div>
 
 // // //                         <div className="setting-group">
-// // //                             <label>{t('quality')}</label>
+// // //                             <label>{"Quality"}</label>
 // // //                             <select 
 // // //                                 value={settings.quality} 
 // // //                                 onChange={(e) => updateSetting('quality', e.target.value)}
 // // //                             >
-// // //                                 <option value="low">{t('low')}</option>
-// // //                                 <option value="medium">{t('medium')}</option>
-// // //                                 <option value="high">{t('high')}</option>
+// // //                                 <option value="low">{"Low"}</option>
+// // //                                 <option value="medium">{"Medium"}</option>
+// // //                                 <option value="high">{"High"}</option>
 // // //                             </select>
 // // //                         </div>
 // // //                     </div>
@@ -260,31 +260,31 @@
 // // //                         className="primary-btn"
 // // //                         disabled={!videoFile || isConverting}
 // // //                     >
-// // //                         {isConverting ? t('converting') : t('convert')}
+// // //                         {isConverting ? "Converting..." : "Convert to GIF"}
 // // //                     </button>
 // // //                     <button onClick={clearAll} className="secondary-btn">
-// // //                         {t('clear')}
+// // //                         {"Clear"}
 // // //                     </button>
 // // //                 </div>
 
 // // //                 {conversionInfo && (
 // // //                     <div className="conversion-info">
-// // //                         <h3>{t('conversionInfo')}</h3>
+// // //                         <h3>{"Conversion Information"}</h3>
 // // //                         <div className="info-grid">
 // // //                             <div className="info-item">
-// // //                                 <span className="info-label">{t('originalSize')}:</span>
+// // //                                 <span className="info-label">{"Original Size"}:</span>
 // // //                                 <span className="info-value">{conversionInfo.originalSize}</span>
 // // //                             </div>
 // // //                             <div className="info-item">
-// // //                                 <span className="info-label">{t('gifSize')}:</span>
+// // //                                 <span className="info-label">{"GIF Size"}:</span>
 // // //                                 <span className="info-value">{conversionInfo.gifSize}</span>
 // // //                             </div>
 // // //                             <div className="info-item">
-// // //                                 <span className="info-label">{t('durationSet')}:</span>
+// // //                                 <span className="info-label">{"Duration"}:</span>
 // // //                                 <span className="info-value">{conversionInfo.duration}</span>
 // // //                             </div>
 // // //                             <div className="info-item">
-// // //                                 <span className="info-label">{t('compression')}:</span>
+// // //                                 <span className="info-label">{"Compression"}:</span>
 // // //                                 <span className="info-value">{conversionInfo.compression}</span>
 // // //                             </div>
 // // //                         </div>
@@ -297,19 +297,19 @@
 // // //                         <div className="gif-preview">
 // // //                             <img src={gifUrl} alt="Converted GIF" className="gif-image" />
 // // //                             <button onClick={downloadGif} className="download-btn">
-// // //                                 {t('downloadGif')}
+// // //                                 {"Download GIF"}
 // // //                             </button>
 // // //                         </div>
 // // //                     </div>
 // // //                 )}
 
 // // //                 <div className="conversion-tips">
-// // //                     <h4>{t('conversionTips')}</h4>
+// // //                     <h4>{"Conversion Tips"}</h4>
 // // //                     <ul>
-// // //                         <li>{t('tip1')}</li>
-// // //                         <li>{t('tip2')}</li>
-// // //                         <li>{t('tip3')}</li>
-// // //                         <li>{t('tip4')}</li>
+// // //                         <li>{"Shorter durations and lower frame rates create smaller GIFs"}</li>
+// // //                         <li>{"Reduce width to decrease file size"}</li>
+// // //                         <li>{"Higher quality settings produce larger files"}</li>
+// // //                         <li>{"GIF format is best for short, simple animations"}</li>
 // // //                     </ul>
 // // //                 </div>
 // // //             </div>
@@ -321,7 +321,7 @@
 
 
 // // // import React, { useState, useRef } from 'react';
-// // // import { useTranslation } from 'react-i18next';
+// // // 
 // // // import { useTheme } from '../../contexts/ThemeContext';
 // // // import '../../styles/tools/Mp4ToGif.css';
 
@@ -477,8 +477,8 @@
 // // //   return (
 // // //     <div className={`mp4-to-gif ${theme}`}>
 // // //       <div className="tool-header">
-// // //         <h1>{t('title')}</h1>
-// // //         <p>{t('subtitle')}</p>
+// // //         <h1>{"MP4 to GIF Converter"}</h1>
+// // //         <p>{"Convert MP4 videos to animated GIFs"}</p>
 // // //       </div>
 
 // // //       <div className="converter-container">
@@ -504,11 +504,11 @@
 // // //             {!videoFile ? (
 // // //               <div className="upload-content">
 // // //                 <div className="upload-icon">🎥</div>
-// // //                 <span className="upload-text">{t('uploadVideo')}</span>
-// // //                 <span className="drag-text">{t('dragDrop')}</span>
+// // //                 <span className="upload-text">{"Upload MP4 Video"}</span>
+// // //                 <span className="drag-text">{"or drag and drop MP4 file here"}</span>
 // // //                 <div className="file-info">
-// // //                   <span>{t('supportedFormats')}</span>
-// // //                   <span>{t('maxSize')}</span>
+// // //                   <span>{"Supported formats: MP4, MOV, AVI"}</span>
+// // //                   <span>{"Max file size: 50MB"}</span>
 // // //                 </div>
 // // //               </div>
 // // //             ) : (
@@ -523,16 +523,16 @@
 
 // // //         {videoUrl && (
 // // //           <div className="video-preview">
-// // //             <h3>{t('preview')}</h3>
+// // //             <h3>{"Preview"}</h3>
 // // //             <video ref={videoRef} src={videoUrl} controls className="video-player" />
 // // //           </div>
 // // //         )}
 
 // // //         <div className="settings-section">
-// // //           <h3>{t('conversionSettings')}</h3>
+// // //           <h3>{"Conversion Settings"}</h3>
 // // //           <div className="settings-grid">
 // // //             <div className="setting-group">
-// // //               <label>{t('startTime')}</label>
+// // //               <label>{"Start Time (seconds)"}</label>
 // // //               <input
 // // //                 type="number"
 // // //                 value={settings.startTime}
@@ -543,7 +543,7 @@
 // // //             </div>
 
 // // //             <div className="setting-group">
-// // //               <label>{t('duration')}</label>
+// // //               <label>{"Duration (seconds)"}</label>
 // // //               <input
 // // //                 type="number"
 // // //                 value={settings.duration}
@@ -555,7 +555,7 @@
 // // //             </div>
 
 // // //             <div className="setting-group">
-// // //               <label>{t('gifWidth')}</label>
+// // //               <label>{"GIF Width (pixels)"}</label>
 // // //               <input
 // // //                 type="number"
 // // //                 value={settings.width}
@@ -567,7 +567,7 @@
 // // //             </div>
 
 // // //             <div className="setting-group">
-// // //               <label>{t('frameRate')}</label>
+// // //               <label>{"Frame Rate (FPS)"}</label>
 // // //               <select value={settings.frameRate} onChange={(e) => updateSetting('frameRate', Number(e.target.value))}>
 // // //                 <option value={5}>5 FPS</option>
 // // //                 <option value={10}>10 FPS</option>
@@ -578,11 +578,11 @@
 // // //             </div>
 
 // // //             <div className="setting-group">
-// // //               <label>{t('quality')}</label>
+// // //               <label>{"Quality"}</label>
 // // //               <select value={settings.quality} onChange={(e) => updateSetting('quality', e.target.value)}>
-// // //                 <option value="low">{t('low')}</option>
-// // //                 <option value="medium">{t('medium')}</option>
-// // //                 <option value="high">{t('high')}</option>
+// // //                 <option value="low">{"Low"}</option>
+// // //                 <option value="medium">{"Medium"}</option>
+// // //                 <option value="high">{"High"}</option>
 // // //               </select>
 // // //             </div>
 // // //           </div>
@@ -594,35 +594,35 @@
 // // //             className="primary-btn"
 // // //             disabled={!videoFile || isConverting}
 // // //           >
-// // //             {isConverting ? t('converting') : t('convert')}
+// // //             {isConverting ? "Converting..." : "Convert to GIF"}
 // // //           </button>
 
-// // //           <button onClick={clearAll} className="secondary-btn">{t('clear')}</button>
+// // //           <button onClick={clearAll} className="secondary-btn">{"Clear"}</button>
 // // //         </div>
 
 // // //         {error && <div className="error-message" role="alert">{error}</div>}
 
 // // //         {conversionInfo && (
 // // //           <div className="conversion-info">
-// // //             <h3>{t('conversionInfo')}</h3>
+// // //             <h3>{"Conversion Information"}</h3>
 // // //             <div className="info-grid">
 // // //               <div className="info-item">
-// // //                 <span className="info-label">{t('originalSize')}:</span>
+// // //                 <span className="info-label">{"Original Size"}:</span>
 // // //                 <span className="info-value">{conversionInfo.originalSize}</span>
 // // //               </div>
 
 // // //               <div className="info-item">
-// // //                 <span className="info-label">{t('gifSize')}:</span>
+// // //                 <span className="info-label">{"GIF Size"}:</span>
 // // //                 <span className="info-value">{conversionInfo.gifSize}</span>
 // // //               </div>
 
 // // //               <div className="info-item">
-// // //                 <span className="info-label">{t('durationSet')}:</span>
+// // //                 <span className="info-label">{"Duration"}:</span>
 // // //                 <span className="info-value">{conversionInfo.duration}</span>
 // // //               </div>
 
 // // //               <div className="info-item">
-// // //                 <span className="info-label">{t('compression')}:</span>
+// // //                 <span className="info-label">{"Compression"}:</span>
 // // //                 <span className="info-value">{conversionInfo.compression}</span>
 // // //               </div>
 // // //             </div>
@@ -634,18 +634,18 @@
 // // //             <h3>{t('convertedGif') || 'Converted GIF'}</h3>
 // // //             <div className="gif-preview">
 // // //               <img src={gifUrl} alt="Converted GIF" className="gif-image" />
-// // //               <button onClick={downloadGif} className="download-btn">{t('downloadGif')}</button>
+// // //               <button onClick={downloadGif} className="download-btn">{"Download GIF"}</button>
 // // //             </div>
 // // //           </div>
 // // //         )}
 
 // // //         <div className="conversion-tips">
-// // //           <h4>{t('conversionTips')}</h4>
+// // //           <h4>{"Conversion Tips"}</h4>
 // // //           <ul>
-// // //             <li>{t('tip1')}</li>
-// // //             <li>{t('tip2')}</li>
-// // //             <li>{t('tip3')}</li>
-// // //             <li>{t('tip4')}</li>
+// // //             <li>{"Shorter durations and lower frame rates create smaller GIFs"}</li>
+// // //             <li>{"Reduce width to decrease file size"}</li>
+// // //             <li>{"Higher quality settings produce larger files"}</li>
+// // //             <li>{"GIF format is best for short, simple animations"}</li>
 // // //           </ul>
 // // //         </div>
 // // //       </div>
@@ -661,7 +661,7 @@
 
 // import { useState, useRef } from "react";
 // import { useTheme } from "../../contexts/ThemeContext";
-// import { useTranslation } from "react-i18next";
+// 
 // import { FFmpeg } from "@ffmpeg/ffmpeg";
 // import { fetchFile } from "@ffmpeg/util";
 
@@ -784,7 +784,7 @@
 
 //   return (
 //     <div className={`mp4-to-gif ${theme}`}>
-//       <h2>{t("mp4ToGif.title", "MP4 to GIF Converter")}</h2>
+//       <h2>{"MP4 to GIF Converter"}</h2>
 
 //       <div
 //         className="drop-zone"
@@ -797,7 +797,7 @@
 //         {file ? (
 //           <p>{file.name}</p>
 //         ) : (
-//           <p>{t("mp4ToGif.dragDrop", "Drag & Drop or Click to Upload Video")}</p>
+//           <p>{"Drag & Drop or Click to Upload Video"}</p>
 //         )}
 //         <input
 //           type="file"
@@ -874,7 +874,7 @@
 //         </button>
 //         {gifUrl && (
 //           <button onClick={downloadGif}>
-//             {t("mp4ToGif.download", "Download GIF")}
+//             {"Download GIF"}
 //           </button>
 //         )}
 //       </div>

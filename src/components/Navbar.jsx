@@ -4,14 +4,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom"; // Added for SPA navigation
 import "../styles/Navbar.css";
 import { useTheme } from "../contexts/ThemeContext";
-import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   console.log("navbar was rendered");
 
   const { theme, toggleTheme } = useTheme();
-  const { t } = useTranslation("navbar");
-  const rawMenus = t("menus", { returnObjects: true });
+  const rawMenus = [{"title":"PDF","items":[{"label":"Merge PDF","icon":"📑"},{"label":"Split PDF","icon":"✂️"},{"label":"Compress PDF","icon":"📉"}]},{"title":"Image","items":[{"label":"Remove BG","icon":"🖼️"},{"label":"Resize","icon":"📏"},{"label":"Convert","icon":"🔄"}]},{"title":"Video","items":[{"label":"Compress","icon":"🎥"},{"label":"Mute","icon":"🔇"},{"label":"Convert","icon":"🔄"}]},{"title":"File","items":[{"label":"Split Excel","icon":"📊"},{"label":"Word → PDF","icon":"📝"},{"label":"PPT → PDF","icon":"📽️"}]}];
   const menus = Array.isArray(rawMenus) ? rawMenus : []; // defensive guard
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -120,7 +118,7 @@ const Navbar = () => {
               Sign In
             </Link>
             <button className="theme-toggle-btn" onClick={toggleTheme}>
-              {theme === "light" ? t("actions.dark") : t("actions.light")}
+              {theme === "light" ? "🌙 Dark" : "☀️ Light"}
             </button>
           </div>
 

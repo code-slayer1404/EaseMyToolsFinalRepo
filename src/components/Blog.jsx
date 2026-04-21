@@ -1,35 +1,34 @@
-import { useTranslation } from 'react-i18next';
+
 import { useTheme } from '../contexts/ThemeContext';
 import '../styles/Blog.css';
 
 const Blog = () => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
 
   const featuredPosts = [
     {
       id: 1,
-      title: t('blog.post1.title', '10 Ways to Boost Your Productivity with Online Tools'),
-      excerpt: t('blog.post1.excerpt', 'Discover how to streamline your workflow and save time with these essential productivity tips and tools.'),
-      category: t('blog.category.productivity', 'Productivity'),
+      title: "10 Ways to Boost Your Productivity with Online Tools",
+      excerpt: "Discover how to streamline your workflow and save time with these essential productivity tips and tools.",
+      category: "Productivity",
       date: '2024-01-15',
       readTime: '5 min read',
       image: '📊'
     },
     {
       id: 2,
-      title: t('blog.post2.title', 'The Future of Browser-Based Image Processing'),
-      excerpt: t('blog.post2.excerpt', 'Explore how modern web technologies are revolutionizing image editing and processing directly in your browser.'),
-      category: t('blog.category.technology', 'Technology'),
+      title: "The Future of Browser-Based Image Processing",
+      excerpt: "Explore how modern web technologies are revolutionizing image editing and processing directly in your browser.",
+      category: "Technology",
       date: '2024-01-10',
       readTime: '7 min read',
       image: '🖼️'
     },
     {
       id: 3,
-      title: t('blog.post3.title', 'Privacy-First: Why Local Processing Matters'),
-      excerpt: t('blog.post3.excerpt', 'Learn why processing files locally in your browser is crucial for data privacy and security in the digital age.'),
-      category: t('blog.category.security', 'Security'),
+      title: "Privacy-First: Why Local Processing Matters",
+      excerpt: "Learn why processing files locally in your browser is crucial for data privacy and security in the digital age.",
+      category: "Security",
       date: '2024-01-05',
       readTime: '4 min read',
       image: '🔒'
@@ -37,29 +36,29 @@ const Blog = () => {
   ];
 
   const categories = [
-    { name: t('blog.category.all', 'All'), count: 12 },
-    { name: t('blog.category.productivity', 'Productivity'), count: 4 },
-    { name: t('blog.category.technology', 'Technology'), count: 3 },
-    { name: t('blog.category.tutorials', 'Tutorials'), count: 3 },
-    { name: t('blog.category.security', 'Security'), count: 2 }
+    { name: "All", count: 12 },
+    { name: "Productivity", count: 4 },
+    { name: "Technology", count: 3 },
+    { name: "Tutorials", count: 3 },
+    { name: "Security", count: 2 }
   ];
 
   const recentPosts = [
     {
       id: 4,
-      title: t('blog.post4.title', 'How to Convert PDFs Without Losing Formatting'),
+      title: "How to Convert PDFs Without Losing Formatting",
       date: '2024-01-03',
       readTime: '3 min read'
     },
     {
       id: 5,
-      title: t('blog.post5.title', 'Batch Processing: Save Time with Multiple Files'),
+      title: "Batch Processing: Save Time with Multiple Files",
       date: '2024-01-01',
       readTime: '6 min read'
     },
     {
       id: 6,
-      title: t('blog.post6.title', 'New Tool Release: Advanced Image Resizer'),
+      title: "New Tool Release: Advanced Image Resizer",
       date: '2023-12-28',
       readTime: '2 min read'
     }
@@ -69,16 +68,16 @@ const Blog = () => {
     <div className={`blog-page ${theme}`}>
       <div className="blog-container">
         <header className="blog-header">
-          <h1>{t('blog.title', 'EaseMyTools Blog')}</h1>
+          <h1>{"EaseMyTools Blog"}</h1>
           <p className="blog-subtitle">
-            {t('blog.subtitle', 'Tips, tutorials, and insights to help you get the most out of our tools')}
+            {"Tips, tutorials, and insights to help you get the most out of our tools"}
           </p>
         </header>
 
         <div className="blog-layout">
           <main className="blog-content">
             <section className="featured-posts">
-              <h2>{t('blog.featured', 'Featured Posts')}</h2>
+              <h2>{"Featured Posts"}</h2>
               <div className="posts-grid">
                 {featuredPosts.map((post) => (
                   <article key={post.id} className="post-card featured">
@@ -94,7 +93,7 @@ const Blog = () => {
                       <h3 className="post-title">{post.title}</h3>
                       <p className="post-excerpt">{post.excerpt}</p>
                       <a href="#" className="read-more">
-                        {t('blog.readMore', 'Read More')} →
+                        {"Read More"} →
                       </a>
                     </div>
                   </article>
@@ -103,7 +102,7 @@ const Blog = () => {
             </section>
 
             <section className="all-posts">
-              <h2>{t('blog.allPosts', 'All Posts')}</h2>
+              <h2>{"All Posts"}</h2>
               <div className="posts-list">
                 {[...featuredPosts, ...recentPosts].map((post) => (
                   <article key={post.id} className="post-item">
@@ -118,7 +117,7 @@ const Blog = () => {
                       )}
                     </div>
                     <a href="#" className="read-more">
-                      {t('blog.readMore', 'Read More')} →
+                      {"Read More"} →
                     </a>
                   </article>
                 ))}
@@ -128,7 +127,7 @@ const Blog = () => {
 
           <aside className="blog-sidebar">
             <div className="sidebar-section">
-              <h3>{t('blog.categories', 'Categories')}</h3>
+              <h3>{"Categories"}</h3>
               <div className="categories-list">
                 {categories.map((category, index) => (
                   <a key={index} href="#" className="category-item">
@@ -140,24 +139,24 @@ const Blog = () => {
             </div>
 
             <div className="sidebar-section">
-              <h3>{t('blog.newsletter', 'Newsletter')}</h3>
+              <h3>{"Newsletter"}</h3>
               <div className="newsletter-box">
-                <p>{t('blog.newsletterText', 'Get the latest updates and tips delivered to your inbox.')}</p>
+                <p>{"Get the latest updates and tips delivered to your inbox."}</p>
                 <form className="newsletter-form">
                   <input
                     type="email"
-                    placeholder={t('blog.emailPlaceholder', 'Enter your email')}
+                    placeholder={"Enter your email"}
                     className="newsletter-input"
                   />
                   <button type="submit" className="newsletter-button">
-                    {t('blog.subscribe', 'Subscribe')}
+                    {"Subscribe"}
                   </button>
                 </form>
               </div>
             </div>
 
             <div className="sidebar-section">
-              <h3>{t('blog.recentPosts', 'Recent Posts')}</h3>
+              <h3>{"Recent Posts"}</h3>
               <div className="recent-posts">
                 {recentPosts.map((post) => (
                   <a key={post.id} href="#" className="recent-post">

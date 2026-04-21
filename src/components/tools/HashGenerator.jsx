@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/HashGenerator.css';
 
 const HashGenerator = () => {
-    const { t } = useTranslation('hashGenerator');
     const { theme } = useTheme();
     const [inputText, setInputText] = useState('');
     const [hashes, setHashes] = useState({ md5: '', sha1: '', sha256: '' });
@@ -12,7 +10,7 @@ const HashGenerator = () => {
 
     const generateHashes = async () => {
         if (!inputText.trim()) {
-            alert(t('enterText') || 'Please enter some text');
+            alert("Please enter some text" || 'Please enter some text');
             return;
         }
 
@@ -48,23 +46,23 @@ const HashGenerator = () => {
 
     const copyToClipboard = (hash) => {
         navigator.clipboard.writeText(hash);
-        alert(t('copied') || 'Copied to clipboard!');
+        alert("Copied to clipboard!" || 'Copied to clipboard!');
     };
 
     return (
         <div className={`hash-generator ${theme}`}>
             <div className="generator-header">
-                <h1>{t('title') || 'Hash Generator'}</h1>
-                <p>{t('subtitle') || 'Generate MD5, SHA-1, and SHA-256 hashes'}</p>
+                <h1>{"Hash Generator" || 'Hash Generator'}</h1>
+                <p>{"Generate MD5, SHA-1, and SHA-256 hashes" || 'Generate MD5, SHA-1, and SHA-256 hashes'}</p>
             </div>
 
             <div className="generator-container">
                 <div className="input-section">
-                    <label>{t('inputText') || 'Input Text'}</label>
+                    <label>{"Input Text" || 'Input Text'}</label>
                     <textarea
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
-                        placeholder={t('textPlaceholder') || 'Enter text to generate hashes...'}
+                        placeholder={"Enter text to generate hashes..." || 'Enter text to generate hashes...'}
                         className="text-input"
                         rows="4"
                     />
@@ -72,23 +70,23 @@ const HashGenerator = () => {
 
                 <div className="action-buttons">
                     <button onClick={generateHashes} className="generate-btn" disabled={isProcessing}>
-                        {isProcessing ? t('generating') || 'Generating...' : t('generateHashes') || 'Generate Hashes'}
+                        {isProcessing ? "Generating..." || 'Generating...' : "Generate Hashes" || 'Generate Hashes'}
                     </button>
                     <button onClick={clearAll} className="clear-btn">
-                        {t('clear') || 'Clear All'}
+                        {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
                 {(hashes.md5 || hashes.sha1 || hashes.sha256) && (
                     <div className="results-section">
-                        <h3>{t('generatedHashes') || 'Generated Hashes'}</h3>
+                        <h3>{"Generated Hashes" || 'Generated Hashes'}</h3>
                         
                         <div className="hash-result">
                             <label>MD5:</label>
                             <div className="hash-output">
                                 <code>{hashes.md5}</code>
                                 <button onClick={() => copyToClipboard(hashes.md5)} className="copy-btn">
-                                    {t('copy') || 'Copy'}
+                                    {"Copy" || 'Copy'}
                                 </button>
                             </div>
                         </div>
@@ -98,7 +96,7 @@ const HashGenerator = () => {
                             <div className="hash-output">
                                 <code>{hashes.sha1}</code>
                                 <button onClick={() => copyToClipboard(hashes.sha1)} className="copy-btn">
-                                    {t('copy') || 'Copy'}
+                                    {"Copy" || 'Copy'}
                                 </button>
                             </div>
                         </div>
@@ -108,7 +106,7 @@ const HashGenerator = () => {
                             <div className="hash-output">
                                 <code>{hashes.sha256}</code>
                                 <button onClick={() => copyToClipboard(hashes.sha256)} className="copy-btn">
-                                    {t('copy') || 'Copy'}
+                                    {"Copy" || 'Copy'}
                                 </button>
                             </div>
                         </div>
@@ -116,28 +114,28 @@ const HashGenerator = () => {
                 )}
 
                 <div className="info-section">
-                    <h4>{t('aboutHashing') || 'About Hash Functions'}</h4>
+                    <h4>{"About Hash Functions" || 'About Hash Functions'}</h4>
                     <div className="algorithm-info">
                         <div className="algorithm">
                             <h5>MD5</h5>
-                            <p>{t('md5Info') || '128-bit hash function. Fast but considered cryptographically broken.'}</p>
+                            <p>{"128-bit hash function. Fast but considered cryptographically broken." || '128-bit hash function. Fast but considered cryptographically broken.'}</p>
                         </div>
                         <div className="algorithm">
                             <h5>SHA-1</h5>
-                            <p>{t('sha1Info') || '160-bit hash function. No longer considered secure against attacks.'}</p>
+                            <p>{"160-bit hash function. No longer considered secure against attacks." || '160-bit hash function. No longer considered secure against attacks.'}</p>
                         </div>
                         <div className="algorithm">
                             <h5>SHA-256</h5>
-                            <p>{t('sha256Info') || '256-bit hash function. Part of SHA-2 family, currently secure.'}</p>
+                            <p>{"256-bit hash function. Part of SHA-2 family, currently secure." || '256-bit hash function. Part of SHA-2 family, currently secure.'}</p>
                         </div>
                     </div>
 
-                    <h5>{t('commonUses') || 'Common Uses:'}</h5>
+                    <h5>{"Common Uses:" || 'Common Uses:'}</h5>
                     <ul>
-                        <li>{t('use1') || 'Data integrity verification'}</li>
-                        <li>{t('use2') || 'Digital signatures'}</li>
-                        <li>{t('use3') || 'Password storage'}</li>
-                        <li>{t('use4') || 'File checksums'}</li>
+                        <li>{"Data integrity verification" || 'Data integrity verification'}</li>
+                        <li>{"Digital signatures" || 'Digital signatures'}</li>
+                        <li>{"Password storage" || 'Password storage'}</li>
+                        <li>{"File checksums" || 'File checksums'}</li>
                     </ul>
                 </div>
             </div>
