@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import BackButton from "./components/BackButton";
 import ScrollToTop from "./components/ScrollToTop";
-
+// import ToolsPage from "./components/ToolsPage";
 // Lazy loading Pages
 const HomePage = lazy(() => import("./components/HomePage"));
 const ToolsPage = lazy(() => import("./components/ToolsPage"));

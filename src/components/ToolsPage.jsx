@@ -141,12 +141,14 @@ const ToolsPage = () => {
                                         key={name}
                                         className="tool-item"
                                         onMouseDown={(e) => {
-                                            e.preventDefault(); // Prevents input blur from closing dropdown too early
+                                            e.preventDefault(); // Prevents input blur
                                             navigate(link);
                                         }}
                                     >
                                         <div className="tool-link">
-                                            <Icon className="tool-icon" />
+                                            <div className="search-icon-wrapper">
+                                                <Icon className="tool-icon-svg" />
+                                            </div>
                                             <span className="tool-label">{name}</span>
                                         </div>
                                     </li>
