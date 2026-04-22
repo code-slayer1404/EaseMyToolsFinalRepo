@@ -1,27 +1,26 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import React, { Suspense, lazy, useEffect } from "react"; // Added lazy and Suspense
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { Suspense, lazy, useEffect, useMemo } from "react";
 import "./App.css";
 import { useTheme } from "./contexts/ThemeContext";
 
-// Components that should likely stay eager (loaded immediately)
+// --- EAGER LOADING (Critical for LCP) ---
+// Load the components users see immediately on the first-page load.
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import BackButton from "./components/BackButton";
 import ScrollToTop from "./components/ScrollToTop";
-// import ToolsPage from "./components/ToolsPage";
-// Lazy loading Pages
-const HomePage = lazy(() => import("./components/HomePage"));
-const ToolsPage = lazy(() => import("./components/ToolsPage"));
-const CategoryToolsPage = lazy(() => import("./components/CategoryToolsPage"));
+import HomePage from "./components/HomePage"; // Moved from lazy to eager
+import ToolsPage from "./components/ToolsPage"; // Moved from lazy to eager
 
-// Lazy loading Policy & Info Pages
+// --- LAZY LOADING (Secondary Pages) ---
+const CategoryToolsPage = lazy(() => import("./components/CategoryToolsPage"));
 const PrivacyPolicy = lazy(() => import("./components/PrivacyPolicy"));
 const TermsConditions = lazy(() => import("./components/TermsConditions"));
 const CookiePolicy = lazy(() => import("./components/CookiePolicy"));
 const About = lazy(() => import("./components/About"));
 const Contact = lazy(() => import("./components/Contact"));
 
-// Lazy loading Marketing/Resource Pages
+// Marketing/Resource Pages
 const Features = lazy(() => import("./components/Features"));
 const Pricing = lazy(() => import("./components/Pricing"));
 const FAQ = lazy(() => import("./components/FAQ"));
@@ -35,7 +34,7 @@ const Security = lazy(() => import("./components/Security"));
 const Blog = lazy(() => import("./components/Blog"));
 const Press = lazy(() => import("./components/Press"));
 
-// Lazy loading Individual Tools
+// Individual Tools (Keep these lazy)
 const ImageResizer = lazy(() => import("./components/tools/ImageResizer"));
 const UnitConverter = lazy(() => import("./components/tools/UnitConverter"));
 const CaseConverter = lazy(() => import("./components/tools/CaseConverter"));
@@ -71,52 +70,54 @@ const FileConverter = lazy(() => import("./components/tools/FileConverter"));
 const RegexGenerator = lazy(() => import("./components/tools/RegexGenerator"));
 const WebsiteCostCalculator = lazy(() => import("./components/tools/WebsiteCostCalculator"));
 
-function App() {
-  console.log("App was rendered");
+/**
+ * Optimized Loading Fallback
+ * To fix CLS, this should ideally have a min-height or skeleton 
+ * structure that mimics the actual page layout.
+ */
+const LoadingFallback = () => (
+  <div className="loading-container" style={{ minHeight: "60vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <div className="loader-skeleton">Loading Content...</div>
+  </div>
+);
 
+function App() {
   const { theme } = useTheme();
 
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
 
-  // Loading fallback component
-  const LoadingFallback = () => (
-    <div className="loading-container" style={{ padding: "2rem", textAlign: "center" }}>
-      <p>Loading Tool...</p>
-    </div>
-  );
-
   return (
     <Router basename="/EaseMyToolsFinalRepo/">
-      <ScrollToTop></ScrollToTop>
+      <ScrollToTop />
       <div className="App">
         <Navbar />
         <main className="main-content">
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
-              {/* NEW: Home Page with enhanced design */}
+              {/* Home route now uses eager components to boost LCP */}
               <Route
                 path="/"
                 element={
                   <>
-                    <ToolsPage /> <HomePage />
+                    <ToolsPage />
+                    <HomePage />
                   </>
                 }
               />
-              {/* Existing Tools Page (keep for /tools route) */}
+
               <Route path="/tools" element={<ToolsPage />} />
-              {/* Single Category Page with parameter */}
               <Route path="/tools/:categoryId" element={<CategoryToolsPage />} />
 
-              {/* Policy & Info Routes */}
+              {/* Policy & Info */}
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-conditions" element={<TermsConditions />} />
               <Route path="/cookie-policy" element={<CookiePolicy />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
 
-              {/* Marketing/Resource Routes */}
+              {/* Marketing/Resources */}
               <Route path="/features" element={<Features />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/faq" element={<FAQ />} />
@@ -130,7 +131,7 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/press" element={<Press />} />
 
-              {/* Individual Tool Routes */}
+              {/* Tools */}
               <Route path="/image-resizer" element={<ImageResizer />} />
               <Route path="/color-picker" element={<ColorPicker />} />
               <Route path="/unit-converter" element={<UnitConverter />} />
@@ -166,7 +167,6 @@ function App() {
               <Route path="/regex-generator" element={<RegexGenerator />} />
               <Route path="/website-cost-calculator" element={<WebsiteCostCalculator />} />
 
-              {/* 404 Page */}
               <Route
                 path="*"
                 element={
