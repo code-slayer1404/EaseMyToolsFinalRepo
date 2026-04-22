@@ -16,6 +16,7 @@ const ToolsPage = () => {
     const cardsPerSlide = 4;
     const realSlides = Math.ceil(toolCategories.length / cardsPerSlide);
 
+    // --- STATE ---
     const [searchQuery, setSearchQuery] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(1);
@@ -32,6 +33,7 @@ const ToolsPage = () => {
         ? allTools.filter((t) => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
         : [];
 
+    // --- SLIDER ACTIONS ---
     const next = useCallback(() => {
         if (realSlides === 0) return;
         setEnableTransition(true);
@@ -44,6 +46,7 @@ const ToolsPage = () => {
         setCurrentIndex((prev) => prev - 1);
     }, [realSlides]);
 
+    /* --- AUTO SCROLL --- */
     useEffect(() => {
         let intervalId;
         if (!isDragging && !isHovered && realSlides > 0 && !document.hidden) {
@@ -52,6 +55,7 @@ const ToolsPage = () => {
         return () => clearInterval(intervalId);
     }, [isDragging, isHovered, realSlides, next]);
 
+    /* --- DRAG HANDLERS --- */
     const handleStart = (clientX) => {
         setIsDragging(true);
         setHasMoved(false);
@@ -80,6 +84,7 @@ const ToolsPage = () => {
         setDragOffset(0);
     };
 
+    /* --- GLOBAL MOUSE UP SAFETY --- */
     useEffect(() => {
         const handleGlobalUp = () => {
             if (isDragging) handleEnd();
@@ -88,6 +93,7 @@ const ToolsPage = () => {
         return () => window.removeEventListener("mouseup", handleGlobalUp);
     }, [isDragging, dragOffset]);
 
+    /* --- CLONE CORRECTION (INFINITE EFFECT) --- */
     const handleTransitionEnd = () => {
         if (currentIndex === 0) {
             setEnableTransition(false);
@@ -106,12 +112,6 @@ const ToolsPage = () => {
         getSlide(1)
     ] : [];
 
-    const mobileMidpoint = Math.ceil(toolCategories.length / 2);
-    const mobileRows = [
-        toolCategories.slice(0, mobileMidpoint),
-        toolCategories.slice(mobileMidpoint)
-    ];
-
     const containerWidth = sliderRef.current?.offsetWidth || 1;
     const dragPercent = (dragOffset / containerWidth) * 100;
     const finalTranslateX = -(currentIndex * 100) + dragPercent;
@@ -120,6 +120,7 @@ const ToolsPage = () => {
         <>
             <Header />
             <div className={`tools-page ${theme}`}>
+                {/* --- SEARCH SECTION --- */}
                 <div className="search-container">
                     <div className="search-bar">
                         <input
@@ -138,7 +139,7 @@ const ToolsPage = () => {
                                         key={name}
                                         className="tool-item"
                                         onMouseDown={(e) => {
-                                            e.preventDefault();
+                                            e.preventDefault(); // Prevents input blur
                                             navigate(link);
                                         }}
                                     >
@@ -155,6 +156,7 @@ const ToolsPage = () => {
                     )}
                 </div>
 
+                {/* --- SLIDER SECTION --- */}
                 <div className="categories-slider">
                     {realSlides > 0 && (
                         <div
@@ -168,15 +170,20 @@ const ToolsPage = () => {
                             onTouchStart={(e) => handleStart(e.touches[0].clientX)}
                             onTouchMove={(e) => handleMove(e.touches[0].clientX)}
                             onTouchEnd={handleEnd}
-                            style={{ cursor: isDragging ? "grabbing" : "grab" }}
+                            style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
                         >
                             <div
-                                className={`slider-track${enableTransition ? " slider-track-transition" : ""}`}
+                                className="slider-track"
                                 onTransitionEnd={handleTransitionEnd}
-                                style={{ transform: `translateX(${finalTranslateX}%)` }}
+                                style={{
+                                    transform: `translateX(${finalTranslateX}%)`,
+                                    transition: enableTransition ? "transform 0.5s ease-out" : "none",
+                                    display: 'flex',
+                                    userSelect: 'none'
+                                }}
                             >
                                 {slides.map((group, i) => (
-                                    <div key={`slide-${i}`} className="cards-grid">
+                                    <div key={`slide-${i}`} className="cards-grid" style={{ minWidth: '100%', flexShrink: 0 }}>
                                         {group.map((category) => (
                                             <div
                                                 key={category.id}
@@ -202,27 +209,6 @@ const ToolsPage = () => {
                             </div>
                         </div>
                     )}
-
-                    <div className="mobile-categories-grid" aria-hidden="true">
-                        {mobileRows.map((row, rowIndex) => (
-                            <div className="mobile-category-row" key={`mobile-row-${rowIndex}`}>
-                                {row.map((category) => (
-                                    <div
-                                        key={`mobile-${category.id}`}
-                                        className="mobile-category-card"
-                                        style={{ backgroundColor: category.color }}
-                                        onClick={() => navigate(category.link)}
-                                    >
-                                        <div className="card-top">
-                                            <div className="card-icon"><category.icon /></div>
-                                            <div className="card-title">{category.title}</div>
-                                        </div>
-                                        <p className="card-description">{category.description}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
 
                     <div className="slider-dots">
                         {Array.from({ length: realSlides }).map((_, i) => (
