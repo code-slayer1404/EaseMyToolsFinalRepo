@@ -3,7 +3,6 @@
 .tools-page {
   padding: 1rem;
   transition: all 0.3s ease;
-  /* min-height: 100vh; */
 }
 
 .tools-page.light {
@@ -22,7 +21,6 @@
   max-width: 500px;
   margin: 0 auto 1.5rem;
   z-index: 5000;
-  /* Stays above everything */
 }
 
 .search-bar input {
@@ -43,7 +41,7 @@
   border-color: #374151;
 }
 
-/* --- SEARCH DROPDOWN (SPECIFICITY FIX) --- */
+/* --- SEARCH DROPDOWN --- */
 .search-container .tool-dropdown {
   position: absolute;
   top: 100%;
@@ -88,7 +86,6 @@
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* LOCKED ICON SIZING */
 .search-icon-wrapper {
   display: flex;
   align-items: center;
@@ -132,8 +129,9 @@
   flex: 0 0 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  /* Desktop: 4 columns */
   gap: 1rem;
-  padding: 0.25rem;
+  padding: 0.5rem;
   box-sizing: border-box;
 }
 
@@ -161,7 +159,7 @@
 }
 
 .card-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   flex: 1;
 }
@@ -173,8 +171,9 @@
 
 .card-description {
   flex-grow: 1;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   opacity: 0.9;
+  line-height: 1.4;
 }
 
 /* DOTS */
@@ -182,20 +181,22 @@
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .dot {
-  width: 40px;
-  height: 6px;
+  width: 30px;
+  height: 5px;
   background-color: #d1d5db;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  border-radius: 10px;
 }
 
 .dot.active {
   background-color: var(--primary);
+  width: 45px;
 }
 
 @keyframes slideDown {
@@ -210,15 +211,78 @@
   }
 }
 
-/* RESPONSIVE */
+/* --- MOBILE & TABLET OPTIMIZATIONS --- */
+
 @media (max-width: 768px) {
   .slider-track .cards-grid {
     grid-template-columns: repeat(2, 1fr);
+    /* 2 columns */
+    grid-template-rows: repeat(2, 1fr);
+    /* 2 rows */
+    gap: 0.75rem;
+  }
+
+  .category-card {
+    padding: 1rem;
+    min-height: 140px;
+    /* Smaller cards for mobile grid */
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 0.95rem;
+  }
+
+  .card-description {
+    font-size: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Limit description text on mobile */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
 @media (max-width: 480px) {
+  .tools-page {
+    padding: 0.5rem;
+  }
+
   .slider-track .cards-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    /* Keep 2 columns */
+    grid-template-rows: repeat(2, 1fr);
+    /* Keep 2 rows */
+    gap: 0.5rem;
+  }
+
+  .category-card {
+    padding: 0.75rem;
+    min-height: 120px;
+    border-radius: 12px;
+  }
+
+  .card-top {
+    margin-bottom: 0.4rem;
+  }
+
+  .card-icon {
+    font-size: 1.25rem;
+  }
+
+  .card-title {
+    font-size: 0.85rem;
+  }
+
+  /* Hide description on very small screens to keep the 2x2 grid clean */
+  .card-description {
+    display: none;
+  }
+
+  .dot {
+    width: 20px;
   }
 }
