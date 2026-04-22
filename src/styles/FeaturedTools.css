@@ -1,10 +1,5 @@
-/* =========================
-   Featured Tools Section
-========================= */
-
 .featured-tools {
-  padding: 4.25rem 1rem;
-  /* padding: 0rem 0rem; */
+  padding: clamp(2.75rem, 5vw, 4.5rem) 1rem;
   background: #f8fafc;
 }
 
@@ -12,190 +7,150 @@ body.dark .featured-tools {
   background: #0f172a;
 }
 
-.featured-tools .container {
-  max-width: 1400px;
-  /* 👈 THIS is the key change */
+.featured-tools__container {
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-/* =========================
-   Headings
-========================= */
-
-.featured-tools h2 {
+.featured-tools__title {
+  margin: 0;
   text-align: center;
-  font-size: 2.6rem;
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
   font-weight: 700;
-  margin-bottom: 0.75rem;
   color: var(--text-light);
   letter-spacing: -0.02em;
 }
 
-body.dark .featured-tools h2 {
+body.dark .featured-tools__title {
   color: var(--text-dark);
 }
 
-.section-subtitle {
+.featured-tools__subtitle {
+  margin: 0.75rem auto 2.7rem;
+  max-width: 42rem;
   text-align: center;
-  max-width: 650px;
-  margin: 0 auto 3.75rem;
-  font-size: 1.15rem;
-  line-height: 1.65;
+  font-size: clamp(0.96rem, 2vw, 1.1rem);
+  line-height: 1.6;
   color: #6b7280;
 }
 
-body.dark .section-subtitle {
+body.dark .featured-tools__subtitle {
   color: #9ca3af;
 }
 
-/* =========================
-   Grid Layout (Single Row)
-========================= */
-
-.tools-grid {
+.featured-tools__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* always one row */
-  gap: 2.5rem;
-  /* more horizontal breathing room */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2.1vw, 1.5rem);
 }
 
-/* =========================
-   Tool Card
-========================= */
-
-.tool-card {
-  background: var(--card-light);
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  /* padding: 2.25rem 2rem; */
-  padding: 1.25rem 1rem;
-
+.featured-tools__card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.9rem;
-
-  /* min-height: 320px; */
+  gap: 0.8rem;
+  padding: 1.3rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  background: var(--card-light);
   cursor: pointer;
-  position: relative;
-
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  text-align: center;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 
-body.dark .tool-card {
+body.dark .featured-tools__card {
   background: var(--card-dark);
   border-color: #374151;
 }
 
-.tool-card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.14);
+.featured-tools__card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.15);
 }
 
-body.dark .tool-card:hover {
-  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.4);
+body.dark .featured-tools__card:hover {
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.36);
 }
 
-/* =========================
-   Badge
-========================= */
-
-.tool-badge {
+.featured-tools__badge {
   position: absolute;
-  top: 0.9rem;
-  right: 0.9rem;
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  color: white;
-  padding: 0.3rem 0.85rem;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.25rem 0.7rem;
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
 }
 
-/* =========================
-   Icon
-========================= */
-
-.tool-icon {
-  width: 68px;
-  height: 68px;
-  border-radius: 16px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 2.4rem;
+.featured-tools__icon {
+  width: 3.75rem;
+  height: 3.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.85rem;
+  font-size: 2rem;
   background: rgba(59, 130, 246, 0.08);
-  margin-bottom: 0.4rem;
 }
 
-/* =========================
-   Content
-========================= */
-
-.tool-card h3 {
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin-top: 0.4rem;
-  margin-bottom: 0.3rem;
+.featured-tools__card-title {
+  margin: 0;
+  font-size: 1.12rem;
   color: var(--text-light);
-  text-align: center;
 }
 
-body.dark .tool-card h3 {
+body.dark .featured-tools__card-title {
   color: var(--text-dark);
 }
 
-.tool-card p {
-  font-size: 1rem;
-  line-height: 1.6;
+.featured-tools__card-description {
+  margin: 0;
   color: #6b7280;
-  text-align: center;
-  max-width: 280px;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
-body.dark .tool-card p {
+body.dark .featured-tools__card-description {
   color: #9ca3af;
 }
 
-/* =========================
-   Button
-========================= */
-
-.tool-btn {
+.featured-tools__button {
   margin-top: auto;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  border: 2px solid var(--primary);
   background: transparent;
   color: var(--primary);
-  border: 2px solid var(--primary);
-  padding: 0.75rem 1.8rem;
-  border-radius: 999px;
+  font-size: 0.9rem;
   font-weight: 600;
-  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
-.tool-btn:hover {
+.featured-tools__button:hover {
   background: var(--primary);
-  color: white;
-  transform: translateX(5px);
+  color: #fff;
+  transform: translateX(4px);
 }
-
-/* =========================
-   Responsive (Stack on Mobile)
-========================= */
 
 @media (max-width: 1024px) {
-  .tools-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .featured-tools__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 640px) {
-  .tools-grid {
+  .featured-tools {
+    padding-inline: 0.75rem;
+  }
+
+  .featured-tools__subtitle {
+    margin-bottom: 2rem;
+  }
+
+  .featured-tools__grid {
     grid-template-columns: 1fr;
   }
 }
