@@ -20,7 +20,7 @@
   position: relative;
   max-width: 500px;
   margin: 0 auto 1.5rem;
-  z-index: 5000;
+  /* z-index: 5000; */
 }
 
 .search-bar input {
